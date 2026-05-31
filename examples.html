@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UIKit Examples</title>
+  <link rel="stylesheet" href="UIKit/styles/components.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding: 20px; background: #f5f5f5; font-family: Arial, sans-serif; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #333; }
+    .example { background: white; padding: 20px; margin: 20px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .example h2 { color: #1890ff; margin-top: 0; border-bottom: 2px solid #1890ff; padding-bottom: 10px; }
+    .code-block { background: #f5f5f5; padding: 10px; border-radius: 3px; font-family: monospace; font-size: 12px; margin: 10px 0; border-left: 3px solid #1890ff; overflow-x: auto; }
+    .demo-box { background: #f9f9f9; padding: 15px; border: 1px solid #eee; border-radius: 3px; margin: 10px 0; }
+    button { margin-right: 10px; margin-bottom: 10px; }
+    input, textarea { margin-bottom: 10px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 UIKit Components - Live Examples</h1>
+
+    <!-- 1. BUTTON -->
+    <div class="example">
+      <h2>1. Button Component</h2>
+      <div class="code-block">
+const btn = new Button('Click me', () => alert('Clicked!'));<br>
+btn.setType('primary');<br>
+btn.setSize('medium');<br>
+document.body.appendChild(btn.getDOMElement());
+      </div>
+      <div class="demo-box" id="btn-demo"></div>
+    </div>
+
+    <!-- 2. INPUT -->
+    <div class="example">
+      <h2>2. Input Component</h2>
+      <div class="code-block">
+const input = new Input('text', 'Enter text');<br>
+input.setValue('Hello');<br>
+input.on('change', () => console.log(input.getValue()));
+      </div>
+      <div class="demo-box" id="input-demo"></div>
+    </div>
+
+    <!-- 3. TEXTAREA -->
+    <div class="example">
+      <h2>3. Textarea Component</h2>
+      <div class="code-block">
+const textarea = new Textarea('Enter message...');<br>
+textarea.setRows(4);<br>
+textarea.setMaxLength(200);
+      </div>
+      <div class="demo-box" id="textarea-demo"></div>
+    </div>
+
+    <!-- 4. LABEL + INPUT -->
+    <div class="example">
+      <h2>4. Label + Input (Form Field)</h2>
+      <div class="code-block">
+const label = new Label('Username');<br>
+const input = new Input('text', 'Enter username');<br>
+container.append(label).append(input);
+      </div>
+      <div class="demo-box" id="label-demo"></div>
+    </div>
+
+    <!-- 5. DATEPICKER -->
+    <div class="example">
+      <h2>5. DatePicker Component</h2>
+      <div class="code-block">
+const datePicker = new DatePicker('Select date');<br>
+datePicker.setValue('2026-05-31');<br>
+datePicker.setMinDate('2026-01-01');<br>
+datePicker.setMaxDate('2026-12-31');
+      </div>
+      <div class="demo-box" id="date-demo"></div>
+    </div>
+
+    <!-- 6. DROPDOWN -->
+    <div class="example">
+      <h2>6. Dropdown Component</h2>
+      <div class="code-block">
+const dropdown = new Dropdown('Select option');<br>
+dropdown.addOption('1', 'Apple');<br>
+dropdown.addOption('2', 'Banana');<br>
+dropdown.addOption('3', 'Orange');
+      </div>
+      <div class="demo-box" id="dropdown-demo"></div>
+    </div>
+
+    <!-- 7. FORM -->
+    <div class="example">
+      <h2>7. Form Component (with Validation)</h2>
+      <div class="code-block">
+const form = new Form();<br>
+form.addField('name', { label: 'Name *', required: true });<br>
+form.addField('email', { label: 'Email', type: 'email' });<br>
+if (form.validate()) { const data = form.getData(); }
+      </div>
+      <div class="demo-box" id="form-demo"></div>
+    </div>
+
+    <!-- 8. GRID -->
+    <div class="example">
+      <h2>8. Grid Component (Table with Sort/Filter/Formatters)</h2>
+      <div class="code-block">
+const grid = new Grid();<br>
+grid.setHeaders([<br>
+&nbsp;&nbsp;{ key: 'name', label: 'Name', sortable: true },<br>
+&nbsp;&nbsp;{ key: 'age', label: 'Age', sortable: true },<br>
+&nbsp;&nbsp;{ key: 'description', label: 'Description' }<br>
+]);<br>
+<br>
+// Custom formatter for age column (color coding)<br>
+grid.setFormatter('age', (value, row) => {<br>
+&nbsp;&nbsp;if (value < 25) return '&lt;span style="color: green;"&gt;' + value + ' (Young)&lt;/span&gt;';<br>
+&nbsp;&nbsp;if (value < 35) return '&lt;span style="color: orange;"&gt;' + value + ' (Mid)&lt;/span&gt;';<br>
+&nbsp;&nbsp;return '&lt;span style="color: red;"&gt;' + value + ' (Senior)&lt;/span&gt;';<br>
+});<br>
+<br>
+// Multiline content support<br>
+grid.setRows([...data]);
+      </div>
+      <div class="demo-box" id="grid-demo"></div>
+    </div>
+
+    <!-- 9. PANEL -->
+    <div class="example">
+      <h2>9. Panel Component (Container)</h2>
+      <div class="code-block">
+const panel = new Panel('Panel Title');<br>
+panel.setContent(contentElement);<br>
+const btn = new Button('Action', callback);<br>
+panel.getFooter().appendChild(btn.getDOMElement());
+      </div>
+      <div class="demo-box" id="panel-demo"></div>
+    </div>
+
+    <!-- 10. DIALOG -->
+    <div class="example">
+      <h2>10. Dialog Component (Modal)</h2>
+      <div class="code-block">
+const dialog = new Dialog('Dialog Title');<br>
+dialog.setSize('medium'); // small, medium, large<br>
+dialog.setContent(content);<br>
+document.body.appendChild(dialog.getDOMElement());<br>
+dialog.show();<br>
+<br>
+// Or use static methods:<br>
+Dialog.alert('Title', 'Message');<br>
+Dialog.confirm('Question?', onYes, onNo);
+      </div>
+      <div class="demo-box" id="dialog-demo"></div>
+    </div>
+
+    <!-- 11. COMPLETE EXAMPLE -->
+    <div class="example">
+      <h2>11. Complete CRUD Example (Edit Form in Dialog)</h2>
+      <div class="code-block">
+const dialog = new Dialog('Edit Document');<br>
+const form = new Form();<br>
+form.addField('code', { label: 'Code *', required: true });<br>
+form.addField('date', { label: 'Date', type: 'date' });<br>
+<br>
+const supplier = new Dropdown('Select supplier');<br>
+supplier.addOption('1', 'Supplier A');<br>
+<br>
+const comment = new Textarea();<br>
+comment.setRows(3);<br>
+<br>
+dialog.setContent(form.getDOMElement());<br>
+<br>
+const saveBtn = new Button('Save', async () => {<br>
+&nbsp;&nbsp;if (form.validate()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = form.getData();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await API.docs.update(id, data);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dialog.close();<br>
+&nbsp;&nbsp;}<br>
+});<br>
+dialog.getFooter().appendChild(saveBtn.getDOMElement());
+      </div>
+      <div class="demo-box" id="complete-demo"></div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 ADDITIONS -->
+  <div class="example">
+    <h2>Checkbox Component</h2>
+    <div class="code-block">
+const checkbox = new Checkbox('Accept terms');<br>
+checkbox.setChecked(true);<br>
+checkbox.on('change', (e) => console.log(checkbox.isChecked()));
+    </div>
+    <div class="demo-box" id="checkbox-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>RadioButton Component</h2>
+    <div class="code-block">
+const radio = new RadioButton('size');<br>
+radio.addOption('small', 'Small');<br>
+radio.addOption('medium', 'Medium');<br>
+radio.addOption('large', 'Large');<br>
+radio.setValue('medium');
+    </div>
+    <div class="demo-box" id="radio-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Tabs Component</h2>
+    <div class="code-block">
+const tabs = new Tabs();<br>
+tabs.addTab('tab1', 'Documents', '&lt;p&gt;Documents content&lt;/p&gt;', true);<br>
+tabs.addTab('tab2', 'References', '&lt;p&gt;References content&lt;/p&gt;');<br>
+tabs.addTab('tab3', 'Settings', '&lt;p&gt;Settings content&lt;/p&gt;');
+    </div>
+    <div class="demo-box" id="tabs-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Link Component</h2>
+    <div class="code-block">
+const link = new Link('Click me', '/page');<br>
+link.openInNewWindow();<br>
+link.on('click', () => console.log('Link clicked'));
+    </div>
+    <div class="demo-box" id="link-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Combo Component (Autocomplete)</h2>
+    <div class="code-block">
+const combo = new Combo('Search suppliers...');<br>
+combo.addOption('1', 'Apple Inc.');<br>
+combo.addOption('2', 'Amazon.com');<br>
+combo.addOption('3', 'Google LLC');<br>
+combo.on('change', (e) => console.log(e.value, e.label));
+    </div>
+    <div class="demo-box" id="combo-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>List Component</h2>
+    <div class="code-block">
+const list = new List();<br>
+list.addItem('id1', 'Item 1');<br>
+list.addItem('id2', 'Item 2');<br>
+list.setMultiSelect(true); // Or false for single select<br>
+list.on('select', (e) => console.log(e.item));
+    </div>
+    <div class="demo-box" id="list-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Grid - Inline Editing</h2>
+    <div class="code-block">
+const grid = new Grid();<br>
+grid.setEditable(true); // Enable editing<br>
+grid.setEditableColumn('email', true); // Make column editable<br>
+grid.setEditableColumn('status', true);<br>
+<br>
+// Double-click cell to edit<br>
+// Press Enter to save, Esc to cancel<br>
+grid.on('celledit', (e) => console.log(e.column, '=', e.value));
+    </div>
+    <div class="demo-box" id="grid-edit-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Grid - Column Resizing</h2>
+    <div class="code-block">
+const grid = new Grid();<br>
+grid.setResizable(true); // Enable resizing<br>
+<br>
+// Drag column border to resize<br>
+// Widths persist in columnWidths property<br>
+grid.on('columnresize', (e) => console.log(e.column, 'width:', e.width));
+    </div>
+    <div class="demo-box" id="grid-resize-demo"></div>
+  </div>
+
+  <div class="example">
+    <h2>Formatters (Number, Date, HTML)</h2>
+    <div class="code-block">
+NumberFormatter.format(1234.56, 'USD') => '$1,234.56'<br>
+NumberFormatter.format(0.123, 'PCT') => '12.30%'<br>
+DateFormatter.format('2026-05-31', 'LONG') => 'May 31, 2026'<br>
+DateFormatter.format('2026-05-31', 'DD/MM/YYYY') => '31/05/2026'<br>
+StringFormatter.truncate('Long text...', 10) => 'Long text...'
+    </div>
+    <div class="demo-box" id="formatters-demo"></div>
+  </div>
+
+  <script type="module">
+    import { Base, Button, Input, Label, Table, Grid, Panel, Dialog, Form, DatePicker, Dropdown, Textarea, Checkbox, RadioButton, Tabs, Link, Combo, List, NumberFormatter, DateFormatter, StringFormatter } from './UIKit/index.js';
+
+    // Make components global
+    window.Base = Base;
+    window.Button = Button;
+    window.Input = Input;
+    window.Label = Label;
+    window.Table = Table;
+    window.Grid = Grid;
+    window.Panel = Panel;
+    window.Dialog = Dialog;
+    window.Form = Form;
+    window.DatePicker = DatePicker;
+    window.Dropdown = Dropdown;
+    window.Textarea = Textarea;
+
+    console.log('UIKit loaded successfully');
+
+    // 1. BUTTON
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const btn1 = new Button('Default', () => alert('Default'));
+      const btn2 = new Button('Primary', () => alert('Primary'));
+      btn2.setType('primary');
+      const btn3 = new Button('Success', () => alert('Success'));
+      btn3.setType('success');
+      const btn4 = new Button('Danger', () => alert('Danger'));
+      btn4.setType('danger');
+
+      container.append(btn1).append(btn2).append(btn3).append(btn4);
+      document.getElementById('btn-demo').appendChild(container.getDOMElement());
+    }
+
+    // 2. INPUT
+    {
+      const input = new Input('text', 'Enter your name');
+      input.setValue('John Doe');
+      document.getElementById('input-demo').appendChild(input.getDOMElement());
+    }
+
+    // 3. TEXTAREA
+    {
+      const textarea = new Textarea('Enter your message...');
+      textarea.setRows(4);
+      textarea.setValue('This is a multi-line textarea');
+      document.getElementById('textarea-demo').appendChild(textarea.getDOMElement());
+    }
+
+    // 4. LABEL
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const label = new Label('Username');
+      const input = new Input('text', 'Enter username');
+
+      container.append(label).append(input);
+      document.getElementById('label-demo').appendChild(container.getDOMElement());
+    }
+
+    // 5. DATEPICKER
+    {
+      const datePicker = new DatePicker('Select date');
+      datePicker.setValue('2026-05-31');
+      datePicker.setMinDate('2026-01-01');
+      datePicker.setMaxDate('2026-12-31');
+      document.getElementById('date-demo').appendChild(datePicker.getDOMElement());
+    }
+
+    // 6. DROPDOWN
+    {
+      const dropdown = new Dropdown('Select fruit');
+      dropdown.addOption('1', 'Apple');
+      dropdown.addOption('2', 'Banana');
+      dropdown.addOption('3', 'Orange');
+      dropdown.setValue('1');
+      document.getElementById('dropdown-demo').appendChild(dropdown.getDOMElement());
+    }
+
+    // 7. FORM
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const form = new Form();
+      form.addField('name', { label: 'Name *', required: true });
+      form.addField('email', { label: 'Email', type: 'email' });
+
+      const submitBtn = new Button('Submit', () => {
+        if (form.validate()) {
+          alert('Form valid!\nData: ' + JSON.stringify(form.getData()));
+        }
+      });
+      submitBtn.setType('primary');
+
+      container.append(form);
+      container.getDOMElement().appendChild(submitBtn.getDOMElement());
+      document.getElementById('form-demo').appendChild(container.getDOMElement());
+    }
+
+    // 8. GRID
+    {
+      const grid = new Grid();
+      grid.setHeaders([
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'age', label: 'Age', sortable: true },
+        { key: 'description', label: 'Description' }
+      ]);
+
+      // Custom formatter for age (color coding)
+      grid.setFormatter('age', (value, row) => {
+        if (value < 25) return '<span style="color: #52c41a; font-weight: bold;">' + value + ' (Young)</span>';
+        if (value < 35) return '<span style="color: #faad14; font-weight: bold;">' + value + ' (Mid)</span>';
+        return '<span style="color: #ff4d4f; font-weight: bold;">' + value + ' (Senior)</span>';
+      });
+
+      // Custom formatter for description (multiline)
+      grid.setFormatter('description', (value, row) => {
+        return '<div style="white-space: normal; line-height: 1.4;">' + (value || '').replace(/\n/g, '<br>') + '</div>';
+      });
+
+      grid.setRows([
+        {
+          name: 'John Smith',
+          age: 25,
+          description: 'Senior Developer\nSpecialist in JavaScript'
+        },
+        {
+          name: 'Jane Doe',
+          age: 30,
+          description: 'Project Manager\n5+ years experience'
+        },
+        {
+          name: 'Bob Johnson',
+          age: 35,
+          description: 'DevOps Engineer\nDocker & Kubernetes'
+        },
+        {
+          name: 'Alice Brown',
+          age: 28,
+          description: 'UI/UX Designer\nSpecialist in web design'
+        }
+      ]);
+      document.getElementById('grid-demo').appendChild(grid.getDOMElement());
+    }
+
+    // 9. PANEL
+    {
+      const panel = new Panel('Sample Panel');
+
+      const content = new Base();
+      content.createElement('p');
+      content.element.textContent = 'This is panel content. Click the header to collapse/expand.';
+      content.element.style.margin = '0';
+
+      panel.setContent(content.getDOMElement());
+
+      const actionBtn = new Button('Action', () => alert('Panel action clicked'));
+      actionBtn.setType('primary');
+      panel.getFooter().appendChild(actionBtn.getDOMElement());
+
+      document.getElementById('panel-demo').appendChild(panel.getDOMElement());
+    }
+
+    // 10. DIALOG
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const dialogBtn = new Button('Open Dialog', () => {
+        const dialog = new Dialog('Dialog Example');
+        dialog.setSize('medium');
+
+        const content = new Base();
+        content.createElement('p');
+        content.element.textContent = 'This is a modal dialog. It blocks interaction with the rest of the page.';
+        content.element.style.margin = '0';
+
+        dialog.setContent(content.getDOMElement());
+
+        const closeBtn = new Button('Close', () => dialog.close());
+        dialog.getFooter().appendChild(closeBtn.getDOMElement());
+
+        document.body.appendChild(dialog.getDOMElement());
+        dialog.show();
+      });
+      dialogBtn.setType('primary');
+
+      const alertBtn = new Button('Alert', () => Dialog.alert('Alert', 'This is an alert dialog'));
+
+      const confirmBtn = new Button('Confirm', () => {
+        Dialog.confirm('Confirm',
+          () => alert('You clicked Yes'),
+          () => alert('You clicked No')
+        );
+      });
+
+      container.append(dialogBtn).append(alertBtn).append(confirmBtn);
+      document.getElementById('dialog-demo').appendChild(container.getDOMElement());
+    }
+
+    // 11. COMPLETE EXAMPLE
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const editBtn = new Button('Edit Document', () => {
+        const dialog = new Dialog('Edit Document');
+        dialog.setSize('medium');
+
+        const form = new Form();
+        form.addField('code', { label: 'Code *', required: true });
+        form.addField('date', { label: 'Date', type: 'date' });
+
+        const supplier = new Dropdown('Select supplier');
+        supplier.addOption('1', 'Supplier A');
+        supplier.addOption('2', 'Supplier B');
+
+        const comment = new Textarea('Enter comment...');
+        comment.setRows(3);
+
+        const content = new Base();
+        content.createElement('div');
+        content.append(form);
+
+        const supplierLabel = new Base();
+        supplierLabel.createElement('label');
+        supplierLabel.element.textContent = 'Supplier';
+        supplierLabel.element.style.marginTop = '10px';
+        supplierLabel.element.style.display = 'block';
+        supplierLabel.element.style.fontWeight = '500';
+        supplierLabel.element.style.marginBottom = '5px';
+        content.getDOMElement().appendChild(supplierLabel.getDOMElement());
+        content.append(supplier);
+
+        const commentLabel = new Base();
+        commentLabel.createElement('label');
+        commentLabel.element.textContent = 'Comment';
+        commentLabel.element.style.marginTop = '10px';
+        commentLabel.element.style.display = 'block';
+        commentLabel.element.style.fontWeight = '500';
+        commentLabel.element.style.marginBottom = '5px';
+        content.getDOMElement().appendChild(commentLabel.getDOMElement());
+        content.append(comment);
+
+        dialog.setContent(content.getDOMElement());
+
+        const saveBtn = new Button('Save', () => {
+          if (form.validate()) {
+            alert('Saved!\nCode: ' + form.getData().code + '\nSupplier: ' + supplier.getValue());
+            dialog.close();
+          }
+        });
+        saveBtn.setType('primary');
+
+        const cancelBtn = new Button('Cancel', () => dialog.close());
+
+        dialog.getFooter().appendChild(saveBtn.getDOMElement());
+        dialog.getFooter().appendChild(cancelBtn.getDOMElement());
+
+        document.body.appendChild(dialog.getDOMElement());
+        dialog.show();
+      });
+      editBtn.setType('primary');
+
+      container.append(editBtn);
+      document.getElementById('complete-demo').appendChild(container.getDOMElement());
+    }
+
+    console.log('All examples loaded');
+
+    // NEW - PHASE 1 COMPONENTS
+
+    // Checkbox
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const cb1 = new Checkbox('Remember me');
+      cb1.setChecked(true);
+
+      const cb2 = new Checkbox('Subscribe to newsletter');
+
+      const cb3 = new Checkbox('Disabled option');
+      cb3.setDisabled(true);
+
+      container.append(cb1).append(cb2).append(cb3);
+      document.getElementById('checkbox-demo').appendChild(container.getDOMElement());
+    }
+
+    // RadioButton
+    {
+      const radio = new RadioButton('size');
+      radio.addOption('small', 'Small');
+      radio.addOption('medium', 'Medium');
+      radio.addOption('large', 'Large');
+      radio.setValue('medium');
+
+      document.getElementById('radio-demo').appendChild(radio.getDOMElement());
+    }
+
+    // Tabs
+    {
+      const tabs = new Tabs();
+      tabs.addTab('documents', 'Documents', '<p>📄 Documents management</p><p>Create, edit, delete documents</p>', true);
+      tabs.addTab('references', 'References', '<p>📚 References/Dictionaries</p><p>Suppliers, Products, Warehouses</p>');
+      tabs.addTab('settings', 'Settings', '<p>⚙️ Settings & Options</p><p>Preferences and configuration</p>');
+
+      document.getElementById('tabs-demo').appendChild(tabs.getDOMElement());
+    }
+
+    // Link
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const link1 = new Link('Go to Google', 'https://google.com');
+      link1.openInNewWindow();
+
+      const link2 = new Link('Visit our site', '/');
+
+      const link3 = new Link('Disabled link', '#');
+      link3.setDisabled(true);
+
+      const br1 = document.createElement('br');
+      const br2 = document.createElement('br');
+
+      container.getDOMElement().appendChild(link1.getDOMElement());
+      container.getDOMElement().appendChild(br1);
+      container.getDOMElement().appendChild(link2.getDOMElement());
+      container.getDOMElement().appendChild(br2);
+      container.getDOMElement().appendChild(link3.getDOMElement());
+
+      document.getElementById('link-demo').appendChild(container.getDOMElement());
+    }
+
+    // Combo
+    {
+      const combo = new Combo('Search suppliers...');
+      combo.addOption('1', 'Apple Inc.');
+      combo.addOption('2', 'Amazon.com');
+      combo.addOption('3', 'Google LLC');
+      combo.addOption('4', 'Microsoft Corporation');
+      combo.addOption('5', 'Facebook/Meta');
+      combo.addOption('6', 'Tesla Inc.');
+      combo.addOption('7', 'NVIDIA');
+
+      document.getElementById('combo-demo').appendChild(combo.getDOMElement());
+    }
+
+    // List
+    {
+      const list = new List();
+      list.addItem('doc1', 'Document 1');
+      list.addItem('doc2', 'Document 2');
+      list.addItem('doc3', 'Document 3');
+      list.addItem('doc4', 'Document 4');
+      list.addItem('doc5', 'Document 5');
+
+      list.on('select', (e) => {
+        console.log('Selected:', e.item);
+      });
+
+      document.getElementById('list-demo').appendChild(list.getDOMElement());
+    }
+
+    // Grid with Inline Editing
+    {
+      const gridEdit = new Grid();
+      gridEdit.setHeaders([
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'email', label: 'Email', sortable: true },
+        { key: 'status', label: 'Status' }
+      ]);
+      gridEdit.setEditable(true);
+      gridEdit.setEditableColumn('email', true);
+      gridEdit.setEditableColumn('status', true);
+
+      gridEdit.setRows([
+        { name: 'John Smith', email: 'john@example.com', status: 'Active' },
+        { name: 'Jane Doe', email: 'jane@example.com', status: 'Pending' },
+        { name: 'Bob Johnson', email: 'bob@example.com', status: 'Inactive' }
+      ]);
+
+      gridEdit.on('celledit', (e) => {
+        console.log('Edited:', e.column, '=', e.value);
+      });
+
+      document.getElementById('grid-edit-demo').appendChild(gridEdit.getDOMElement());
+    }
+
+    // Grid with Column Resizing
+    {
+      const gridResize = new Grid();
+      gridResize.setHeaders([
+        { key: 'product', label: 'Product Name' },
+        { key: 'quantity', label: 'Qty' },
+        { key: 'price', label: 'Price' }
+      ]);
+      gridResize.setResizable(true);
+
+      gridResize.setRows([
+        { product: 'Laptop Computer', quantity: 5, price: '$1,299' },
+        { product: 'Wireless Mouse', quantity: 25, price: '$29' },
+        { product: 'USB-C Cable', quantity: 100, price: '$12' }
+      ]);
+
+      document.getElementById('grid-resize-demo').appendChild(gridResize.getDOMElement());
+    }
+
+    // Formatters
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const info = document.createElement('div');
+      info.style.fontSize = '13px';
+      info.style.lineHeight = '1.8';
+
+      info.innerHTML = `
+        <strong>Numbers:</strong><br>
+        1234.56 as USD: ${NumberFormatter.format(1234.56, 'USD')}<br>
+        1234.56 as INT: ${NumberFormatter.format(1234.56, 'INT')}<br>
+        0.123 as PCT: ${NumberFormatter.format(0.123, 'PCT')}<br>
+        <br>
+        <strong>Dates:</strong><br>
+        2026-05-31 as LONG: ${DateFormatter.format('2026-05-31', 'LONG')}<br>
+        2026-05-31 as DD/MM/YYYY: ${DateFormatter.format('2026-05-31', 'DD/MM/YYYY')}<br>
+        2026-05-31 as SHORT: ${DateFormatter.format('2026-05-31', 'SHORT')}<br>
+        <br>
+        <strong>Strings:</strong><br>
+        "hello world" capitalized: ${StringFormatter.capitalize('hello world')}<br>
+        "Long text here" truncated: ${StringFormatter.truncate('Long text here with more content', 15)}
+      `;
+
+      container.getDOMElement().appendChild(info);
+      document.getElementById('formatters-demo').appendChild(container.getDOMElement());
+    }
+  </script>
+</body>
+</html>

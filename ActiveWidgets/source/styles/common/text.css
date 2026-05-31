@@ -1,0 +1,200 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+/* text expand */
+
+.aw-text-expand {
+	width: auto;
+	min-width: 20px;
+}
+
+.aw-ie.aw-text-expand {
+	overflow-x: visible;
+	width: 20px;
+}
+
+.aw-strict .aw-text-expand {
+	width: auto;
+	min-width: 12px;
+}
+
+.aw-ms6 .aw-text-expand {
+	width: 12px;
+}
+
+.aw-text-expand .aw-item-template {
+	width: auto;
+	min-width: 20px;
+}
+
+.aw-ie .aw-text-expand .aw-item-template {
+	overflow-x: visible;
+	width: 20px;
+}
+
+.aw-strict .aw-text-expand .aw-item-template {
+	width: auto;
+	min-width: 12px;
+}
+
+.aw-ms6 .aw-text-expand .aw-item-template {
+	width: 12px;
+}
+
+
+a.aw-text-expand,
+.aw-text-expand .aw-templates-link,
+.aw-text-expand .aw-templates-text,
+.aw-text-expand .aw-item-box {
+	white-space: nowrap;
+}
+
+.aw-ie a.aw-text-expand,
+.aw-ie .aw-text-expand .aw-templates-link,
+.aw-ie .aw-text-expand .aw-templates-text,
+.aw-ie .aw-text-expand .aw-item-box {
+	overflow-x: visible;
+}
+
+.aw-ms7 .aw-text-expand .aw-item-box {
+	width: auto;
+}
+
+.aw-gecko .aw-text-expand .aw-item-box {
+	overflow: visible; /* fixes hover jump bug */
+}
+
+.aw-opera .aw-text-expand .aw-item-box {
+	width: auto;
+}
+
+
+/* text wrap */
+
+.aw-text-wrap .aw-templates-cell {
+	line-height: 1.2em;
+}
+
+.aw-text-wrap .aw-item-marker,
+.aw-text-wrap .aw-item-image {
+	position: absolute;
+	top: 50%;
+	left: 4px;
+}
+
+.aw-text-wrap .aw-item-marker+.aw-item-image {
+	left: 22px;
+}
+
+.aw-ie .aw-text-wrap .aw-item-marker,
+.aw-ie .aw-text-wrap .aw-item-image {
+	position: relative;
+	float: left;
+	left: 0px;
+	margin-left: 0px;
+	margin-right: 1px; /* ie float extra 3px right margin bug */
+}
+
+.aw-ms7 .aw-text-wrap .aw-item-marker,
+.aw-ms7 .aw-text-wrap .aw-item-image {
+	margin-right: 3px;
+}
+
+.aw-ms9 .aw-text-wrap .aw-item-marker,
+.aw-ms9 .aw-text-wrap .aw-item-image,
+.aw-ms8 .aw-text-wrap .aw-item-marker,
+.aw-ms8 .aw-text-wrap .aw-item-image {
+	position: absolute;
+	top: 50%;
+	left: 4px;
+}
+
+.aw-ms9 .aw-text-wrap .aw-item-marker+.aw-item-image,
+.aw-ms8 .aw-text-wrap .aw-item-marker+.aw-item-image {
+	left: 22px;
+}
+
+.aw-text-wrap .aw-item-marker {
+	margin-top: -6px;
+}
+
+.aw-text-wrap .aw-item-text {
+	display: inline-block;
+	white-space: normal;
+	word-wrap: break-word;
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.aw-ms9 .aw-text-wrap .aw-item-text,
+.aw-ms8 .aw-text-wrap .aw-item-text {
+	width: 100%;
+}
+
+.aw-gecko .aw-text-wrap .aw-item-text {
+	display: -moz-inline-block;
+}
+
+.aw-opera .aw-text-wrap .aw-item-ruler {
+	margin-right: -1px; /* fixes text vertical align bug */
+}
+
+.aw-opera .aw-text-wrap .aw-item-text {
+	width: 100%;
+}
+
+.aw-gecko .aw-text-wrap .aw-templates-text,
+.aw-gecko .aw-text-wrap .aw-templates-link,
+.aw-gecko .aw-text-wrap .aw-item-box {
+	white-space: nowrap;
+}
+
+.aw-webkit .aw-text-wrap .aw-templates-text,
+.aw-webkit .aw-text-wrap .aw-templates-link,
+.aw-webkit .aw-text-wrap .aw-item-box {
+	white-space: nowrap;
+}
+
+.aw-text-wrap .aw-item-image+.aw-item-ruler+.aw-item-text {
+	padding-left: 20px;
+}
+
+.aw-text-wrap .aw-image-none+.aw-item-ruler+.aw-item-text {
+	padding-left: 0px;
+}
+
+.aw-text-wrap .aw-item-marker+.aw-item-image+.aw-item-ruler+.aw-item-text {
+	padding-left: 38px;
+}
+
+.aw-text-wrap .aw-item-marker+.aw-image-none+.aw-item-ruler+.aw-item-text {
+	padding-left: 18px;
+}
+
+.aw-ms7 .aw-text-wrap .aw-item-image+.aw-item-ruler+.aw-item-text {
+	padding-left: 0px;
+}
+
+
+/* text normal */
+
+.aw-text-normal .aw-templates-cell,
+.aw-text-normal .aw-templates-text,
+.aw-text-normal .aw-templates-link,
+.aw-text-normal .aw-item-box {
+	white-space: nowrap;
+}
+

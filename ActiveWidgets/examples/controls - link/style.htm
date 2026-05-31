@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>ActiveWidgets Examples</title>
+
+<!-- fix box model in firefox/safari/opera -->
+<style type="text/css">
+	.aw-quirks * {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	body {font: 12px Tahoma}
+</style>
+
+<!-- include links to the script and stylesheet files -->
+	<script src="../../runtime/lib/aw.js" type="text/javascript"></script>
+	<link href="../../runtime/styles/system/aw.css" rel="stylesheet">
+
+</head>
+<body>
+	<h3>Styles (script)</h3>
+	<p>Use setStyle(name, value) to assign style attributes to the link control.</p>
+
+	<pre>	obj.setStyle("color", "red");
+	obj.setStyle("font-weight", "bold");</pre>
+
+<!-- insert empty control tag -->
+	<span id="link1"></span>
+
+	<pre>	obj.setStyle("background", "#ddd");
+	obj.setStyle("text-align", "right");
+	obj.setStyle("width", "200px");</pre>
+
+<!-- insert empty control tag -->
+	<span id="link2"></span>
+
+
+	<p>Back to <a href="index.htm">link examples</a>, <a href="../index.htm">all examples</a></p>
+
+<!-- create control objects -->
+<script type="text/javascript">
+
+	var l1 = new AW.UI.Link;
+	l1.setId("link1");
+	l1.setControlLink("http://www.google.com");
+	l1.setControlText("Link 1");
+	l1.setStyle("color", "red");
+	l1.setStyle("font-weight", "bold");
+	l1.refresh();
+
+	var l2 = new AW.UI.Link;
+	l2.setId("link2");
+	l2.setControlLink("http://www.google.com");
+	l2.setControlText("Link 2");
+	l2.setStyle("background", "#ddd");
+	l2.setStyle("text-align", "right");
+	l2.setStyle("width", "200px");
+	l2.refresh();
+
+</script>
+</body>
+</html>

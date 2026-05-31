@@ -1,0 +1,42 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+@import "../common/system.css";
+@import "../common/item.css";
+@import "../common/text.css";
+@import "../common/list.css";
+@import "list.css";
+@import "../common/tabs.css";
+@import "tabs.css";
+@import "../common/tree.css";
+@import "tree.css";
+@import "../common/scroll.css";
+@import "../common/panels.css";
+@import "../common/grid.css";
+@import "grid.css";
+@import "group.css";
+@import "../common/link.css";
+@import "../common/button.css";
+@import "button.css";
+@import "../common/checkbox.css";
+@import "checkbox.css";
+@import "../common/input.css";
+@import "input.css";
+@import "radio.css";
+@import "../common/combo.css";
+@import "combo.css";
+@import "../common/final.css";
+@import "final.css";
+@import "images.css";
+@import "scrollbars.css";

@@ -1,0 +1,62 @@
+<data>
+	<record>
+		<rank>1</rank>
+		<country code="world">World</country>
+		<users>1018057389</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>2</rank>
+		<country code="eu">European Union</country>
+		<users>247000000</users>
+		<year>2006</year>
+	</record>
+	<record>
+		<rank>3</rank>
+		<country code="us">United States</country>
+		<users>205326680</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>4</rank>
+		<country code="cn">China</country>
+		<users>123000000</users>
+		<year>2006</year>
+	</record>
+	<record>
+		<rank>5</rank>
+		<country code="jp">Japan</country>
+		<users>86300000</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>6</rank>
+		<country code="in">India</country>
+		<users>60000000</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>7</rank>
+		<country code="de">Germany</country>
+		<users>50616000</users>
+		<year>2006</year>
+	</record>
+	<record>
+		<rank>8</rank>
+		<country code="gb">United Kingdom</country>
+		<users>37600000</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>9</rank>
+		<country code="kr">Korea South</country>
+		<users>33900000</users>
+		<year>2005</year>
+	</record>
+	<record>
+		<rank>10</rank>
+		<country code="fr">France</country>
+		<users>29945000</users>
+		<year>2006</year>
+	</record>
+</data>

@@ -1,0 +1,48 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-combo-box {
+	border-color: #7c7c7c #c3c3c3 #dddddd #c3c3c3;
+}
+
+.aw-combo-box .aw-item-box {
+	border-color: #c3c3c3 #f0f0f0 #fefefe #f0f0f0;
+}
+
+.aw-combo-button td {
+	background: url(combo.png) -42px 50%;
+}
+
+.aw-png1 .aw-combo-button td {
+	background-image: url(_combo.png); /* no transparency */
+}
+
+.aw-disabled-control .aw-combo-button td {
+	filter:progid:DXImageTransform.Microsoft.BasicImage(grayScale=1,opacity=0.5);
+	-moz-opacity:0.5;
+	opacity:0.5;
+}
+
+.aw-ie.aw-strict .aw-combo-button {
+	background-color: #fff;
+}
+
+.aw-cb-1, .aw-cb-3 {
+	display: none;
+}
+
+.aw-popup-window .aw-mouseover-item {
+	color: #fff;
+	background: #478bdf;
+}

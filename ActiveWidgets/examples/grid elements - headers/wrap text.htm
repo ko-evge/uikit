@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>ActiveWidgets Examples</title>
+
+<!-- fix box model in firefox/safari/opera -->
+<style type="text/css">
+	.aw-quirks * {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	body {font: 12px Tahoma}
+</style>
+
+<!-- include links to the script and stylesheet files -->
+	<script src="../../runtime/lib/aw.js" type="text/javascript"></script>
+	<link href="../../runtime/styles/system/aw.css" rel="stylesheet">
+
+<!-- change default styles, set control size and position -->
+<style type="text/css">
+
+	#myGrid {height: 100px}
+	#myGrid .aw-column-1 {width: 150px}
+	#myGrid .aw-column-2 {text-align: center}
+	#myGrid .aw-column-3 {text-align: right}
+
+</style>
+</head>
+<body>
+	<h3>Wrap text in the header</h3>
+	<p>To wrap text in the header apply .aw-text-wrap class to the parent template (<i>headers</i>)</p>
+	<pre>	grid.getHeadersTemplate().setClass("text", "wrap"); </pre>
+
+<!-- insert control tag -->
+	<span id="myGrid"></span>
+
+	<p>Back to <a href="index.htm">grid header examples</a>, <a href="../index.htm">all examples</a></p>
+
+<!-- create controls -->
+<script type="text/javascript">
+
+	var grid = new AW.UI.Grid;
+	grid.setId("myGrid");
+	grid.setHeaderHeight(40);
+	grid.setHeaderText("long text in the header");
+	grid.getHeadersTemplate().setClass("text", "wrap");
+	grid.setCellText("cell");
+	grid.setColumnCount(4);
+	grid.setRowCount(5);
+	grid.refresh();
+
+</script>
+</body>
+</html>

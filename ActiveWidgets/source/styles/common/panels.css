@@ -1,0 +1,172 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+.aw-vpanel-template,
+.aw-vpanel-box,
+.aw-vpanel-left,
+.aw-vpanel-center,
+.aw-vpanel-right {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.aw-vpanel-box {
+	padding-left: 100px;
+	padding-right: 0px;
+}
+
+.aw-strict .aw-vpanel-box {
+	width: auto;
+}
+
+.aw-vpanel-left {
+	position: absolute;
+	width: 100px;
+}
+
+.aw-vpanel-right {
+	position: absolute;
+	left: auto;
+	right: 0px;
+	width: 0px;
+}
+
+.aw-strict .aw-vpanel-left,
+.aw-strict .aw-vpanel-right {
+	width: 96px;
+}
+
+/* horizontal */
+
+.aw-hpanel-template,
+.aw-hpanel-box,
+.aw-hpanel-top,
+.aw-hpanel-middle,
+.aw-hpanel-bottom {
+	display: block;
+	position: absolute;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.aw-hpanel-middle {
+	height: auto;
+}
+
+.aw-ie .aw-hpanel-middle {
+	position: relative;
+	height: 100%;
+}
+
+.aw-strict .aw-hpanel-middle {
+	position: absolute;
+	height: auto;
+}
+
+.aw-hpanel-bottom {
+	top: auto;
+	bottom: 0px;
+}
+
+/* fix for scrambled display bug in IE5-7 */
+.aw-ms5 .aw-scroll-bars .aw-hpanel-template,
+.aw-ms6 .aw-scroll-bars .aw-hpanel-template,
+.aw-ms7 .aw-scroll-bars .aw-hpanel-template {
+	zoom: 2;
+}
+
+.aw-ms5 .aw-scroll-bars .aw-hpanel-box,
+.aw-ms6 .aw-scroll-bars .aw-hpanel-box,
+.aw-ms7 .aw-scroll-bars .aw-hpanel-box {
+	zoom: 0.5;
+}
+
+
+/* grid */
+
+.aw-gpanel-template,
+.aw-gpanel-box,
+.aw-gpanel-top,
+.aw-gpanel-middle,
+.aw-gpanel-bottom,
+.aw-gpanel-left,
+.aw-gpanel-center,
+.aw-gpanel-right {
+	display: block;
+	position: absolute;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.aw-gpanel-middle {
+	height: auto;
+}
+
+.aw-ie .aw-gpanel-middle {
+	position: relative;
+	height: 100%;
+}
+
+.aw-strict .aw-gpanel-middle {
+	position: absolute;
+	height: auto;
+}
+
+.aw-gpanel-bottom {
+	top: auto;
+	bottom: 0px;
+}
+
+.aw-gpanel-center {
+	width: auto;
+}
+
+.aw-ie .aw-gpanel-center {
+	position: relative;
+	width: 100%;
+}
+
+.aw-strict .aw-gpanel-center {
+	position: absolute;
+	width: auto;
+}
+
+.aw-gpanel-right {
+	left: auto;
+	right: 0px;
+}
+
+/* fix for scrambled display bug in IE5-7 */
+.aw-ms5 .aw-scroll-bars .aw-gpanel-template,
+.aw-ms6 .aw-scroll-bars .aw-gpanel-template,
+.aw-ms7 .aw-scroll-bars .aw-gpanel-template {
+	zoom: 2;
+}
+
+.aw-ms5 .aw-scroll-bars .aw-gpanel-box,
+.aw-ms6 .aw-scroll-bars .aw-gpanel-box,
+.aw-ms7 .aw-scroll-bars .aw-gpanel-box {
+	zoom: 0.5;
+}
+

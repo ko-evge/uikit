@@ -1,0 +1,69 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-ui-radio {
+	height: auto;
+	padding: 2px;
+	border: none;
+	background: none;
+}
+
+.aw-strict .aw-ui-radio {
+	height: auto;
+	padding: 2px 6px 2px 2px;
+}
+
+.aw-ui-radio .aw-list-box {
+	border: none;
+}
+
+.aw-ff .aw-ui-radio .aw-list-box {
+	overflow: visible;
+}
+
+.aw-webkit .aw-ui-radio .aw-list-box {
+	overflow: visible;
+}
+
+.aw-classic .aw-toggle-radio .aw-item-marker {
+	background-image: url(classic-radio1.png);
+}
+
+.aw-aqua .aw-toggle-radio .aw-item-marker {
+	background-image: url(aqua-radio.png);
+	height: 15px;
+	margin-bottom: -1px;
+}
+
+.aw-xp .aw-toggle-radio .aw-item-marker {
+	background-image: url(xp-radio.png);
+}
+
+.aw-vista .aw-toggle-radio .aw-item-marker {
+	background-image: url(vista-radio.png);
+}
+
+/* no transparency */
+
+.aw-aqua-png1 .aw-toggle-radio .aw-item-marker {
+	background-image: url(_aqua-radio.png);
+}
+
+.aw-xp-png1 .aw-toggle-radio .aw-item-marker {
+	background-image: url(_xp-radio.png);
+}
+
+.aw-vista-png1 .aw-toggle-radio .aw-item-marker {
+	background-image: url(_vista-radio.png);
+}

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UIKit Components Demo</title>
+  <link rel="stylesheet" href="UIKit/styles/components.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding: 20px; background: #f5f5f5; }
+    .demo-section { background: white; padding: 20px; margin: 20px 0; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .demo-section h2 { margin-top: 0; color: #333; border-bottom: 2px solid #1890ff; padding-bottom: 10px; }
+    .demo-item { margin: 20px 0; padding: 15px; background: #fafafa; border-left: 4px solid #1890ff; }
+    .demo-item h3 { margin: 0 0 10px 0; }
+    .demo-item p { margin: 5px 0; color: #666; font-size: 13px; }
+    .code { background: #f0f0f0; padding: 10px; border-radius: 3px; font-family: monospace; font-size: 12px; margin: 10px 0; overflow-x: auto; }
+    .output { background: #e6f7ff; padding: 15px; border-radius: 3px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>UIKit Components - Complete Reference</h1>
+
+  <div class="demo-section">
+    <h2>1. Base Component - Foundation</h2>
+    <div class="demo-item">
+      <h3>Create Element & DOM Manipulation</h3>
+      <div class="code">
+const container = new Base();<br>
+container.createElement('div', 'my-class');<br>
+container.element.textContent = 'Hello';<br>
+document.body.appendChild(container.getDOMElement());
+      </div>
+      <div class="output" id="demo-base-create"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Styling</h3>
+      <div class="code">
+const box = new Base();<br>
+box.createElement('div');<br>
+box.setStyle('width', '100px');<br>
+box.setStyle('height', '100px');<br>
+box.setStyle('background', '#ff6b6b');<br>
+box.setStyle('borderRadius', '5px');
+      </div>
+      <div class="output" id="demo-base-style"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Classes & Attributes</h3>
+      <div class="code">
+const element = new Base();<br>
+element.createElement('div');<br>
+element.element.textContent = 'Hover me';<br>
+element.addClass('ui-button');<br>
+element.addClass('ui-button-primary');<br>
+element.setAttribute('data-demo', 'hover-effect');
+      </div>
+      <div class="output" id="demo-base-class"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Chainable API</h3>
+      <div class="code">
+const btn = new Base();<br>
+btn.createElement('button')<br>
+   .setStyle('padding', '10px')<br>
+   .setStyle('background', '#52c41a')<br>
+   .setStyle('color', 'white')<br>
+   .setStyle('border', 'none')<br>
+   .setStyle('borderRadius', '4px')<br>
+   .setStyle('cursor', 'pointer');<br>
+btn.element.textContent = 'Chainable';
+      </div>
+      <div class="output" id="demo-base-chain"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Events</h3>
+      <div class="code">
+const btn = new Base();<br>
+btn.createElement('button');<br>
+btn.element.textContent = 'Click me';<br>
+btn.addClass('ui-button');<br>
+btn.on('click', () => alert('Clicked!'));
+      </div>
+      <div class="output" id="demo-base-event"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Append & Remove</h3>
+      <div class="code">
+const parent = new Base();<br>
+parent.createElement('div');<br>
+<br>
+const child1 = new Base();<br>
+child1.createElement('p');<br>
+child1.element.textContent = 'Child 1';<br>
+<br>
+const child2 = new Base();<br>
+child2.createElement('p');<br>
+child2.element.textContent = 'Child 2';<br>
+<br>
+parent.append(child1).append(child2);
+      </div>
+      <div class="output" id="demo-base-append"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>2. Button Component</h2>
+    <div class="demo-item">
+      <h3>Basic Buttons (All Types)</h3>
+      <div class="code">
+new Button('Default', () => alert('Clicked'));<br>
+new Button('Primary', () => {}).setType('primary');<br>
+new Button('Success', () => {}).setType('success');<br>
+new Button('Danger', () => {}).setType('danger');<br>
+new Button('Warning', () => {}).setType('warning');
+      </div>
+      <div class="output" id="demo-button-types"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Button Sizes</h3>
+      <div class="code">
+new Button('Small', () => {}).setSize('small');<br>
+new Button('Medium', () => {}).setSize('medium');<br>
+new Button('Large', () => {}).setSize('large');
+      </div>
+      <div class="output" id="demo-button-size"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Disabled Button</h3>
+      <div class="code">
+const btn = new Button('Disabled', () => {});<br>
+btn.setDisabled(true);
+      </div>
+      <div class="output" id="demo-button-disabled"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>3. Input Component</h2>
+    <div class="demo-item">
+      <h3>Text Input</h3>
+      <div class="code">
+const input = new Input('text', 'Enter your name');<br>
+input.setValue('John Doe');<br>
+input.on('change', (e) => console.log(input.getValue()));
+      </div>
+      <div class="output" id="demo-input-text"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Different Input Types</h3>
+      <div class="code">
+new Input('email', 'Enter email');<br>
+new Input('password', 'Enter password');<br>
+new Input('number', 'Enter number');<br>
+new Input('date', 'Select date');
+      </div>
+      <div class="output" id="demo-input-types"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Input Methods</h3>
+      <div class="code">
+const input = new Input('text', 'Type here');<br>
+input.setValue('Initial value');<br>
+input.focus();<br>
+input.on('blur', () => console.log('Lost focus'));<br>
+input.setReadonly(true); // or setDisabled(true)
+      </div>
+      <div class="output" id="demo-input-methods"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>4. Textarea Component</h2>
+    <div class="demo-item">
+      <h3>Basic Textarea</h3>
+      <div class="code">
+const textarea = new Textarea('Enter your message...');<br>
+textarea.setRows(4);<br>
+textarea.setValue('Multi-line text here');<br>
+textarea.setMaxLength(500);
+      </div>
+      <div class="output" id="demo-textarea-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Textarea Methods</h3>
+      <div class="code">
+const textarea = new Textarea();<br>
+textarea.getCharCount(); // Get character count<br>
+textarea.selectAll();     // Select all text<br>
+textarea.clear();         // Clear content<br>
+textarea.setReadonly(true);
+      </div>
+      <div class="output" id="demo-textarea-methods"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>5. Label Component</h2>
+    <div class="demo-item">
+      <h3>Basic Label</h3>
+      <div class="code">
+const label = new Label('Username');<br>
+const input = new Input('text', 'Enter username');<br>
+<br>
+const container = new Base();<br>
+container.createElement('div');<br>
+container.append(label).append(input);
+      </div>
+      <div class="output" id="demo-label-basic"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>6. DatePicker Component</h2>
+    <div class="demo-item">
+      <h3>Basic DatePicker</h3>
+      <div class="code">
+const datePicker = new DatePicker('Select date');<br>
+datePicker.setValue('2026-05-31');<br>
+datePicker.on('change', (e) => console.log(datePicker.getValue()));
+      </div>
+      <div class="output" id="demo-datepicker-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Date Range Constraints</h3>
+      <div class="code">
+const datePicker = new DatePicker();<br>
+datePicker.setMinDate('2026-01-01');<br>
+datePicker.setMaxDate('2026-12-31');<br>
+datePicker.setValue('2026-06-15');
+      </div>
+      <div class="output" id="demo-datepicker-range"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>7. Dropdown Component</h2>
+    <div class="demo-item">
+      <h3>Basic Dropdown</h3>
+      <div class="code">
+const dropdown = new Dropdown('Select option');<br>
+dropdown.addOption('1', 'Option 1');<br>
+dropdown.addOption('2', 'Option 2');<br>
+dropdown.addOption('3', 'Option 3');<br>
+dropdown.setValue('1');<br>
+dropdown.on('change', (e) => console.log(dropdown.getValue()));
+      </div>
+      <div class="output" id="demo-dropdown-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Dropdown Methods</h3>
+      <div class="code">
+const dropdown = new Dropdown();<br>
+dropdown.addOption('a', 'Apple');<br>
+dropdown.addOption('b', 'Banana');<br>
+dropdown.removeOption('b'); // Remove option<br>
+dropdown.openMenu();  // Open manually<br>
+dropdown.closeMenu(); // Close manually<br>
+dropdown.toggleMenu();
+      </div>
+      <div class="output" id="demo-dropdown-methods"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>8. Form Component</h2>
+    <div class="demo-item">
+      <h3>Basic Form with Validation</h3>
+      <div class="code">
+const form = new Form();<br>
+form.addField('name', {<br>
+&nbsp;&nbsp;label: 'Name *',<br>
+&nbsp;&nbsp;required: true<br>
+});<br>
+form.addField('email', {<br>
+&nbsp;&nbsp;label: 'Email *',<br>
+&nbsp;&nbsp;type: 'email',<br>
+&nbsp;&nbsp;required: true,<br>
+&nbsp;&nbsp;validation: (v) => v.includes('@') ? null : 'Invalid email'<br>
+});<br>
+<br>
+if (form.validate()) {<br>
+&nbsp;&nbsp;const data = form.getData();<br>
+}
+      </div>
+      <div class="output" id="demo-form-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Form Methods</h3>
+      <div class="code">
+const form = new Form();<br>
+form.addField('username', { label: 'Username' });<br>
+form.setData({username: 'john'});  // Set data<br>
+form.getData();        // Get all data<br>
+form.getFieldValue('username');<br>
+form.setFieldValue('username', 'jane');<br>
+form.validate();       // Validate all fields<br>
+form.reset();          // Reset form<br>
+form.clearErrors();    // Clear error messages
+      </div>
+      <div class="output" id="demo-form-methods"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>9. Grid Component (Advanced Table)</h2>
+    <div class="demo-item">
+      <h3>Basic Grid with Data</h3>
+      <div class="code">
+const grid = new Grid();<br>
+grid.setHeaders([<br>
+&nbsp;&nbsp;{ key: 'name', label: 'Name', sortable: true },<br>
+&nbsp;&nbsp;{ key: 'age', label: 'Age', sortable: true },<br>
+&nbsp;&nbsp;{ key: 'city', label: 'City' }<br>
+]);<br>
+<br>
+grid.setRows([<br>
+&nbsp;&nbsp;{ name: 'John', age: 25, city: 'NYC' },<br>
+&nbsp;&nbsp;{ name: 'Jane', age: 30, city: 'LA' },<br>
+&nbsp;&nbsp;{ name: 'Bob', age: 35, city: 'Chicago' }<br>
+]);
+      </div>
+      <div class="output" id="demo-grid-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Grid Features</h3>
+      <div class="code">
+const grid = new Grid();<br>
+// Sorting: Click on header<br>
+// Filtering: Type in search box (real-time)<br>
+// Pagination: Auto 50 rows per page<br>
+// Multi-select: Checkboxes in first column<br>
+<br>
+grid.on('rowselect', (e) => console.log(e.detail.row));<br>
+grid.on('selectionchange', (e) => console.log(e.detail.selected));<br>
+<br>
+grid.getSelectedRows();   // Get selected rows<br>
+grid.sortBy('name', 'asc');<br>
+grid.setFilter('search text');<br>
+grid.addRow({name: 'Alice', age: 28});<br>
+grid.removeRow(0);<br>
+grid.updateRow(0, {age: 26});
+      </div>
+      <div class="output" id="demo-grid-features"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>10. Panel Component (Container)</h2>
+    <div class="demo-item">
+      <h3>Basic Panel</h3>
+      <div class="code">
+const panel = new Panel('My Panel');<br>
+<br>
+const content = new Base();<br>
+content.createElement('p');<br>
+content.element.textContent = 'Panel content here';<br>
+<br>
+panel.setContent(content.getDOMElement());<br>
+<br>
+const btn = new Button('Action', () => alert('Clicked'));<br>
+panel.getFooter().appendChild(btn.getDOMElement());
+      </div>
+      <div class="output" id="demo-panel-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Panel Structure</h3>
+      <div class="code">
+const panel = new Panel('Title');<br>
+<br>
+// Three parts:<br>
+panel.getHeader();   // Panel header (title)<br>
+panel.setContent(el); // Content area<br>
+panel.getFooter();   // Footer for buttons<br>
+<br>
+// Collapsible:<br>
+panel.collapse();  // Hide content<br>
+panel.expand();    // Show content<br>
+panel.toggleCollapse();
+      </div>
+      <div class="output" id="demo-panel-structure"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>11. Dialog Component (Modal)</h2>
+    <div class="demo-item">
+      <h3>Basic Dialog</h3>
+      <div class="code">
+const dialog = new Dialog('Dialog Title');<br>
+dialog.setSize('medium'); // small, medium, large<br>
+<br>
+const content = new Base();<br>
+content.createElement('p');<br>
+content.element.textContent = 'Dialog content';<br>
+<br>
+dialog.setContent(content.getDOMElement());<br>
+<br>
+const btn = new Button('Close', () => dialog.close());<br>
+dialog.getFooter().appendChild(btn.getDOMElement());<br>
+<br>
+document.body.appendChild(dialog.getDOMElement());<br>
+dialog.show();
+      </div>
+      <div id="demo-dialog-basic"></div>
+    </div>
+
+    <div class="demo-item">
+      <h3>Static Dialog Methods</h3>
+      <div class="code">
+// Alert dialog<br>
+Dialog.alert('Title', 'Message');<br>
+<br>
+// Confirm dialog<br>
+Dialog.confirm('Confirm?', () => {<br>
+&nbsp;&nbsp;console.log('Confirmed!');<br>
+}, () => {<br>
+&nbsp;&nbsp;console.log('Cancelled!');<br>
+});
+      </div>
+      <div id="demo-dialog-static"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>12. Complete Form Example (CRUD)</h2>
+    <div class="demo-item">
+      <h3>Edit Form in Dialog</h3>
+      <div class="code">
+const dialog = new Dialog('Edit Record');<br>
+dialog.setSize('medium');<br>
+<br>
+const form = new Form();<br>
+form.addField('name', { label: 'Name *', required: true });<br>
+form.addField('email', { label: 'Email', type: 'email' });<br>
+<br>
+dialog.setContent(form.getDOMElement());<br>
+<br>
+const saveBtn = new Button('Save', async () => {<br>
+&nbsp;&nbsp;if (form.validate()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = form.getData();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await API.docs.update(id, data);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dialog.close();<br>
+&nbsp;&nbsp;}<br>
+});<br>
+<br>
+const cancelBtn = new Button('Cancel', () => dialog.close());<br>
+dialog.getFooter().appendChild(saveBtn.getDOMElement());<br>
+dialog.getFooter().appendChild(cancelBtn.getDOMElement());<br>
+<br>
+document.body.appendChild(dialog.getDOMElement());<br>
+dialog.show();
+      </div>
+      <div id="demo-complete-form"></div>
+    </div>
+  </div>
+
+  <script>
+    async function loadUIKit() {
+      const uikit = await import('./UIKit/index.js');
+      for (let key in { Base: null, Button: null, Input: null, Label: null, Table: null, Grid: null, Panel: null, Dialog: null, Form: null, DatePicker: null, Dropdown: null, Textarea: null }) {
+        window[key] = uikit[key];
+      }
+
+      // Demos
+      // 1. Base - Create
+      const baseCreate = new Base();
+      baseCreate.createElement('div');
+      baseCreate.element.textContent = 'Hello, UIKit!';
+      baseCreate.element.style.padding = '10px';
+      baseCreate.element.style.background = '#e6f7ff';
+      baseCreate.element.style.borderRadius = '4px';
+      document.getElementById('demo-base-create').appendChild(baseCreate.getDOMElement());
+
+      // 2. Base - Style
+      const baseStyle = new Base();
+      baseStyle.createElement('div');
+      baseStyle.setStyle('width', '100px');
+      baseStyle.setStyle('height', '100px');
+      baseStyle.setStyle('background', '#ff6b6b');
+      baseStyle.setStyle('borderRadius', '5px');
+      baseStyle.setStyle('margin', '10px 0');
+      document.getElementById('demo-base-style').appendChild(baseStyle.getDOMElement());
+
+      // 3. Base - Classes
+      const baseClass = new Base();
+      baseClass.createElement('button');
+      baseClass.element.textContent = 'Hover me';
+      baseClass.addClass('ui-button');
+      baseClass.addClass('ui-button-primary');
+      document.getElementById('demo-base-class').appendChild(baseClass.getDOMElement());
+
+      // 4. Base - Chainable
+      const baseChain = new Base();
+      baseChain.createElement('button')
+        .setStyle('padding', '10px')
+        .setStyle('background', '#52c41a')
+        .setStyle('color', 'white')
+        .setStyle('border', 'none')
+        .setStyle('borderRadius', '4px')
+        .setStyle('cursor', 'pointer')
+        .setStyle('marginBottom', '10px');
+      baseChain.element.textContent = 'Chainable API';
+      document.getElementById('demo-base-chain').appendChild(baseChain.getDOMElement());
+
+      // 5. Base - Events
+      const baseEvent = new Base();
+      baseEvent.createElement('button');
+      baseEvent.element.textContent = 'Click me';
+      baseEvent.addClass('ui-button');
+      baseEvent.on('click', () => alert('Button clicked!'));
+      document.getElementById('demo-base-event').appendChild(baseEvent.getDOMElement());
+
+      // 6. Base - Append
+      const parent = new Base();
+      parent.createElement('div');
+      const child1 = new Base();
+      child1.createElement('p');
+      child1.element.textContent = 'Child 1';
+      child1.element.style.margin = '5px 0';
+      const child2 = new Base();
+      child2.createElement('p');
+      child2.element.textContent = 'Child 2';
+      child2.element.style.margin = '5px 0';
+      parent.append(child1).append(child2);
+      document.getElementById('demo-base-append').appendChild(parent.getDOMElement());
+
+      // 7. Buttons
+      const btnContainer = document.getElementById('demo-button-types');
+      new Button('Default', () => alert('Default')).getDOMElement() && btnContainer.appendChild(new Button('Default', () => alert('Default')).getDOMElement());
+      const btn2 = new Button('Primary', () => alert('Primary'));
+      btn2.setType('primary');
+      btnContainer.appendChild(btn2.getDOMElement());
+      const btn3 = new Button('Success', () => alert('Success'));
+      btn3.setType('success');
+      btnContainer.appendChild(btn3.getDOMElement());
+      const btn4 = new Button('Danger', () => alert('Danger'));
+      btn4.setType('danger');
+      btnContainer.appendChild(btn4.getDOMElement());
+      const btn5 = new Button('Warning', () => alert('Warning'));
+      btn5.setType('warning');
+      btnContainer.appendChild(btn5.getDOMElement());
+
+      // 8. Button Sizes
+      const sizeContainer = document.getElementById('demo-button-size');
+      const smallBtn = new Button('Small');
+      smallBtn.setSize('small');
+      sizeContainer.appendChild(smallBtn.getDOMElement());
+      const medBtn = new Button('Medium');
+      medBtn.setSize('medium');
+      sizeContainer.appendChild(medBtn.getDOMElement());
+      const largeBtn = new Button('Large');
+      largeBtn.setSize('large');
+      sizeContainer.appendChild(largeBtn.getDOMElement());
+
+      // 9. Disabled Button
+      const disabledBtn = new Button('Disabled');
+      disabledBtn.setDisabled(true);
+      document.getElementById('demo-button-disabled').appendChild(disabledBtn.getDOMElement());
+
+      // 10. Input Types
+      const inputContainer = document.getElementById('demo-input-text');
+      const input = new Input('text', 'Enter your name');
+      input.setValue('John Doe');
+      inputContainer.appendChild(input.getDOMElement());
+
+      // 11. Input Types
+      const typesContainer = document.getElementById('demo-input-types');
+      typesContainer.appendChild(new Input('email', 'Enter email').getDOMElement());
+      typesContainer.appendChild(new Input('password', 'Enter password').getDOMElement());
+      typesContainer.appendChild(new Input('number', 'Enter number').getDOMElement());
+
+      // 12. Textarea
+      const textarea = new Textarea('Enter your message...');
+      textarea.setRows(4);
+      textarea.setValue('Multi-line text example');
+      document.getElementById('demo-textarea-basic').appendChild(textarea.getDOMElement());
+
+      // 13. Label
+      const labelContainer = document.getElementById('demo-label-basic');
+      const label = new Label('Username');
+      labelContainer.appendChild(label.getDOMElement());
+      const labelInput = new Input('text', 'Enter username');
+      labelInput.element.style.marginTop = '5px';
+      labelContainer.appendChild(labelInput.getDOMElement());
+
+      // 14. DatePicker
+      const datePicker = new DatePicker('Select date');
+      datePicker.setValue('2026-05-31');
+      document.getElementById('demo-datepicker-basic').appendChild(datePicker.getDOMElement());
+
+      // 15. DatePicker Range
+      const dateRange = new DatePicker();
+      dateRange.setMinDate('2026-01-01');
+      dateRange.setMaxDate('2026-12-31');
+      dateRange.setValue('2026-06-15');
+      document.getElementById('demo-datepicker-range').appendChild(dateRange.getDOMElement());
+
+      // 16. Dropdown
+      const dropdown = new Dropdown('Select option');
+      dropdown.addOption('1', 'Option 1');
+      dropdown.addOption('2', 'Option 2');
+      dropdown.addOption('3', 'Option 3');
+      dropdown.setValue('1');
+      document.getElementById('demo-dropdown-basic').appendChild(dropdown.getDOMElement());
+
+      // 17. Form
+      const form = new Form();
+      form.addField('name', { label: 'Name *', required: true });
+      form.addField('email', { label: 'Email', type: 'email' });
+      document.getElementById('demo-form-basic').appendChild(form.getDOMElement());
+      const submitBtn = new Button('Submit', () => {
+        if (form.validate()) {
+          alert('Form valid! Data: ' + JSON.stringify(form.getData()));
+        }
+      });
+      submitBtn.setType('primary');
+      document.getElementById('demo-form-basic').appendChild(submitBtn.getDOMElement());
+
+      // 18. Grid
+      const grid = new Grid();
+      grid.setHeaders([
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'age', label: 'Age', sortable: true },
+        { key: 'city', label: 'City' }
+      ]);
+      grid.setRows([
+        { name: 'John', age: 25, city: 'NYC' },
+        { name: 'Jane', age: 30, city: 'LA' },
+        { name: 'Bob', age: 35, city: 'Chicago' }
+      ]);
+      document.getElementById('demo-grid-basic').appendChild(grid.getDOMElement());
+
+      // 19. Panel
+      const panel = new Panel('My Panel');
+      const panelContent = new Base();
+      panelContent.createElement('p');
+      panelContent.element.textContent = 'This is panel content. Click header to collapse.';
+      panel.setContent(panelContent.getDOMElement());
+      const panelBtn = new Button('Action', () => alert('Panel action'));
+      panelBtn.setType('primary');
+      panel.getFooter().appendChild(panelBtn.getDOMElement());
+      document.getElementById('demo-panel-basic').appendChild(panel.getDOMElement());
+
+      // 20. Dialog
+      const dialogBtn = new Button('Open Dialog');
+      dialogBtn.setType('primary');
+      dialogBtn.on('click', () => {
+        const dlg = new Dialog('Dialog Title');
+        dlg.setSize('medium');
+        const dlgContent = new Base();
+        dlgContent.createElement('p');
+        dlgContent.element.textContent = 'This is a modal dialog';
+        dlg.setContent(dlgContent.getDOMElement());
+        const closeBtn = new Button('Close', () => dlg.close());
+        dlg.getFooter().appendChild(closeBtn.getDOMElement());
+        document.body.appendChild(dlg.getDOMElement());
+        dlg.show();
+      });
+      document.getElementById('demo-dialog-basic').appendChild(dialogBtn.getDOMElement());
+
+      // 21. Static Dialog
+      const alertBtn = new Button('Alert Dialog');
+      alertBtn.on('click', () => Dialog.alert('Alert', 'This is an alert'));
+      document.getElementById('demo-dialog-static').appendChild(alertBtn.getDOMElement());
+
+      const confirmBtn = new Button('Confirm Dialog');
+      confirmBtn.setType('primary');
+      confirmBtn.on('click', () => Dialog.confirm('Confirm?', () => alert('Confirmed'), () => alert('Cancelled')));
+      document.getElementById('demo-dialog-static').appendChild(confirmBtn.getDOMElement());
+    }
+
+    loadUIKit().catch(e => console.error('Error:', e));
+  </script>
+</body>
+</html>

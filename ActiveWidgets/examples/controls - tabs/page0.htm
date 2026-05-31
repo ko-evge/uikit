@@ -1,0 +1,35 @@
+
+<!-- markup -->
+<p> Mini application </p>
+
+<span id="myGrid"></span>
+<span id="myCheckbox"></span>
+
+<!-- styles -->
+<style>
+
+	#myGrid-cell-1-1 {color: red}
+	#myCheckbox {position: absolute; left: 300px; top: 10px}
+
+</style>
+
+
+<!-- code -->
+<script>
+
+var grid = new AW.UI.Grid;
+grid.setId("myGrid");
+grid.setSize(500, 100);
+grid.setCellText("cell");
+grid.setColumnCount(10);
+grid.setRowCount(5);
+grid.refresh();
+
+
+var checkbox = new AW.UI.Checkbox;
+checkbox.setId("myCheckbox");
+checkbox.setControlText("Checkbox");
+checkbox.setControlValue(true);
+checkbox.refresh();
+
+</script>

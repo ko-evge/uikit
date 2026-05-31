@@ -1,0 +1,155 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+.aw-scroll-bars {
+	display: block;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.aw-ie .aw-scroll-bars {
+	padding-bottom: 20px;
+}
+
+.aw-strict .aw-scroll-bars {
+	padding: 0px;
+	border: none;
+}
+
+.aw-ms6 .aw-scroll-bars {
+	position: relative;
+}
+
+.aw-bars-box {
+	display: block;
+	position: absolute;
+	overflow: auto;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	-moz-outline: none;
+}
+
+.aw-bars-spacer {
+	display: block;
+	width: 9999px;
+	height: 999px;
+}
+
+.aw-bars-content {
+	display: block;
+	position: absolute;
+	overflow: hidden;
+	top: 0px;
+	left: 0px;
+	bottom: 20px;
+	right: 20px;
+}
+
+.aw-ie .aw-bars-content {
+	position: relative;
+	width: auto;
+	height: 100%;
+	margin-right: 20px;
+}
+
+.aw-gecko .aw-bars-content {
+	overflow: auto; /* fix for disappearing text cursor (caret) */
+}
+
+.aw-strict .aw-bars-content {
+	position: absolute;
+	width: auto;
+	height: auto;
+	margin-right: 0px;
+	padding-bottom : 0px;
+}
+
+.aw-scrollbars-none .aw-bars-box {
+	overflow: hidden;
+}
+
+.aw-scrollbars-vertical .aw-bars-box {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.aw-scrollbars-horizontal .aw-bars-box {
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.aw-scrollbars-both .aw-bars-box {
+	overflow: scroll;
+}
+
+.aw-scrollbars-none .aw-bars-content {
+	width: 100%!important;
+	height: 100%!important;
+}
+
+.aw-scrollbars-vertical .aw-bars-spacer {
+	width: 1px!important;
+}
+
+.aw-scrollbars-vertical .aw-bars-content {
+	height: 100%!important;
+}
+
+.aw-scrollbars-horizontal .aw-bars-spacer {
+	height: 1px!important;
+}
+
+.aw-scrollbars-horizontal .aw-bars-content {
+	width: 100%!important;
+}
+
+.aw-ie .aw-scrollbars-none,
+.aw-ie .aw-scrollbars-vertical {
+	padding-bottom: 0px!important;
+}
+
+.aw-ie .aw-scrollbars-none .aw-bars-content,
+.aw-ie .aw-scrollbars-horizontal .aw-bars-content {
+	margin-right: 0px!important;
+}
+
+.aw-gecko .aw-disabled-control .aw-bars-spacer {
+	display: none;
+}
+
+/* fix for edit cursor problem */
+/* http://www.activewidgets.com/javascript.forum.21833.1/ */
+
+.aw-ffx .aw-scrollbars-vertical .aw-bars-box {
+    left: auto;
+    width: 20px;
+    right: 0px;
+}
+
+.aw-ffx .aw-scrollbars-horizontal .aw-bars-box {
+    top: auto;
+    height: 20px;
+    bottom: 0px;
+}
+
+/* fix for IE6 strict content */
+/* http://www.activewidgets.com/javascript.forum.21668.0/ */
+
+.aw-ms6 .aw-bars-content {
+    width: expression(this.parentElement.clientWidth-AW.sx);
+    height: expression(this.parentElement.clientHeight-AW.sy);
+}

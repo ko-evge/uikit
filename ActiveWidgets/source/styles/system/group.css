@@ -1,0 +1,51 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-ui-group {
+	display: block;
+	width: 400px;
+	height: 100px;
+}
+
+.aw-gecko .aw-ui-group {
+	display: block;
+	border: 1px solid #ccc;
+	-moz-border-radius: 4px;
+}
+
+.aw-ui-group legend {
+	height: 16px;
+	color: #316ac5;
+}
+
+.aw-strict .aw-ui-group legend {
+	height: 12px;
+	margin-top: -1px;
+}
+
+
+.aw-ie.aw-classic .aw-ui-group {
+	border: 2px groove;
+}
+
+
+.aw-classic.aw-gecko .aw-ui-group {
+	-moz-border-radius: 1px;
+}
+
+
+.aw-vista .aw-ui-group legend {
+	color: #333;
+}
+

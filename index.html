@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMS 2 - Inventory Management System</title>
+
+  <!-- UIKit Styles - Modern Design (Ant Design inspired) -->
+  <link rel="stylesheet" href="UIKit/styles/modern.css">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- Load UIKit first -->
+  <script>
+    // Load UIKit components
+    async function loadUIKit() {
+      const modules = {
+        Base: null, Button: null, Input: null, Label: null,
+        Table: null, Grid: null, Panel: null, Dialog: null,
+        Form: null, DatePicker: null, Dropdown: null, Textarea: null
+      };
+
+      const uikit = await import('./UIKit/index.js');
+      for (let key in modules) {
+        window[key] = uikit[key];
+      }
+
+      // Load API
+      const api = await import('./api.js');
+      window.API = api.default;
+
+      // Load App
+      const app = await import('./app.js');
+      window.App = app.App;
+
+      // Initialize app
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', App.init);
+      } else {
+        App.init();
+      }
+    }
+
+    loadUIKit().catch(e => {
+      console.error('Failed to load UIKit:', e);
+      document.getElementById('app').innerHTML = '<p style="color: red;">Error loading application: ' + e.message + '</p>';
+    });
+  </script>
+</body>
+</html>

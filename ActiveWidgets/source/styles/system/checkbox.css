@@ -1,0 +1,47 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-classic .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(classic-checkbox1.png);
+}
+
+.aw-classic .aw-ui-checkedlist .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(classic-checkbox2.png);
+}
+
+.aw-aqua .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(aqua-checkbox.png);
+}
+
+.aw-xp .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(xp-checkbox.png);
+}
+
+.aw-vista .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(vista-checkbox.png);
+}
+
+ /* no transparency */
+
+.aw-aqua-png1 .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(_aqua-checkbox.png);
+}
+
+.aw-xp-png1 .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(_xp-checkbox.png);
+}
+
+.aw-vista-png1 .aw-toggle-checkbox .aw-item-marker {
+	background-image: url(_vista-checkbox.png);
+}

@@ -1,0 +1,208 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+/* classic */
+
+.aw-classic .aw-combo-box {
+	border-color: threedshadow threedlightshadow threedlightshadow threedshadow;
+}
+
+.aw-classic .aw-combo-box .aw-item-box {
+	border-color: threeddarkshadow threedhighlight threedhighlight threeddarkshadow;
+}
+
+.aw-classic .aw-combo-button {
+	width: 16px;
+	border-collapse: separate;
+	border: 1px solid;
+	border-color: threedface threeddarkshadow threeddarkshadow threedface;
+	background: url(classic-combo.png) -41px 50%;
+	background-color: threedface;
+}
+
+.aw-classic-strict .aw-combo-button {
+	-moz-box-sizing: border-box;
+}
+
+.aw-classic .aw-combo-button td {
+	overflow: hidden;
+	border: 1px solid;
+	border-color: white threedshadow threedshadow white;
+}
+
+.aw-classic .aw-cb-1,
+.aw-classic .aw-cb-3 {
+	display: none;
+}
+
+.aw-classic.aw-unix .aw-combo-box {
+	border-color: #777 #ddd #ddd #777;
+}
+
+.aw-classic.aw-unix .aw-combo-box .aw-item-box {
+	border-color: #bbb #fff #fff #bbb;
+}
+
+.aw-classic.aw-unix .aw-combo-button {
+	border-color: #ddd #777 #777 #ddd;
+	background-color: #eee;
+}
+
+.aw-classic.aw-unix .aw-combo-button td {
+	border-color: #fff #bbb #bbb #fff;
+}
+
+.aw-popup-classic .aw-mouseover-item,
+.aw-classic .aw-popup-window .aw-mouseover-item {
+	color: highlighttext;
+	background: highlight;
+}
+
+/* aqua */
+
+.aw-aqua .aw-combo-box {
+	border-color: #7c7c7c #c3c3c3 #dddddd #c3c3c3;
+}
+
+.aw-aqua .aw-combo-box .aw-item-box {
+	border-color: #c3c3c3 #f0f0f0 #fefefe #f0f0f0;
+}
+
+.aw-aqua .aw-combo-button td {
+	background: url(aqua-combo.png) -42px 50%;
+}
+
+.aw-aqua-png1 .aw-combo-button td {
+	background-image: url(_aqua-combo.png); /* no transparency */
+}
+
+.aw-aqua .aw-disabled-control .aw-combo-button td {
+	filter:progid:DXImageTransform.Microsoft.BasicImage(grayScale=1,opacity=0.5);
+	-moz-opacity:0.5;
+	opacity:0.5;
+}
+
+.aw-ie.aw-aqua-strict .aw-combo-button {
+	background-color: #fff;
+}
+
+.aw-aqua .aw-cb-1,
+.aw-aqua .aw-cb-3 {
+	display: none;
+}
+
+.aw-popup-aqua .aw-mouseover-item,
+.aw-aqua .aw-popup-window .aw-mouseover-item {
+	color: #fff;
+	background: #478bdf;
+}
+
+/* xp */
+
+.aw-xp .aw-combo-box {
+	border-color: #7f9db9;
+}
+
+.aw-xp .aw-combo-button td {
+	background: url(xp-combo.png);
+}
+
+.aw-xp .aw-cb-1,
+.aw-xp .aw-cb-3 {
+	height: 20%;
+}
+
+.aw-xp .aw-cb-1 td {
+	background-position: -25px 0px;
+}
+
+.aw-xp .aw-cb-2 td {
+	background-position: -25px 50%;
+}
+
+.aw-xp .aw-cb-3 td {
+	background-position: -25px 100%;
+}
+
+.aw-xp .aw-mouseover-combo .aw-cb-1 td {
+	background-position: -50px 0px;
+}
+
+.aw-xp .aw-mouseover-combo .aw-cb-2 td {
+	background-position: -50px 50%;
+}
+
+.aw-xp .aw-mouseover-combo .aw-cb-3 td {
+	background-position: -50px 100%;
+}
+
+.aw-xp .aw-mousedown-combo .aw-cb-1 td {
+	background-position: -75px 0px;
+}
+
+.aw-xp .aw-mousedown-combo .aw-cb-2 td {
+	background-position: -75px 50%;
+}
+
+.aw-xp .aw-mousedown-combo .aw-cb-3 td {
+	background-position: -75px 100%;
+}
+
+.aw-xp .aw-disabled-control .aw-cb-1 td {
+	background-position: -100px 0px;
+}
+
+.aw-xp .aw-disabled-control .aw-cb-2 td {
+	background-position: -100px 50%;
+}
+
+.aw-xp .aw-disabled-control .aw-cb-3 td {
+	background-position: -100px 100%;
+}
+
+.aw-popup-xp .aw-mouseover-item,
+.aw-xp .aw-popup-window .aw-mouseover-item {
+	color: #fff;
+	background: #316ac5;
+}
+
+/* vista */
+
+.aw-vista .aw-combo-box {
+	border-color: #ABADB3 #DBDFE6 #E3E9EF #E2E3EA;
+}
+
+.aw-vista .aw-combo-button td {
+	background: url(vista-combo.png) -41px 50%;
+}
+
+.aw-vista .aw-disabled-control .aw-combo-button td {
+	filter:progid:DXImageTransform.Microsoft.BasicImage(grayScale=1,opacity=0.5);
+	-moz-opacity:0.5;
+	opacity:0.5;
+}
+
+.aw-ie.aw-vista-strict .aw-combo-button {
+	background-color: #fff;
+}
+
+.aw-vista .aw-cb-1,
+.aw-vista .aw-cb-3 {
+	display: none;
+}
+
+.aw-popup-vista .aw-mouseover-item,
+.aw-vista .aw-popup-window .aw-mouseover-item {
+	color: #FFFFFF;
+	background: #3399FF;
+}

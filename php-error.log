@@ -1,0 +1,10 @@
+[31-May-2026 19:43:23 UTC] API Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'kdus' in 'field list'
+[31-May-2026 19:44:20 UTC] API Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'kdus' in 'where clause'
+[31-May-2026 19:44:46 UTC] API Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'kdus' in 'where clause'
+[31-May-2026 19:45:59 UTC] API Error: SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'kd_dk' at row 1
+[31-May-2026 19:57:41 UTC] Login attempt: user=test, pass=test
+[31-May-2026 19:57:41 UTC] Query result: found
+[31-May-2026 19:58:03 UTC] Login attempt: user=test, pass=1
+[31-May-2026 19:58:03 UTC] Query result: not found
+[31-May-2026 19:58:29 UTC] Login attempt: user=test, pass=test
+[31-May-2026 19:58:29 UTC] Query result: found

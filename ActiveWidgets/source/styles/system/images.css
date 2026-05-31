@@ -1,0 +1,74 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+/* small icons - square 18px, step 40px, file height 30px */
+/* small and large - step 40px, large at 26px, square 26px, file height 60px */
+/* image box - 18px or 20px with 1px border */
+
+.aw-image-home		{background: -40px 0px;}
+.aw-image-favorites	{background: -80px 0px;}
+.aw-image-search	{background: -120px 0px;}
+.aw-image-fontsize	{background: -160px 0px;}
+
+
+.aw-classic .aw-image-home,
+.aw-classic .aw-image-favorites,
+.aw-classic .aw-image-search,
+.aw-classic .aw-image-fontsize	{
+	background-image: url(classic-icons.png);
+}
+
+.aw-aqua .aw-image-home,
+.aw-aqua .aw-image-favorites,
+.aw-aqua .aw-image-search,
+.aw-aqua .aw-image-fontsize	{
+	background-image: url(aqua-icons.png);
+}
+
+.aw-xp .aw-image-home,
+.aw-xp .aw-image-favorites,
+.aw-xp .aw-image-search,
+.aw-xp .aw-image-fontsize	{
+	background-image: url(xp-icons.png);
+}
+
+.aw-vista .aw-image-home,
+.aw-vista .aw-image-favorites,
+.aw-vista .aw-image-search,
+.aw-vista .aw-image-fontsize	{
+	background-image: url(vista-icons.png);
+}
+
+/* alternative ie6 image without transparency */
+.aw-aqua-png1 .aw-image-home,
+.aw-aqua-png1 .aw-image-favorites,
+.aw-aqua-png1 .aw-image-search,
+.aw-aqua-png1 .aw-image-fontsize	{
+	background-image: url(_aqua-icons.png);
+}
+
+.aw-xp-png1 .aw-image-home,
+.aw-xp-png1 .aw-image-favorites,
+.aw-xp-png1 .aw-image-search,
+.aw-xp-png1 .aw-image-fontsize	{
+	background-image: url(_xp-icons.png);
+}
+
+.aw-vista-png1 .aw-image-home,
+.aw-vista-png1 .aw-image-favorites,
+.aw-vista-png1 .aw-image-search,
+.aw-vista-png1 .aw-image-fontsize	{
+	background-image: url(_vista-icons.png);
+}
+

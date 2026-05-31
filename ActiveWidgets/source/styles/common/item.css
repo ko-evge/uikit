@@ -1,0 +1,133 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+.aw-item-control {
+	width: 9px;
+	height: 23px;
+}
+
+.aw-strict .aw-item-control {
+	width: 1px;
+	height: 19px;
+	padding: 0px 4px 4px 4px;
+}
+
+.aw-item-template {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	width: 100px;
+	height: 16px;
+	margin: 0px;
+}
+
+.aw-strict .aw-item-template {
+	height: 12px;
+	width: 92px;
+	padding: 0px 4px 4px 4px;
+}
+
+.aw-gecko .aw-item-template	{
+	display: -moz-inline-box;
+	overflow: visible;
+}
+
+.aw-templates-cell,
+.aw-templates-text,
+.aw-templates-image,
+.aw-templates-link,
+.aw-item-box {
+	padding: 0px 4px;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+.aw-item-box {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	vertical-align: top;
+}
+
+.aw-gecko .aw-item-box {
+	width: auto;
+	min-width: 1px;
+	-moz-box-flex: 1;
+}
+
+.aw-strict .aw-item-box {
+	margin:  0px -4px -4px -4px;
+	padding: 0px 4px 4px 4px;
+}
+
+.aw-item-box * {
+	vertical-align: middle;
+}
+
+.aw-item-marker {
+	display: inline-block;
+	overflow: hidden;
+	height: 14px;
+	width: 14px;
+	margin-right: 4px;
+	vertical-align: middle;
+	line-height: 1px;
+}
+
+.aw-item-ruler {
+	display: inline-block;
+	overflow: hidden;
+	height: 100%;
+	width: 0px;
+	vertical-align: middle;
+	line-height: 1px;
+}
+
+.aw-strict .aw-item-ruler {
+	padding-bottom: 4px;
+}
+
+.aw-item-image {
+	display: inline-block;
+	overflow: hidden;
+	height: 18px;
+	width: 18px;
+	margin: -8px 4px -8px -2px;
+	vertical-align: middle;
+	line-height: 1px;
+}
+
+.aw-gecko .aw-item-marker,
+.aw-gecko .aw-item-ruler,
+.aw-gecko .aw-item-image {
+	display: -moz-inline-box;
+	overflow: visible;
+}
+
+.aw-item-text {
+	margin: 0px;
+	vertical-align: middle;
+	line-height: 1.2em;
+}
+
+.aw-image-none, .aw-gecko .aw-image-none {
+	display: none;
+}
+
+.aw-disabled-control .aw-item-image {
+	filter:progid:DXImageTransform.Microsoft.BasicImage(grayScale=1,opacity=0.5);
+	-moz-opacity:0.5;
+	opacity:0.5;
+}

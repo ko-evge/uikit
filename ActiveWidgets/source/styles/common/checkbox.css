@@ -1,0 +1,82 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-item-marker {
+	background-position: -75px -5px;
+	margin-top: -1px;
+}
+
+.aw-mouseover-toggle .aw-item-marker {
+	background-position:  -75px -30px;
+}
+
+.aw-mousedown-toggle .aw-item-marker {
+	background-position:  -75px -55px;
+}
+
+.aw-disabled-control .aw-item-marker {
+	background-position:  -75px -80px;
+}
+
+.aw-value-true .aw-item-marker {
+	background-position:  -25px -5px;
+}
+
+.aw-value-false .aw-item-marker {
+	background-position:  -50px -5px;
+}
+
+.aw-ie .aw-mouseover-toggle .aw-item-marker {
+	background-position-y: -30px;
+}
+
+.aw-ie .aw-mousedown-toggle .aw-item-marker {
+	background-position-y: -55px;
+}
+
+.aw-ie .aw-disabled-control .aw-item-marker {
+	background-position-y: -80px;
+}
+
+.aw-value-true.aw-mouseover-toggle .aw-item-marker[id] {
+	background-position:  -25px -30px;
+}
+
+.aw-value-true.aw-mousedown-toggle .aw-item-marker[id] {
+	background-position:  -25px -55px;
+}
+
+.aw-value-false.aw-mouseover-toggle .aw-item-marker[id] {
+	background-position:  -50px -30px;
+}
+
+.aw-value-false.aw-mousedown-toggle .aw-item-marker[id] {
+	background-position:  -50px -55px;
+}
+
+.aw-value-true.aw-disabled-control .aw-item-marker[id] {
+	background-position:  -25px -80px;
+}
+
+.aw-value-false.aw-disabled-control .aw-item-marker[id] {
+	background-position:  -50px -80px;
+}
+
+.aw-disabled-control .aw-value-true .aw-item-marker[id] {
+	background-position:  -25px -80px;
+}
+
+.aw-disabled-control .aw-value-false .aw-item-marker[id] {
+	background-position:  -50px -80px;
+}

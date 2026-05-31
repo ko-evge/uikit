@@ -1,0 +1,46 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+
+.aw-classic .aw-ui-input {
+	border-color: threedshadow threedlightshadow threedlightshadow threedshadow;
+}
+
+.aw-classic .aw-ui-input .aw-item-box {
+	border-color: threeddarkshadow threedhighlight threedhighlight threeddarkshadow;
+}
+
+.aw-classic.aw-unix .aw-input-box {
+	border-color: #777 #ddd #ddd #777;
+}
+
+.aw-classic.aw-unix .aw-input-box .aw-item-box {
+	border-color: #bbb #fff #fff #bbb;
+}
+
+.aw-aqua .aw-ui-input {
+	border-color: #7c7c7c #c3c3c3 #dddddd #c3c3c3;
+}
+
+.aw-aqua .aw-ui-input .aw-item-box {
+	border-color: #c3c3c3 #f0f0f0 #fefefe #f0f0f0;
+}
+
+.aw-xp .aw-input-box {
+	border-color: #7f9db9;
+}
+
+.aw-vista .aw-ui-input {
+	border-color: #ABADB3 #DBDFE6 #E3E9EF #E2E3EA;
+}
+

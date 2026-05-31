@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>ActiveWidgets Examples</title>
+
+<!-- fix box model in firefox/safari/opera -->
+<style type="text/css">
+	.aw-quirks * {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	body {font: 12px Tahoma}
+</style>
+
+<!-- include links to the script and stylesheet files -->
+	<script src="../../runtime/lib/aw.js" type="text/javascript"></script>
+	<link href="../../runtime/styles/system/aw.css" rel="stylesheet">
+
+</head>
+<body>
+	<h3>Styles (script)</h3>
+	<p>Use setStyle(name, value) to assign style attributes to the checkbox control.</p>
+	<pre>	obj.setStyle("color", "red");
+	obj.setStyle("font-weight", "bold");</pre>
+
+<!-- insert empty control tag -->
+	<span id="checkbox1"></span>
+
+	<pre>	obj.setStyle("text-align", "right");
+	obj.setStyle("width", "200px");</pre>
+
+<!-- insert empty control tag -->
+	<span id="checkbox2"></span>
+
+
+	<p>Back to <a href="index.htm">checkbox examples</a>, <a href="../index.htm">all examples</a></p>
+
+<!-- create control objects -->
+<script type="text/javascript">
+
+	var b1 = new AW.UI.CheckBox;
+	b1.setId("checkbox1");
+	b1.setControlText("CheckBox 1");
+	b1.setStyle("color", "red");
+	b1.setStyle("font-weight", "bold");
+	b1.refresh();
+
+	var b2 = new AW.UI.CheckBox;
+	b2.setId("checkbox2");
+	b2.setControlText("CheckBox 2");
+	b2.setStyle("text-align", "right");
+	b2.setStyle("width", "200px");
+	b2.refresh();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+/*****************************************************************
+
+	ActiveWidgets 2.5.6
+	Copyright (C) 2003-2011 ActiveWidgets SARL. All Rights Reserved. 
+	http://www.activewidgets.com/
+
+	WARNING: This software program is protected by copyright law 
+	and international treaties. Unauthorized reproduction or
+	distribution of this program, or any portion of it, may result
+	in severe civil and criminal penalties, and will be prosecuted
+	to the maximum extent possible under the law.
+
+*****************************************************************/
+/* classic */
+
+.aw-classic * {
+	scrollbar-arrow-color: #000;
+}
+
+.aw-classic .aw-background-1 {
+	background-color: threedface;
+}
+
+
+.aw-classic .aw-border-outset {
+	border: solid;
+	border-width: 1px 2px 2px 1px;
+	border-color: threedhighlight threeddarkshadow threeddarkshadow threedhighlight;
+}
+
+.aw-classic.aw-unix .aw-background-1 {
+	background-color: #eee;
+}
+
+.aw-classic.aw-unix .aw-border-outset {
+	border-color: #fff #777 #777 #fff;
+}
+
+/* aqua */
+
+.aw-aqua .aw-background-1 {
+	background: url(aqua-bg1.png);
+}
+
+.aw-aqua .aw-background-2 {
+	background: url(aqua-bg2.png);
+}
+
+.aw-aqua * {
+	scrollbar-3dlight-color: #fff;
+	scrollbar-arrow-color: #666;
+	scrollbar-darkshadow-color: #fff;
+	scrollbar-face-color: #f2f2f2;
+	scrollbar-highlight-color: #aaa;
+	scrollbar-shadow-color: #aaa;
+	scrollbar-track-color: #eee;
+}
+
+/* xp */
+
+.aw-xp .aw-border-outset {
+	border: 1px solid #7f9db9;
+}
+
+/* vista */
+
+.aw-vista .aw-border-outset {
+	border: 1px solid;
+	border-color: #aaa #000 #000 #aaa;
+}
+
+.aw-vista .aw-background-1 {
+	background: #F0F0F0;
+}

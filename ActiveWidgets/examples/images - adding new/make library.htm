@@ -1,0 +1,94 @@
+<html>
+<head>
+	<title>ActiveWidgets Examples</title>
+	<style>body {font: 13px Tahoma}</style>
+<style>
+
+#images {
+	width: 250px; 			/* 10 images per row */
+	height: 100px;			/* increase height if necessasry */
+	background: #FF00FF;	/* distinct color to set transparent background */
+	font-size: 1px;
+}
+
+#images div {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 18px;
+	height: 18px;
+	margin: 0px 7px 7px 0px; /* makes total size 25x25 */
+	border: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+</style>
+</head>
+<body>
+<h3>
+	How to create icon library file.
+</h3>
+<p>
+	Paste the list of image filenames into the column <b>A</b> of this <a href="icons.xls">Excel spreadsheet (icons.xls)</a>
+</p>
+<p>
+	Copy the html text from the column <b>B</b> to the 'images' div below this paragraf (see the source).
+</p>
+
+
+<div id="images">
+<!-- replace the list of images below -->
+
+<div style="background-image:url(accept.gif)"></div>
+<div style="background-image:url(alert.gif)"></div>
+<div style="background-image:url(attachment.gif)"></div>
+<div style="background-image:url(calendar.gif)"></div>
+<div style="background-image:url(clock.gif)"></div>
+<div style="background-image:url(comment.gif)"></div>
+<div style="background-image:url(copy.gif)"></div>
+<div style="background-image:url(cut.gif)"></div>
+<div style="background-image:url(email.gif)"></div>
+<div style="background-image:url(favorites.gif)"></div>
+<div style="background-image:url(folder.gif)"></div>
+<div style="background-image:url(home.gif)"></div>
+<div style="background-image:url(info.gif)"></div>
+<div style="background-image:url(key.gif)"></div>
+<div style="background-image:url(link.gif)"></div>
+<div style="background-image:url(lock.gif)"></div>
+<div style="background-image:url(monitor.gif)"></div>
+<div style="background-image:url(note.gif)"></div>
+<div style="background-image:url(page.gif)"></div>
+<div style="background-image:url(paste.gif)"></div>
+<div style="background-image:url(print.gif)"></div>
+<div style="background-image:url(save.gif)"></div>
+<div style="background-image:url(settings.gif)"></div>
+<div style="background-image:url(stop.gif)"></div>
+<div style="background-image:url(text.gif)"></div>
+<div style="background-image:url(user.gif)"></div>
+
+</div>
+
+<p>
+Make a screen capture of this page, extract the image, set transparent color and save it as 8-bit (255 colors) png.
+</p>
+<p>
+At the end the image should look like <a href="mini.png">this one</a>.
+</p>
+<p>
+Enter the image filename into the cell <b>I3</b> and save the CSS rules in the column <b>J</b> to the new stylesheet file (.css).
+</p>
+<p>
+The CSS file will contain the links to all images <a href="mini.css">in the library</a>.
+</p>
+<p>
+Copy both .png and .css files to your resource directory and add .css link to the page.
+</p>
+<p>
+The final result: <a href="mini.png">icon library image</a>, <a href="mini.css">css file</a>.
+</p>
+<br><br><br>
+<p>Back to <a href="index.htm">images examples</a>, <a href="../index.htm">all examples</a></p>
+
+</body>
+</html>
