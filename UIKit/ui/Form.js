@@ -7,12 +7,16 @@ import { Base } from '../core/Base.js';
 import { Input } from './Input.js';
 import { Label } from './Label.js';
 import { Button } from './Button.js';
+import { Validators } from '../core/Validators.js';
 
 export class Form extends Base {
   constructor() {
     super();
     this.createElement('form', 'ui-form');
-    this.element.addEventListener('submit', (e) => e.preventDefault());
+    this.element.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.emit('submit', { data: this.getData(), valid: this.validate() });
+    });
 
     this.setProperty('fields', []);
     this.setProperty('data', {});
@@ -25,6 +29,8 @@ export class Form extends Base {
 
   /**
    * Add form field
+   * validators: array of {type: 'required'|'email'|'min'|etc, message: 'Error message'}
+   * validationTrigger: 'change'|'blur'|'submit' (default: 'submit')
    */
   addField(name, config = {}) {
     const field = {
@@ -34,6 +40,8 @@ export class Form extends Base {
       placeholder: config.placeholder || '',
       required: config.required || false,
       validation: config.validation || null,
+      validators: config.validators || [],
+      validationTrigger: config.validationTrigger || 'submit',
       value: config.value || '',
       ...config
     };
@@ -112,6 +120,70 @@ export class Form extends Base {
   }
 
   /**
+   * Validate single field
+   */
+  validateField(fieldName) {
+    const fields = this.getProperty('fields', []);
+    const field = fields.find(f => f.name === fieldName);
+    if (!field) return null;
+
+    const value = this.getFieldValue(field.name);
+    const data = this.getData();
+
+    // Built-in required check
+    if (field.required) {
+      const error = Validators.required(value, `${field.label} is required`);
+      if (error) return error;
+    }
+
+    // Validators array
+    if (field.validators && Array.isArray(field.validators)) {
+      for (const validator of field.validators) {
+        let fn = null;
+
+        if (validator.type === 'required') {
+          fn = Validators.required;
+        } else if (validator.type === 'email') {
+          fn = Validators.email;
+        } else if (validator.type === 'minLength') {
+          fn = Validators.minLength(validator.min);
+        } else if (validator.type === 'maxLength') {
+          fn = Validators.maxLength(validator.max);
+        } else if (validator.type === 'min') {
+          fn = Validators.min(validator.min);
+        } else if (validator.type === 'max') {
+          fn = Validators.max(validator.max);
+        } else if (validator.type === 'pattern') {
+          fn = Validators.pattern(validator.regex);
+        } else if (validator.type === 'url') {
+          fn = Validators.url;
+        } else if (validator.type === 'number') {
+          fn = Validators.number;
+        } else if (validator.type === 'integer') {
+          fn = Validators.integer;
+        } else if (validator.type === 'custom') {
+          fn = Validators.custom(validator.fn);
+        } else if (validator.type === 'matches') {
+          fn = Validators.matches(validator.field);
+        }
+
+        if (fn) {
+          const error = fn(value, data, validator.message);
+          if (error) return error;
+        }
+      }
+    }
+
+    // Legacy custom validation
+    if (field.validation) {
+      const error = field.validation(value);
+      if (error) return error;
+    }
+
+    return null;
+  }
+
+  /**
    * Validate form
    */
   validate() {
@@ -119,19 +191,9 @@ export class Form extends Base {
     const fields = this.getProperty('fields', []);
 
     fields.forEach(field => {
-      const value = this.getFieldValue(field.name);
-
-      // Required validation
-      if (field.required && (!value || value.trim() === '')) {
-        errors[field.name] = `${field.label} is required`;
-      }
-
-      // Custom validation
-      if (field.validation && !errors[field.name]) {
-        const error = field.validation(value);
-        if (error) {
-          errors[field.name] = error;
-        }
+      const error = this.validateField(field.name);
+      if (error) {
+        errors[field.name] = error;
       }
     });
 
@@ -139,6 +201,13 @@ export class Form extends Base {
     this.showErrors();
 
     return Object.keys(errors).length === 0;
+  }
+
+  /**
+   * Get all errors
+   */
+  getErrors() {
+    return this.getProperty('errors', {});
   }
 
   /**
@@ -232,6 +301,42 @@ export class Form extends Base {
       // Add to tracking
       this.fieldInputs[field.name] = input;
 
+      // Validation on change
+      if (field.validationTrigger === 'change') {
+        input.on('change', () => {
+          const error = this.validateField(field.name);
+          const errors = this.getProperty('errors', {});
+
+          if (error) {
+            errors[field.name] = error;
+          } else {
+            delete errors[field.name];
+          }
+
+          this.setProperty('errors', errors);
+          this.showFieldError(field.name);
+          this.emit('fieldvalidate', { field: field.name, error });
+        });
+      }
+
+      // Validation on blur
+      if (field.validationTrigger === 'blur') {
+        input.getDOMElement().addEventListener('blur', () => {
+          const error = this.validateField(field.name);
+          const errors = this.getProperty('errors', {});
+
+          if (error) {
+            errors[field.name] = error;
+          } else {
+            delete errors[field.name];
+          }
+
+          this.setProperty('errors', errors);
+          this.showFieldError(field.name);
+          this.emit('fieldvalidate', { field: field.name, error });
+        });
+      }
+
       group.appendChild(input.getDOMElement());
 
       // Error message
@@ -248,6 +353,33 @@ export class Form extends Base {
     });
 
     return this;
+  }
+
+  /**
+   * Show/hide error for single field
+   */
+  showFieldError(fieldName) {
+    const errors = this.getProperty('errors', {});
+    const errorElement = this.errorElements[fieldName];
+    const input = this.fieldInputs[fieldName];
+
+    if (errorElement) {
+      if (errors[fieldName]) {
+        errorElement.textContent = errors[fieldName];
+        errorElement.style.display = 'block';
+      } else {
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+      }
+    }
+
+    if (input) {
+      if (errors[fieldName]) {
+        input.addClass('ui-input-error');
+      } else {
+        input.removeClass('ui-input-error');
+      }
+    }
   }
 }
 

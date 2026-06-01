@@ -321,6 +321,65 @@ body {
   }
 }
 
+/* Error state (alternative class) */
+.ui-input-error {
+  border-color: var(--error-color) !important;
+  box-shadow: 0 0 8px rgba(255, 77, 79, 0.2) !important;
+
+  &:focus {
+    box-shadow: 0 0 12px rgba(255, 77, 79, 0.3) !important;
+  }
+}
+
+/* ============================================================================
+   FORM COMPONENT
+   ============================================================================ */
+
+.ui-form-group {
+  margin-bottom: var(--padding-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-sm);
+}
+
+.ui-form-label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+}
+
+.ui-form-required {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-left: 2px;
+  text-shadow: 0 0 4px rgba(255, 77, 79, 0.2);
+}
+
+.ui-form-error {
+  font-size: var(--font-size-small);
+  color: var(--error-color);
+  margin-top: var(--padding-xs);
+  display: none;
+  text-shadow: 0 0 4px rgba(255, 77, 79, 0.15);
+  animation: slideDown var(--transition-fast) ease-out;
+}
+
+.ui-form-error[style*="display: block"] {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ============================================================================
    CHECKBOX COMPONENT
    ============================================================================ */

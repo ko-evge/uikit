@@ -303,6 +303,31 @@ grid.on('columnresize', (e) => console.log(e.column, 'width:', e.width));
   </div>
 
   <div class="example">
+    <h2>Form Validation (Advanced with Triggers)</h2>
+    <div class="code-block">
+form.addField('email', {<br>
+&nbsp;&nbsp;label: 'Email',<br>
+&nbsp;&nbsp;type: 'email',<br>
+&nbsp;&nbsp;validators: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ type: 'email', message: 'Invalid email' }<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;validationTrigger: 'change' // change|blur|submit<br>
+});<br>
+<br>
+form.addField('password', {<br>
+&nbsp;&nbsp;label: 'Password',<br>
+&nbsp;&nbsp;type: 'password',<br>
+&nbsp;&nbsp;validators: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ type: 'minLength', min: 8 },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ type: 'pattern', regex: /[A-Z]/ }<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;validationTrigger: 'blur'<br>
+});
+    </div>
+    <div class="demo-box" id="form-advanced-demo"></div>
+  </div>
+
+  <div class="example">
     <h2>Formatters (Number, Date, HTML)</h2>
     <div class="code-block">
 NumberFormatter.format(1234.56, 'USD') => '$1,234.56'<br>
@@ -402,8 +427,33 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
       container.createElement('div');
 
       const form = new Form();
-      form.addField('name', { label: 'Name *', required: true });
-      form.addField('email', { label: 'Email', type: 'email' });
+      form.addField('name', {
+        label: 'Full Name',
+        required: true,
+        validators: [
+          { type: 'required', message: 'Name is required' },
+          { type: 'minLength', min: 3, message: 'Name must be at least 3 characters' }
+        ],
+        validationTrigger: 'blur'
+      });
+      form.addField('email', {
+        label: 'Email Address',
+        type: 'email',
+        validators: [
+          { type: 'email', message: 'Enter a valid email address' }
+        ],
+        validationTrigger: 'change'
+      });
+      form.addField('age', {
+        label: 'Age',
+        type: 'number',
+        validators: [
+          { type: 'number', message: 'Must be a number' },
+          { type: 'min', min: 18, message: 'Must be 18 or older' },
+          { type: 'max', max: 120, message: 'Must be 120 or younger' }
+        ],
+        validationTrigger: 'blur'
+      });
 
       const submitBtn = new Button('Submit', () => {
         if (form.validate()) {
@@ -411,6 +461,18 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
         }
       });
       submitBtn.setType('primary');
+
+      form.on('fieldvalidate', (e) => {
+        if (e.error) {
+          console.log('Field error:', e.field, e.error);
+        } else {
+          console.log('Field valid:', e.field);
+        }
+      });
+
+      form.on('submit', (e) => {
+        console.log('Form submit:', e.valid ? 'Valid' : 'Invalid', e.data);
+      });
 
       container.append(form);
       container.getDOMElement().appendChild(submitBtn.getDOMElement());
@@ -760,6 +822,114 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
       ]);
 
       document.getElementById('grid-resize-demo').appendChild(gridResize.getDOMElement());
+    }
+
+    // Form Validation Advanced Example
+    {
+      const container = new Base();
+      container.createElement('div');
+
+      const form = new Form();
+
+      // Field with required + minLength validators, validate on blur
+      form.addField('username', {
+        label: 'Username',
+        placeholder: 'At least 4 characters',
+        validators: [
+          { type: 'required', message: 'Username is required' },
+          { type: 'minLength', min: 4, message: 'Username must be at least 4 characters' }
+        ],
+        validationTrigger: 'blur'
+      });
+
+      // Email with email validator, validate on change
+      form.addField('contact_email', {
+        label: 'Contact Email',
+        type: 'email',
+        placeholder: 'user@example.com',
+        validators: [
+          { type: 'email', message: 'Please enter a valid email address' }
+        ],
+        validationTrigger: 'change'
+      });
+
+      // Password with pattern validator
+      form.addField('password', {
+        label: 'Password',
+        type: 'password',
+        placeholder: 'At least 8 chars, 1 uppercase, 1 number',
+        validators: [
+          { type: 'required', message: 'Password is required' },
+          { type: 'minLength', min: 8, message: 'Password must be at least 8 characters' },
+          { type: 'pattern', regex: /[A-Z]/, message: 'Must contain at least one uppercase letter' },
+          { type: 'pattern', regex: /[0-9]/, message: 'Must contain at least one number' }
+        ],
+        validationTrigger: 'blur'
+      });
+
+      // Website with URL validator
+      form.addField('website', {
+        label: 'Website (Optional)',
+        type: 'text',
+        placeholder: 'https://example.com',
+        validators: [
+          { type: 'url', message: 'Please enter a valid URL' }
+        ],
+        validationTrigger: 'blur'
+      });
+
+      // Age with min/max validators
+      form.addField('member_age', {
+        label: 'Age',
+        type: 'number',
+        placeholder: '18-100',
+        validators: [
+          { type: 'number', message: 'Must be a number' },
+          { type: 'min', min: 18, message: 'Must be 18 or older' },
+          { type: 'max', max: 100, message: 'Age seems unrealistic' }
+        ],
+        validationTrigger: 'blur'
+      });
+
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.marginTop = '20px';
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.gap = '10px';
+
+      const submitBtn = new Button('Register', () => {
+        if (form.validate()) {
+          const data = form.getData();
+          alert('✓ Form valid!\n\nData:\n' + JSON.stringify(data, null, 2));
+          form.reset();
+        } else {
+          alert('✗ Please fix the errors above');
+        }
+      });
+      submitBtn.setType('primary');
+
+      const resetBtn = new Button('Reset', () => {
+        form.reset();
+        form.clearErrors();
+      });
+
+      buttonContainer.appendChild(submitBtn.getDOMElement());
+      buttonContainer.appendChild(resetBtn.getDOMElement());
+
+      // Listen to field validation events
+      form.on('fieldvalidate', (e) => {
+        const status = e.error ? '✗ ' + e.error : '✓ Valid';
+        console.log(`Field "${e.field}": ${status}`);
+      });
+
+      // Listen to form submit
+      form.on('submit', (e) => {
+        console.log('Form submitted:', e.valid ? 'Valid' : 'Invalid');
+        console.log('Data:', e.data);
+      });
+
+      container.append(form);
+      container.getDOMElement().appendChild(buttonContainer);
+      document.getElementById('form-advanced-demo').appendChild(container.getDOMElement());
     }
 
     // Formatters

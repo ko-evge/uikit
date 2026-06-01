@@ -6,6 +6,7 @@
 
 // Core
 export { Base } from './core/Base.js';
+export { Validators } from './core/Validators.js';
 
 // UI Components
 export { Button } from './ui/Button.js';
