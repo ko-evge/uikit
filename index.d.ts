@@ -354,11 +354,52 @@ export declare const Validators: {
   matches(fieldName: string, message?: string): (value: any, formData?: any) => string | null;
 };
 
-// ----- UIKit Factory -----
+// ----- UIKit namespace (default export) -----
+// `import ui from '@evge/uikit'` exposes both factory helpers (lowercase, no
+// `new`) and class references (PascalCase, for `new ui.X()`).
 export declare const UIKit: {
+  // class references
+  Base: typeof Base;
+  Validators: typeof Validators;
+  Button: typeof Button;
+  Input: typeof Input;
+  Label: typeof Label;
+  Textarea: typeof Textarea;
+  Checkbox: typeof Checkbox;
+  RadioButton: typeof RadioButton;
+  Dropdown: typeof Dropdown;
+  Combo: typeof Combo;
+  DatePicker: typeof DatePicker;
+  Grid: typeof Grid;
+  Form: typeof Form;
+  Dialog: typeof Dialog;
+  Panel: typeof Panel;
+  Tabs: typeof Tabs;
+  List: typeof List;
+  Link: typeof Link;
+  Table: typeof Table;
+  NumberFormatter: typeof NumberFormatter;
+  DateFormatter: typeof DateFormatter;
+  HTMLFormatter: typeof HTMLFormatter;
+  StringFormatter: typeof StringFormatter;
+
+  // factory helpers
   button(text: string, onClick?: (event: Event) => void): Button;
   input(type?: string, placeholder?: string): Input;
   label(text: string): Label;
+  textarea(placeholder?: string): Textarea;
+  checkbox(label?: string): Checkbox;
+  radio(name?: string, options?: Option[]): RadioButton;
+  dropdown(placeholder?: string): Dropdown;
+  combo(placeholder?: string): Combo;
+  datePicker(placeholder?: string): DatePicker;
+  grid(): Grid;
+  form(): Form;
+  dialog(title?: string, content?: string): Dialog;
+  panel(title?: string): Panel;
+  tabs(): Tabs;
+  list(): List;
+  link(text?: string, href?: string): Link;
   table(): Table;
   div(className?: string): Base;
   h1(text: string): Base;

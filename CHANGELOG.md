@@ -46,6 +46,10 @@ Reliability release. Backward compatible — no breaking API changes.
 - **Error isolation** — a throwing event listener is routed to `handle(error, ctx)`
   and never breaks sibling listeners or internal flow.
 - **`off(eventName, handler?)`** can remove a specific handler.
+- **Complete `UIKit` namespace** — factory helpers for every component
+  (`ui.grid()`, `ui.form()`, `ui.dialog()`, …, no `new`) plus class references
+  on the same object (`new ui.Grid()`). One `import ui from '@evge/uikit'` covers
+  both styles.
 
 ### Changed
 - `index.d.ts` rewritten to match the real API (removed phantom methods such as
