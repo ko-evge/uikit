@@ -1703,11 +1703,6 @@ UIKit includes 3 complete CSS themes:
 <link rel="stylesheet" href="UIKit/styles/tabulator.css">
 ```
 
-**3. Active Widgets** (Professional style)
-```html
-<link rel="stylesheet" href="UIKit/styles/active-widgets.css">
-```
-
 ### CSS Variables
 
 Customize colors and sizes:

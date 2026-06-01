@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Modern UI Component Library - ES6, No Dependencies, Production Ready",
   "main": "UIKit/index.js",
+  "types": "UIKit/index.d.ts",
   "type": "module",
   "keywords": [
     "ui",

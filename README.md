@@ -58,8 +58,7 @@ ims2/
 ├── api.js                  # API wrapper (fetch)
 ├── server.php              # Backend REST API
 ├── style.css               # App styles
-├── README.md               # This file
-└── ActiveWidgets/          # Old source code (reference only)
+└── README.md               # This file
 ```
 
 ## Getting Started
@@ -270,10 +269,9 @@ const result = await API.call('my_action', { param: 'value' });
 
 ## Resources
 
-- **UIKit Documentation**: `UIKit/README.md`
-- **Component Examples**: See `app.js` for usage patterns
-- **CSS Classes**: See `UIKit/styles/components.css`
-- **Old ActiveWidgets**: `ActiveWidgets/` folder (reference only)
+- **UIKit Documentation**: See `UIKIT_API.md` for full API reference
+- **Component Examples**: See `examples.html` for live demos
+- **CSS Themes**: `UIKit/styles/` - Modern, Tabulator, and more
 
 ## License
 
