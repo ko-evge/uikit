@@ -15,6 +15,7 @@ export class Grid extends Base {
     this.setProperty('selectedRow', null);
     this.setProperty('sortBy', null);
     this.setProperty('sortOrder', 'asc');
+    this.setProperty('sortable', true);
     this.setProperty('filterText', '');
     this.setProperty('pageSize', 50);
     this.setProperty('currentPage', 1);
@@ -112,6 +113,89 @@ export class Grid extends Base {
    */
   getColumnWidths() {
     return this.columnWidths;
+  }
+
+  /**
+   * Enable/disable sorting
+   */
+  setSortable(sortable) {
+    this.setProperty('sortable', sortable);
+    return this;
+  }
+
+  /**
+   * Set sort column and order
+   * @param {string} columnKey - Column to sort by
+   * @param {string} order - 'asc', 'desc', or null
+   */
+  setSortColumn(columnKey, order = 'asc') {
+    this.setProperty('sortBy', columnKey);
+    this.setProperty('sortOrder', order);
+    this.applySort();
+    this.emit('sortchange', { column: columnKey, order });
+    return this;
+  }
+
+  /**
+   * Get current sort state
+   */
+  getSortState() {
+    return {
+      column: this.getProperty('sortBy'),
+      order: this.getProperty('sortOrder')
+    };
+  }
+
+  /**
+   * Clear sort
+   */
+  clearSort() {
+    this.setProperty('sortBy', null);
+    this.setProperty('sortOrder', 'asc');
+    this.applySort();
+    this.emit('sortchange', { column: null, order: null });
+    return this;
+  }
+
+  /**
+   * Apply sorting to filtered rows
+   */
+  applySort() {
+    const sortBy = this.getProperty('sortBy');
+    const sortOrder = this.getProperty('sortOrder');
+
+    if (!sortBy) {
+      return; // No sort
+    }
+
+    this.filteredRows.sort((a, b) => {
+      let aVal = a[sortBy];
+      let bVal = b[sortBy];
+
+      // Handle null/undefined
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return sortOrder === 'asc' ? 1 : -1;
+      if (bVal == null) return sortOrder === 'asc' ? -1 : 1;
+
+      // String comparison
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        aVal = aVal.toLowerCase();
+        bVal = bVal.toLowerCase();
+        return sortOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      }
+
+      // Number comparison
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
+      }
+
+      // Default: convert to string
+      aVal = String(aVal).toLowerCase();
+      bVal = String(bVal).toLowerCase();
+      return sortOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+
+    this.render();
   }
 
   /**
@@ -346,15 +430,35 @@ export class Grid extends Base {
         const label = document.createElement('span');
         label.textContent = header.label || header.key;
 
-        if (header.sortable !== false) {
+        if (header.sortable !== false && this.getProperty('sortable')) {
           th.style.cursor = 'pointer';
-          th.addEventListener('click', () => this.sortBy(header.key));
+          th.classList.add('sortable-header');
+
+          // Click handler for sorting cycle: asc → desc → none
+          th.addEventListener('click', () => {
+            const currentSort = this.getSortState();
+            let newOrder = 'asc';
+
+            if (currentSort.column === header.key) {
+              // Cycle: asc → desc → none
+              if (currentSort.order === 'asc') {
+                newOrder = 'desc';
+              } else if (currentSort.order === 'desc') {
+                this.clearSort();
+                return;
+              }
+            }
+
+            this.setSortColumn(header.key, newOrder);
+          });
 
           // Sort indicator
           if (sortBy === header.key) {
             const indicator = document.createElement('span');
-            indicator.style.marginLeft = '4px';
+            indicator.className = 'sort-indicator';
+            indicator.style.marginLeft = '6px';
             indicator.textContent = sortOrder === 'asc' ? '↑' : '↓';
+            indicator.setAttribute('aria-label', `Sorted ${sortOrder}ending`);
             label.appendChild(indicator);
           }
         }

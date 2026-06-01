@@ -803,6 +803,24 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* Sortable header */
+.ui-grid th.sortable-header {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.ui-grid th.sortable-header:hover {
+  background: rgba(0, 208, 132, 0.1);
+  text-shadow: 0 0 6px rgba(0, 208, 132, 0.4);
+}
+
+/* Sort indicator */
+.sort-indicator {
+  color: var(--accent-color);
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(0, 208, 132, 0.5);
+}
+
 .ui-grid tr {
   transition: all var(--transition-fast);
   border-bottom: 1px solid var(--border-color-light);

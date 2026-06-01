@@ -731,6 +731,22 @@
   background: var(--bg-light);
 }
 
+/* Sortable header */
+.ui-grid th.sortable-header {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.ui-grid th.sortable-header:hover {
+  background: var(--bg-lighter);
+}
+
+/* Sort indicator */
+.sort-indicator {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
 .ui-grid tr {
   transition: background var(--transition-fast);
   border-bottom: 1px solid var(--border-color-light);
