@@ -243,6 +243,26 @@ combo.on('change', (e) => console.log(e.value, e.label));
   </div>
 
   <div class="example">
+    <h2>Async Combo (Server-side Search) ⚡</h2>
+    <div class="code-block">
+const asyncCombo = new Combo('Search partners...');<br>
+<br>
+// Setup async search from server<br>
+asyncCombo.setAsyncSearch(async (query) => {<br>
+&nbsp;&nbsp;return await API.refs.searchAsync('sprps', query, 20);<br>
+});<br>
+<br>
+asyncCombo.setDebounce(300);    // Wait 300ms before search<br>
+asyncCombo.setMinChars(2);      // Minimum 2 characters<br>
+<br>
+asyncCombo.on('change', (e) => {<br>
+&nbsp;&nbsp;console.log('Selected:', e.option);<br>
+});
+    </div>
+    <div class="demo-box" id="async-combo-demo"></div>
+  </div>
+
+  <div class="example">
     <h2>List Component</h2>
     <div class="code-block">
 const list = new List();<br>
@@ -645,6 +665,41 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
       combo.addOption('7', 'NVIDIA');
 
       document.getElementById('combo-demo').appendChild(combo.getDOMElement());
+    }
+
+    // Async Combo - Server-side search
+    {
+      const asyncCombo = new Combo('Search partners...');
+
+      // Configure async search
+      asyncCombo.setAsyncSearch(async (query) => {
+        try {
+          // This would normally search from API.refs.searchAsync('sprps', query, 20)
+          // For demo, we'll use mock data
+          return await new Promise(resolve => {
+            setTimeout(() => {
+              const mockSuppliers = [
+                { value: '1', label: 'Supplier A - ' + query },
+                { value: '2', label: 'Supplier B - ' + query },
+                { value: '3', label: 'Supplier C - ' + query }
+              ];
+              resolve(mockSuppliers);
+            }, 300);
+          });
+        } catch (error) {
+          console.error('Search error:', error);
+          return [];
+        }
+      });
+
+      asyncCombo.setDebounce(300);    // Wait 300ms before search
+      asyncCombo.setMinChars(2);      // Minimum 2 characters
+
+      asyncCombo.on('change', (e) => {
+        console.log('Selected from async combo:', e);
+      });
+
+      document.getElementById('async-combo-demo').appendChild(asyncCombo.getDOMElement());
     }
 
     // List
