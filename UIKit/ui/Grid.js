@@ -16,7 +16,9 @@ export class Grid extends Base {
     this.setProperty('sortBy', null);
     this.setProperty('sortOrder', 'asc');
     this.setProperty('sortable', true);
+    this.setProperty('filterable', true);
     this.setProperty('filterText', '');
+    this.setProperty('filters', {}); // {columnKey: {operator: 'contains', value: 'search'}}
     this.setProperty('pageSize', 50);
     this.setProperty('currentPage', 1);
     this.setProperty('editable', false);
@@ -155,6 +157,115 @@ export class Grid extends Base {
     this.applySort();
     this.emit('sortchange', { column: null, order: null });
     return this;
+  }
+
+  /**
+   * Enable/disable filtering
+   */
+  setFilterable(filterable) {
+    this.setProperty('filterable', filterable);
+    this.render();
+    return this;
+  }
+
+  /**
+   * Add filter to column
+   * @param {string} columnKey - Column to filter
+   * @param {string} operator - 'equals', 'contains', 'startsWith', '>', '<', '>=', '<=', 'between'
+   * @param {*} value - Filter value
+   * @param {*} valueTo - For 'between' operator
+   */
+  addFilter(columnKey, operator, value, valueTo = null) {
+    const filters = this.getProperty('filters', {});
+    filters[columnKey] = { operator, value, valueTo };
+    this.setProperty('filters', filters);
+    this.applyFilters();
+    this.emit('filterchange', { column: columnKey, operator, value });
+    return this;
+  }
+
+  /**
+   * Remove filter from column
+   */
+  removeFilter(columnKey) {
+    const filters = this.getProperty('filters', {});
+    delete filters[columnKey];
+    this.setProperty('filters', filters);
+    this.applyFilters();
+    this.emit('filterchange', { column: columnKey, removed: true });
+    return this;
+  }
+
+  /**
+   * Get all filters
+   */
+  getFilters() {
+    return this.getProperty('filters', {});
+  }
+
+  /**
+   * Clear all filters
+   */
+  clearFilters() {
+    this.setProperty('filters', {});
+    this.applyFilters();
+    this.emit('filterchange', { cleared: true });
+    return this;
+  }
+
+  /**
+   * Apply all filters to rows
+   */
+  applyFilters() {
+    const rows = this.getProperty('rows', []);
+    const filters = this.getProperty('filters', {});
+
+    this.filteredRows = rows.filter(row => {
+      // AND logic: all filters must pass
+      for (const [columnKey, filterConfig] of Object.entries(filters)) {
+        const value = row[columnKey];
+        const { operator, value: filterValue, valueTo } = filterConfig;
+
+        if (!this.matchesFilter(value, operator, filterValue, valueTo)) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+    this.applySort();
+    this.render();
+  }
+
+  /**
+   * Check if value matches filter condition
+   */
+  matchesFilter(value, operator, filterValue, valueTo = null) {
+    const val = String(value).toLowerCase();
+    const filterVal = String(filterValue).toLowerCase();
+
+    switch (operator) {
+      case 'equals':
+        return val === filterVal;
+      case 'contains':
+        return val.includes(filterVal);
+      case 'startsWith':
+        return val.startsWith(filterVal);
+      case 'endsWith':
+        return val.endsWith(filterVal);
+      case '>':
+        return parseFloat(value) > parseFloat(filterValue);
+      case '<':
+        return parseFloat(value) < parseFloat(filterValue);
+      case '>=':
+        return parseFloat(value) >= parseFloat(filterValue);
+      case '<=':
+        return parseFloat(value) <= parseFloat(filterValue);
+      case 'between':
+        return parseFloat(value) >= parseFloat(filterValue) && parseFloat(value) <= parseFloat(valueTo);
+      default:
+        return true;
+    }
   }
 
   /**
@@ -464,6 +575,22 @@ export class Grid extends Base {
         }
 
         th.appendChild(label);
+
+        // Add filter button
+        if (this.getProperty('filterable')) {
+          const filterBtn = document.createElement('button');
+          filterBtn.className = 'ui-grid-filter-btn';
+          filterBtn.innerHTML = '⚙️';
+          filterBtn.setAttribute('aria-label', `Filter ${header.label}`);
+          filterBtn.setAttribute('title', `Filter ${header.label}`);
+
+          filterBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Don't trigger sort
+            this.showFilterPopup(header.key, e.target);
+          });
+
+          th.appendChild(filterBtn);
+        }
 
         // Add resize handle
         if (this.getProperty('resizable') && colIdx < headers.length - 1) {
@@ -941,6 +1068,178 @@ export class Grid extends Base {
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+  }
+
+  /**
+   * Show filter popup for column
+   */
+  showFilterPopup(columnKey, triggerBtn) {
+    // Close existing popup
+    const existing = document.querySelector('.ui-grid-filter-popup');
+    if (existing) existing.remove();
+
+    const filters = this.getProperty('filters', {});
+    const currentFilter = filters[columnKey];
+
+    // Create popup
+    const popup = document.createElement('div');
+    popup.className = 'ui-grid-filter-popup';
+
+    // Operator select
+    const operatorLabel = document.createElement('label');
+    operatorLabel.textContent = 'Operator:';
+    operatorLabel.style.display = 'block';
+    operatorLabel.style.marginBottom = '8px';
+    operatorLabel.style.fontSize = '12px';
+    operatorLabel.style.fontWeight = 'bold';
+
+    const operatorSelect = document.createElement('select');
+    operatorSelect.className = 'ui-grid-filter-operator';
+    operatorSelect.innerHTML = `
+      <option value="equals">Equals</option>
+      <option value="contains">Contains</option>
+      <option value="startsWith">Starts with</option>
+      <option value="endsWith">Ends with</option>
+      <option value=">">Greater than</option>
+      <option value="<">Less than</option>
+      <option value=">=">Greater or equal</option>
+      <option value="<=">Less or equal</option>
+      <option value="between">Between</option>
+    `;
+    operatorSelect.value = currentFilter?.operator || 'contains';
+
+    const operatorContainer = document.createElement('div');
+    operatorContainer.style.marginBottom = '12px';
+    operatorContainer.appendChild(operatorLabel);
+    operatorContainer.appendChild(operatorSelect);
+    popup.appendChild(operatorContainer);
+
+    // Value input
+    const valueLabel = document.createElement('label');
+    valueLabel.textContent = 'Value:';
+    valueLabel.style.display = 'block';
+    valueLabel.style.marginBottom = '4px';
+    valueLabel.style.fontSize = '12px';
+    valueLabel.style.fontWeight = 'bold';
+
+    const valueInput = document.createElement('input');
+    valueInput.className = 'ui-grid-filter-value';
+    valueInput.type = 'text';
+    valueInput.placeholder = 'Enter value';
+    valueInput.value = currentFilter?.value || '';
+    valueInput.style.width = '100%';
+    valueInput.style.padding = '6px';
+    valueInput.style.marginBottom = '8px';
+    valueInput.style.boxSizing = 'border-box';
+
+    const valueContainer = document.createElement('div');
+    valueContainer.style.marginBottom = '12px';
+    valueContainer.appendChild(valueLabel);
+    valueContainer.appendChild(valueInput);
+    popup.appendChild(valueContainer);
+
+    // Value "to" input (for between)
+    const valueToInput = document.createElement('input');
+    valueToInput.className = 'ui-grid-filter-value-to';
+    valueToInput.type = 'text';
+    valueToInput.placeholder = 'To value';
+    valueToInput.value = currentFilter?.valueTo || '';
+    valueToInput.style.width = '100%';
+    valueToInput.style.padding = '6px';
+    valueToInput.style.marginBottom = '8px';
+    valueToInput.style.boxSizing = 'border-box';
+    valueToInput.style.display = operatorSelect.value === 'between' ? 'block' : 'none';
+
+    const valueToContainer = document.createElement('div');
+    valueToContainer.style.marginBottom = '12px';
+    valueToContainer.appendChild(valueToInput);
+    popup.appendChild(valueToContainer);
+
+    // Show/hide "to" input based on operator
+    operatorSelect.addEventListener('change', () => {
+      valueToInput.style.display = operatorSelect.value === 'between' ? 'block' : 'none';
+    });
+
+    // Button container
+    const btnContainer = document.createElement('div');
+    btnContainer.style.display = 'flex';
+    btnContainer.style.gap = '6px';
+
+    const applyBtn = document.createElement('button');
+    applyBtn.textContent = 'Apply';
+    applyBtn.className = 'ui-grid-filter-apply';
+    applyBtn.style.flex = '1';
+    applyBtn.style.padding = '6px 12px';
+    applyBtn.style.backgroundColor = '#1677ff';
+    applyBtn.style.color = 'white';
+    applyBtn.style.border = 'none';
+    applyBtn.style.borderRadius = '4px';
+    applyBtn.style.cursor = 'pointer';
+    applyBtn.style.fontSize = '12px';
+
+    applyBtn.addEventListener('click', () => {
+      const operator = operatorSelect.value;
+      const value = valueInput.value;
+      const valueTo = operatorSelect.value === 'between' ? valueToInput.value : null;
+
+      if (value) {
+        this.addFilter(columnKey, operator, value, valueTo);
+      }
+      popup.remove();
+    });
+
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = 'Clear';
+    clearBtn.className = 'ui-grid-filter-clear';
+    clearBtn.style.flex = '1';
+    clearBtn.style.padding = '6px 12px';
+    clearBtn.style.backgroundColor = '#f0f0f0';
+    clearBtn.style.color = '#333';
+    clearBtn.style.border = '1px solid #d9d9d9';
+    clearBtn.style.borderRadius = '4px';
+    clearBtn.style.cursor = 'pointer';
+    clearBtn.style.fontSize = '12px';
+
+    clearBtn.addEventListener('click', () => {
+      this.removeFilter(columnKey);
+      popup.remove();
+    });
+
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕';
+    closeBtn.className = 'ui-grid-filter-close';
+    closeBtn.style.width = '30px';
+    closeBtn.style.padding = '6px';
+    closeBtn.style.backgroundColor = '#f5f5f5';
+    closeBtn.style.border = '1px solid #d9d9d9';
+    closeBtn.style.borderRadius = '4px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.fontSize = '12px';
+
+    closeBtn.addEventListener('click', () => {
+      popup.remove();
+    });
+
+    btnContainer.appendChild(applyBtn);
+    btnContainer.appendChild(clearBtn);
+    btnContainer.appendChild(closeBtn);
+    popup.appendChild(btnContainer);
+
+    // Position popup near trigger button
+    document.body.appendChild(popup);
+    const rect = triggerBtn.getBoundingClientRect();
+    popup.style.top = (rect.bottom + 5) + 'px';
+    popup.style.left = rect.left + 'px';
+
+    // Close on outside click
+    setTimeout(() => {
+      document.addEventListener('click', function closePopup(e) {
+        if (!popup.contains(e.target) && e.target !== triggerBtn) {
+          popup.remove();
+          document.removeEventListener('click', closePopup);
+        }
+      });
+    }, 0);
   }
 }
 

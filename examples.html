@@ -303,6 +303,28 @@ grid.on('columnresize', (e) => console.log(e.column, 'width:', e.width));
   </div>
 
   <div class="example">
+    <h2>Grid - Filtering with Operators</h2>
+    <div class="code-block">
+const grid = new Grid();<br>
+grid.setFilterable(true); // Enable filter buttons<br>
+<br>
+// Click ⚙️ button on any column header<br>
+// Operators: equals, contains, >, <, >=, <=, between<br>
+// AND logic: all filters must match<br>
+<br>
+grid.on('filterchange', (e) => {<br>
+&nbsp;&nbsp;console.log('Filters:', grid.getFilters());<br>
+});<br>
+<br>
+// Programmatic filtering:<br>
+grid.addFilter('age', '>', 25);           // Age > 25<br>
+grid.addFilter('name', 'contains', 'John'); // Name contains John<br>
+grid.clearFilters();                      // Clear all
+    </div>
+    <div class="demo-box" id="grid-filter-demo"></div>
+  </div>
+
+  <div class="example">
     <h2>Form Validation (Advanced with Triggers)</h2>
     <div class="code-block">
 form.addField('email', {<br>
@@ -822,6 +844,37 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
       ]);
 
       document.getElementById('grid-resize-demo').appendChild(gridResize.getDOMElement());
+    }
+
+    // Grid with Filtering
+    {
+      const gridFilter = new Grid();
+      gridFilter.setHeaders([
+        { key: 'name', label: 'Name', sortable: true },
+        { key: 'age', label: 'Age', sortable: true },
+        { key: 'department', label: 'Department' },
+        { key: 'salary', label: 'Salary' }
+      ]);
+      gridFilter.setFilterable(true); // Enable filter buttons
+
+      gridFilter.setRows([
+        { name: 'John Smith', age: 28, department: 'Engineering', salary: '$95,000' },
+        { name: 'Jane Doe', age: 32, department: 'Marketing', salary: '$85,000' },
+        { name: 'Bob Johnson', age: 45, department: 'Engineering', salary: '$120,000' },
+        { name: 'Alice Brown', age: 26, department: 'Sales', salary: '$75,000' },
+        { name: 'Charlie Wilson', age: 35, department: 'Engineering', salary: '$105,000' },
+        { name: 'Diana Prince', age: 29, department: 'Marketing', salary: '$82,000' },
+        { name: 'Edward Norton', age: 40, department: 'Finance', salary: '$110,000' },
+        { name: 'Fiona Green', age: 27, department: 'Sales', salary: '$78,000' }
+      ]);
+
+      // Listen to filter changes
+      gridFilter.on('filterchange', (e) => {
+        const filters = gridFilter.getFilters();
+        console.log('Active filters:', Object.keys(filters).length > 0 ? filters : 'None');
+      });
+
+      document.getElementById('grid-filter-demo').appendChild(gridFilter.getDOMElement());
     }
 
     // Form Validation Advanced Example

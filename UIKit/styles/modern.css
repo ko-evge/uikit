@@ -899,6 +899,77 @@
   }
 }
 
+/* Filter button in header */
+.ui-grid-filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin-left: 6px;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* Filter popup */
+.ui-grid-filter-popup {
+  position: fixed;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--padding-md);
+  z-index: 1000;
+  min-width: 280px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.ui-grid-filter-popup label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ui-grid-filter-popup select,
+.ui-grid-filter-popup input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+}
+
+.ui-grid-filter-apply {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 500 !important;
+
+  &:hover {
+    background: var(--primary-hover) !important;
+  }
+}
+
+.ui-grid-filter-clear {
+  font-weight: 500 !important;
+
+  &:hover {
+    border-color: var(--error-color) !important;
+    color: var(--error-color) !important;
+  }
+}
+
 /* ============================================================================
    LABEL COMPONENT
    ============================================================================ */

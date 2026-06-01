@@ -987,6 +987,91 @@ body {
   }
 }
 
+/* Filter button in header */
+.ui-grid-filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin-left: 6px;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+  text-shadow: 0 0 4px rgba(0, 208, 132, 0.2);
+
+  &:hover {
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(0, 208, 132, 0.4);
+  }
+}
+
+/* Filter popup */
+.ui-grid-filter-popup {
+  position: fixed;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color-hover);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 12px rgba(0, 208, 132, 0.2);
+  padding: var(--padding-md);
+  z-index: 1000;
+  min-width: 280px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.ui-grid-filter-popup label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-primary);
+  font-family: var(--font-family-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ui-grid-filter-popup select,
+.ui-grid-filter-popup input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--border-color-hover);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  box-sizing: border-box;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-family-mono), monospace;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 208, 132, 0.3);
+    background: var(--bg-primary);
+  }
+}
+
+.ui-grid-filter-apply {
+  background: var(--primary-color) !important;
+  color: var(--bg-primary) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  box-shadow: 0 0 8px rgba(0, 208, 132, 0.3) !important;
+
+  &:hover {
+    background: rgba(0, 208, 132, 0.8) !important;
+    box-shadow: 0 0 12px rgba(0, 208, 132, 0.5) !important;
+  }
+}
+
+.ui-grid-filter-clear {
+  font-weight: 500 !important;
+  background: transparent !important;
+  border: 1px solid var(--border-color-hover) !important;
+
+  &:hover {
+    border-color: var(--error-color) !important;
+    color: var(--error-color) !important;
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.2) !important;
+  }
+}
+
 /* ============================================================================
    LABEL COMPONENT
    ============================================================================ */
