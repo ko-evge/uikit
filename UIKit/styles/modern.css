@@ -622,6 +622,19 @@
   color: var(--text-secondary);
 }
 
+.ui-combo-loading {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.ui-combo-error {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--error-color);
+}
+
 /* ============================================================================
    LIST COMPONENT
    ============================================================================ */

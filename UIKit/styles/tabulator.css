@@ -683,6 +683,21 @@ body {
   color: var(--text-muted);
 }
 
+.ui-combo-loading {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  text-shadow: 0 0 3px rgba(0, 208, 132, 0.3);
+}
+
+.ui-combo-error {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--error-color);
+  text-shadow: 0 0 3px rgba(255, 68, 68, 0.3);
+}
+
 /* ============================================================================
    LIST COMPONENT
    ============================================================================ */

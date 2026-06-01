@@ -31,10 +31,16 @@ export class Combo extends Base {
     this.setProperty('disabled', false);
     this.setProperty('filterMinChars', 1);
     this.setProperty('maxResults', 50);
+    this.setProperty('debounceMs', 300);
+    this.setProperty('minChars', 2);
+    this.setProperty('isLoading', false);
 
     this.allOptions = [];
     this.filteredOptions = [];
     this.selectedOption = null;
+    this.asyncSearchFn = null;
+    this.searchTimeout = null;
+    this.lastSearchQuery = null;
 
     // Event handlers
     this.input.addEventListener('input', (e) => this.handleInput(e));
@@ -76,24 +82,36 @@ export class Combo extends Base {
   }
 
   /**
-   * Handle input change
+   * Handle input change - supports both sync and async search
    */
   handleInput(e) {
     const text = e.target.value;
     this.setProperty('value', text);
 
-    // Filter options
-    const minChars = this.getProperty('filterMinChars', 1);
+    const minChars = this.getProperty('minChars', 2);
     if (text.length < minChars) {
       this.menu.innerHTML = '';
       this.showMenu();
       return;
     }
 
-    const searchText = text.toLowerCase();
+    // If async search is configured, use it
+    if (this.asyncSearchFn) {
+      this.performAsyncSearch(text);
+    } else {
+      // Fallback to local filtering
+      this.performLocalSearch(text);
+    }
+  }
+
+  /**
+   * Perform local (synchronous) search in options
+   */
+  performLocalSearch(searchText) {
+    const searchLower = searchText.toLowerCase();
     this.filteredOptions = this.allOptions.filter(opt => {
       const label = (opt.label || opt.value).toLowerCase();
-      return label.includes(searchText);
+      return label.includes(searchLower);
     });
 
     const maxResults = this.getProperty('maxResults', 50);
@@ -101,6 +119,45 @@ export class Combo extends Base {
 
     this.renderMenu();
     this.showMenu();
+  }
+
+  /**
+   * Perform asynchronous search with debounce
+   */
+  performAsyncSearch(query) {
+    // Clear previous timeout
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
+
+    // Skip if query hasn't changed
+    if (this.lastSearchQuery === query) {
+      return;
+    }
+
+    const debounceMs = this.getProperty('debounceMs', 300);
+
+    this.searchTimeout = setTimeout(async () => {
+      this.lastSearchQuery = query;
+      this.setProperty('isLoading', true);
+      this.menu.innerHTML = '<div class="ui-combo-loading">Загрузка...</div>';
+      this.showMenu();
+
+      try {
+        const results = await this.asyncSearchFn(query);
+        this.filteredOptions = Array.isArray(results) ? results : [];
+
+        const maxResults = this.getProperty('maxResults', 50);
+        this.filteredOptions = this.filteredOptions.slice(0, maxResults);
+
+        this.renderMenu();
+        this.setProperty('isLoading', false);
+      } catch (error) {
+        console.error('Async search error:', error);
+        this.menu.innerHTML = '<div class="ui-combo-error">Ошибка поиска</div>';
+        this.setProperty('isLoading', false);
+      }
+    }, debounceMs);
   }
 
   /**
@@ -216,6 +273,40 @@ export class Combo extends Base {
    */
   hideMenu() {
     this.menu.style.display = 'none';
+  }
+
+  /**
+   * Set async search function
+   * @param {Function} fn - async function(query) -> Promise<Array>
+   */
+  setAsyncSearch(fn) {
+    this.asyncSearchFn = fn;
+    return this;
+  }
+
+  /**
+   * Set debounce delay in milliseconds
+   * @param {number} ms - milliseconds to wait before searching
+   */
+  setDebounce(ms) {
+    this.setProperty('debounceMs', ms);
+    return this;
+  }
+
+  /**
+   * Set minimum characters before search starts
+   * @param {number} chars - minimum characters
+   */
+  setMinChars(chars) {
+    this.setProperty('minChars', chars);
+    return this;
+  }
+
+  /**
+   * Get selected option (full object)
+   */
+  getSelectedOption() {
+    return this.selectedOption;
   }
 
   /**

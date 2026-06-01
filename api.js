@@ -107,6 +107,20 @@ const API = {
       return API.call('seek_spr', { dir: table, seek: search });
     },
 
+    /**
+     * Async search for Combo autocomplete
+     * @param {string} table - Reference table name (sprps, sprim, etc.)
+     * @param {string} query - Search query
+     * @param {number} limit - Max results (default 20)
+     */
+    searchAsync: async (table, query, limit = 20) => {
+      return API.call('search_ref', {
+        table,
+        query,
+        limit
+      });
+    },
+
     get: async (table, id) => {
       return API.fetch('GET', `ref/${table}/${id}`);
     },

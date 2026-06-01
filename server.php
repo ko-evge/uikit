@@ -95,6 +95,43 @@ try {
                 $response['data'] = $stmt->fetchAll();
                 break;
 
+            case 'search_ref':
+                // Async search for Combo (used by Async Combo component)
+                $table = $input['table'] ?? '';
+                $query = $input['query'] ?? '';
+                $limit = intval($input['limit'] ?? 20);
+
+                if (!$table || !$query) {
+                    $response['success'] = false;
+                    $response['error'] = 'Table and query required';
+                    break;
+                }
+
+                // Search in common display fields for different tables
+                $displayFields = [
+                    'sprps' => ['im_ps', 'im_ps2'],      // Partner name
+                    'sprim' => ['nm_im', 'nm_im2'],      // Product name
+                    'sprsk' => ['nm_sk', 'nm_sk2'],      // Warehouse name
+                    'sprzp' => ['nm_zp', 'nm_zp2'],      // Employee name
+                ];
+
+                $fields = $displayFields[$table] ?? ['im_ps', 'im_ps2']; // Default fields
+                $seek = '%' . $query . '%';
+
+                // Build OR condition for all fields
+                $conditions = implode(' OR ', array_map(fn($f) => "$f LIKE ?", $fields));
+                $values = array_fill(0, count($fields), $seek);
+
+                $sql = "SELECT * FROM $table WHERE $conditions LIMIT ?";
+                $values[] = $limit;
+
+                $stmt = $conn->prepare($sql);
+                $stmt->execute($values);
+
+                $response['success'] = true;
+                $response['data'] = $stmt->fetchAll();
+                break;
+
             case 'add_doc':
                 // Create document
                 $fieldMap = [
