@@ -1,0 +1,71 @@
+# Git
+.git
+.gitignore
+.github
+
+# Documentation
+*.md
+!README.md
+!CHANGELOG.md
+docs/
+.github/
+
+# Examples & Demo
+demo.html
+examples.html
+index.html
+style.css
+
+# Development
+node_modules/
+npm-debug.log*
+.DS_Store
+.env
+.env.local
+
+# Project specific
+OLD/
+ActiveWidgets/
+server.php
+app.js
+api.js
+php-error.log
+server.log
+
+# Tests
+test/
+tests/
+*.test.js
+*.spec.js
+coverage/
+
+# Build artifacts
+dist/
+build/
+*.map
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# CI/CD
+.github/workflows/
+.travis.yml
+.gitlab-ci.yml
+
+# Misc
+PHASE5_PLAN.md
+PUBLICATION_CHECKLIST.md
+UIKIT_TODO.md
+UIKIT_EVENTS_SUMMARY.md
+GRID_EVENTS.md
+CLAUDE.md
+DESIGN_SWITCH.md
+MODERN_DESIGN_GUIDE.md
+TABULATOR_GUIDE.md
+UPGRADE_PLAN.md
+.claude/
+.cursorrules
