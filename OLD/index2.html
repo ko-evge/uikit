@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="swapi.js"></script>
+</head>
+<body>
+HELLO
+<div id="output">not ready</div>
+<script>
+
+async function main(){
+    document.getElementById('output').innerText = await swapi('test_action',{'test_data':[1234,4321]});
+}
+main();
+</script>
+</body>
+</html>

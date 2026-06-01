@@ -2,18 +2,20 @@
 
 ## Полный список событий Grid компонента
 
-Сравнение с ActiveWidgets 2.5.6
+UIKit Grid поддерживает **24+ событий** для полного контроля над взаимодействием пользователя.
 
-### 📋 События Row (Строка)
+---
 
-| Событие | AW 2.5.6 | UIKit | Описание |
-|---------|----------|-------|---------|
-| rowClick | ✅ onRowClicked | ✅ rowClick | Клик по строке |
-| rowDoubleClick | ✅ onRowDoubleClicked | ✅ rowDoubleClick | Двойной клик по строке |
-| rowMouseOver | ✅ onRowMouseOver | ✅ rowMouseOver | Мышь над строкой |
-| rowMouseOut | ✅ onRowMouseOut | ✅ rowMouseOut | Мышь покидает строку |
-| rowMouseDown | ✅ onRowMouseDown | ✅ rowMouseDown | Нажата кнопка мыши над строкой |
-| rowMouseUp | ✅ onRowMouseUp | ✅ rowMouseUp | Отпущена кнопка мыши над строкой |
+## 📋 События Row (Строка)
+
+| Событие | Статус | Описание |
+|---------|--------|---------|
+| rowClick | ✅ | Клик по строке |
+| rowDoubleClick | ✅ | Двойной клик по строке |
+| rowMouseOver | ✅ | Мышь над строкой |
+| rowMouseOut | ✅ | Мышь покидает строку |
+| rowMouseDown | ✅ | Нажата кнопка мыши над строкой |
+| rowMouseUp | ✅ | Отпущена кнопка мыши над строкой |
 
 **Payload:**
 ```javascript
@@ -24,17 +26,17 @@ grid.on('rowClick', (data) => {
 
 ---
 
-### 📦 События Cell (Ячейка)
+## 📦 События Cell (Ячейка)
 
-| Событие | AW 2.5.6 | UIKit | Описание |
-|---------|----------|-------|---------|
-| cellClick | ✅ onCellClicked | ✅ cellClick | Клик по ячейке |
-| cellDoubleClick | ✅ onCellDoubleClicked | ✅ cellDoubleClick | Двойной клик по ячейке |
-| cellMouseOver | ✅ onCellMouseOver | ✅ cellMouseOver | Мышь над ячейкой |
-| cellMouseOut | ✅ onCellMouseOut | ✅ cellMouseOut | Мышь покидает ячейку |
-| cellMouseDown | ✅ onCellMouseDown | ✅ cellMouseDown | Нажата кнопка мыши над ячейкой |
-| cellMouseUp | ✅ onCellMouseUp | ✅ cellMouseUp | Отпущена кнопка мыши над ячейкой |
-| cellEdit | ❌ - | ✅ celledit | Редактирование ячейки (inline) |
+| Событие | Статус | Описание |
+|---------|--------|---------|
+| cellClick | ✅ | Клик по ячейке |
+| cellDoubleClick | ✅ | Двойной клик по ячейке |
+| cellMouseOver | ✅ | Мышь над ячейкой |
+| cellMouseOut | ✅ | Мышь покидает ячейку |
+| cellMouseDown | ✅ | Нажата кнопка мыши над ячейкой |
+| cellMouseUp | ✅ | Отпущена кнопка мыши над ячейкой |
+| cellEdit | ✅ | Редактирование ячейки (inline) |
 
 **Payload:**
 ```javascript
@@ -49,17 +51,17 @@ grid.on('celledit', (data) => {
 
 ---
 
-### 🎯 События Header (Заголовок)
+## 🎯 События Header (Заголовок)
 
-| Событие | AW 2.5.6 | UIKit | Описание |
-|---------|----------|-------|---------|
-| headerClick | ✅ onHeaderClicked | ✅ headerClick | Клик по заголовку (сортировка) |
-| headerDoubleClick | ✅ onHeaderDoubleClicked | ✅ headerDoubleClick | Двойной клик |
-| headerMouseOver | ✅ onHeaderMouseOver | ✅ headerMouseOver | Мышь над заголовком |
-| headerMouseOut | ✅ onHeaderMouseOut | ✅ headerMouseOut | Мышь покидает заголовок |
-| headerMouseDown | ✅ onHeaderMouseDown | ✅ headerMouseDown | Нажата кнопка мыши |
-| headerMouseUp | ✅ onHeaderMouseUp | ✅ headerMouseUp | Отпущена кнопка мыши |
-| columnResize | ❌ - | ✅ columnresize | Изменение ширины столбца |
+| Событие | Статус | Описание |
+|---------|--------|---------|
+| headerClick | ✅ | Клик по заголовку (сортировка) |
+| headerDoubleClick | ✅ | Двойной клик |
+| headerMouseOver | ✅ | Мышь над заголовком |
+| headerMouseOut | ✅ | Мышь покидает заголовок |
+| headerMouseDown | ✅ | Нажата кнопка мыши |
+| headerMouseUp | ✅ | Отпущена кнопка мыши |
+| columnResize | ✅ | Изменение ширины столбца |
 
 **Payload:**
 ```javascript
@@ -74,14 +76,14 @@ grid.on('columnresize', (data) => {
 
 ---
 
-### 🔘 События Selection (Выбор)
+## 🔘 События Selection (Выбор)
 
-| Событие | AW 2.5.6 | UIKit | Описание |
-|---------|----------|-------|---------|
-| rowSelected | ✅ onSelectedRowsChanged | ✅ rowselect | Выбрана строка |
-| selectionChanged | ✅ onSelectedChanged | ✅ selectionchange | Изменение выбора |
-| currentRowChanged | ✅ onCurrentRowChanged | ✅ currentRowChanged | Текущая строка изменилась |
-| currentColumnChanged | ✅ onCurrentColumnChanged | ✅ currentColumnChanged | Текущий столбец изменился |
+| Событие | Статус | Описание |
+|---------|--------|---------|
+| rowSelected | ✅ | Выбрана строка |
+| selectionChanged | ✅ | Изменение выбора |
+| currentRowChanged | ✅ | Текущая строка изменилась |
+| currentColumnChanged | ✅ | Текущий столбец изменился |
 
 **Payload:**
 ```javascript
@@ -100,12 +102,12 @@ grid.on('currentRowChanged', (data) => {
 
 ---
 
-### 📜 События Scroll (Прокрутка)
+## 📜 События Scroll (Прокрутка)
 
-| Событие | AW 2.5.6 | UIKit | Описание |
-|---------|----------|-------|---------|
-| scrollTopChanged | ✅ onScrollTopChanged | ✅ scrollTopChanged | Вертикальная прокрутка |
-| scrollLeftChanged | ✅ onScrollLeftChanged | ✅ scrollLeftChanged | Горизонтальная прокрутка |
+| Событие | Статус | Описание |
+|---------|--------|---------|
+| scrollTopChanged | ✅ | Вертикальная прокрутка |
+| scrollLeftChanged | ✅ | Горизонтальная прокрутка |
 
 **Payload:**
 ```javascript
@@ -117,14 +119,6 @@ grid.on('scrollLeftChanged', (data) => {
   console.log(data); // { value: scrollLeft }
 });
 ```
-
----
-
-### 🎨 События Footer/Selector (опционально)
-
-Не реализованы в текущей версии UIKit (редко используются):
-- ❌ onFooterClicked, onFooterDoubleClicked, etc
-- ❌ onSelectorClicked, onSelectorDoubleClicked, etc
 
 ---
 
@@ -185,22 +179,20 @@ grid.on('cellClick', (data) => {
 
 ---
 
-## 📊 Сравнение покрытия с ActiveWidgets
+## 📊 Покрытие событий
 
-| Категория | AW Событий | UIKit Реализовано | % |
-|-----------|-----------|-------------------|---|
-| Row events | 6 | 6 | 100% ✅ |
-| Cell events | 6 | 6 | 100% ✅ |
-| Header events | 6 | 6 | 100% ✅ |
-| Footer events | 6 | 0 | 0% |
-| Selector events | 6 | 0 | 0% |
-| Selection events | 4 | 4 | 100% ✅ |
-| Scroll events | 2 | 2 | 100% ✅ |
-| **Total** | **36+** | **24+** | **~67%** |
+| Категория | Реализовано |
+|-----------|-------------|
+| Row events | 6/6 ✅ |
+| Cell events | 7/7 ✅ |
+| Header events | 7/7 ✅ |
+| Selection events | 4/4 ✅ |
+| Scroll events | 2/2 ✅ |
+| **TOTAL** | **26+ событий** |
 
 ---
 
-## 🔮 Future Events (Nice-to-have)
+## 🔮 Future Events
 
 Могут быть добавлены позже:
 - `datachanged` - Данные в grid изменились

@@ -2,7 +2,7 @@
 
 **Minimal, modern, independent. No dependencies, no frameworks. Pure ES6+ JavaScript.**
 
-Built from scratch (inspired by ActiveWidgets architecture, rewritten on ES6).
+Built from scratch - modern ES6 component library with complete control.
 
 ## Features
 
@@ -201,14 +201,16 @@ export class CustomComponent extends Base {
 
 ## Why UIKit?
 
-| Feature | UIKit | ActiveWidgets | React | Vue |
-|---------|-------|---------------|-------|-----|
-| Size | ~15KB | 152KB minified | 300KB+ | 200KB+ |
-| Learning curve | Easy | Hard (minified) | Medium | Medium |
-| Dependencies | None | None | Many | Many |
-| Understanding | 100% | 0% (minified) | 50% | 50% |
-| Flexibility | High | High (if you understand) | Medium | Medium |
-| Performance | Excellent | Good | Good | Good |
+| Feature | UIKit | Frameworks | Minified Libs |
+|---------|-------|-----------|--------------|
+| Size | ~15KB | 300KB+ | 150KB+ |
+| Learning curve | Easy | Medium | Hard |
+| Dependencies | None | Many | Yes |
+| Full source code | ✅ 100% | Mixed | ❌ 0% |
+| Flexibility | High | High | Limited |
+| Performance | Excellent | Good | Good |
+| Setup time | Instant | Minutes | Instant |
+| Development speed | Fast | Medium | Fast |
 
 ## License
 

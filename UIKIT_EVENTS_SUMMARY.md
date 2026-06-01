@@ -2,7 +2,6 @@
 
 ## ✅ Статус реализации событий
 
-Сравнено с **ActiveWidgets 2.5.6**
 
 ### 🎯 Результаты анализа
 
@@ -123,9 +122,7 @@ export class MyComponent extends Base {
 
 ---
 
-## 🎯 Полнота vs ActiveWidgets
 
-| Критерий | AW 2.5.6 | UIKit | Статус |
 |----------|----------|-------|--------|
 | Mouse events (click, dblclick, etc) | ✅ Да | ✅ Да | ✅ 100% |
 | Component-specific events | ✅ Да | ✅ Да | ✅ 100% |

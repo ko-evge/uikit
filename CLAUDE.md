@@ -338,12 +338,12 @@ Repository initialized with initial commit documenting:
 
 ## Next Development Phases
 
-According to UPGRADE_PLAN.md:
+Development roadmap:
 - Phase 1 ✅ - Core components (Button, Input, CheckBox, RadioButton, Tabs, Link, Formatters, Combo)
 - Phase 1+ ✅ - Combo with autocomplete
 - Phase 2 ✅ - List, Inline Grid Editing, Column Resizing
 - Phase 3 ✅ - Keyboard Navigation (complete), Virtual Scrolling (complete)
-- Phase 4 - Advanced features (column reordering, themes, localization, tree component)
+- Phase 4 🔄 - Advanced features (column reordering, async filters, multi-select, virtualization enhancements)
 
 ---
 

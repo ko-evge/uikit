@@ -28,7 +28,7 @@ Backend (PHP)
 
 | Aspect | Old IMS | IMS 2 |
 |--------|---------|-------|
-| UI Library | ActiveWidgets (152KB minified) | UIKit (custom, ~15KB) |
+| UI Library | Large 3rd-party library (152KB) | UIKit (custom, ~15KB) |
 | Code style | Old JavaScript (var, callbacks) | Modern ES6+ (const, async/await) |
 | Complexity | High (hard to understand) | Low (easy to modify) |
 | Dependencies | Old frameworks, browser hacks | None (pure vanilla JS) |

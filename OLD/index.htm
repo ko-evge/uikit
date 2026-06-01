@@ -1,0 +1,273 @@
+<html lang="">
+<head>
+<title>DELTA</title>
+<link href="/runtime/styles/system/aw.css" rel="stylesheet" type="text/css">
+<link href="ms.css" rel="stylesheet">
+<script type="text/javascript" src="/runtime/lib/aw.js"></script>
+<script type="text/javascript" src="/jstcp.js"></script>
+<script type="text/javascript" src="/calendar.js"></script>
+<script type="text/javascript" src="/alldoc.js"></script>
+<script type="text/javascript" src="/allfunc.js"></script>
+<script type="text/javascript" src="/newuser.js"></script>
+<script type="text/javascript" src="/search.js"></script>
+<script type="text/javascript" src="/input.js"></script>
+<script type="text/javascript" src="/doc.js"></script>
+<script type="text/javascript" src="/warehouse.js"></script>
+<script type="text/javascript" src="/history.js"></script>
+<script type="text/javascript" src="/mes_war.js"></script>
+<script type="text/javascript" src="/mes.js"></script>
+<script type="text/javascript" src="/baza.js"></script>
+
+</head>
+<body>
+<div id='main'></div>
+<script type="text/javascript">
+//-------------------------------------------------------------
+// ----------------
+// JTCP 
+//-----------------------------------------------------------------------------
+env = {base:document.location.toString().slice(0,document.location.toString().lastIndexOf('/'))+'/'};
+pipe =new JSTCP(env.base+'server.php');
+pipe.framelength=0;
+pipe.ROM(window,document.body);
+pipe.event({action:''},true);
+//
+//async function tmain(){
+//    kod = await swapi('test_action',{'test_data':[1234,4321]});
+//}
+//tmain();
+
+//-----------------------------------------------------------------------------
+// main page
+//-----------------------------------------------------------------------------
+function all_close() {
+    newuser_close();
+    alldoc_close();  
+    search_close();
+    input_close();
+}
+//-----------------------------------------------------------------------------
+function tr(word) {
+    // translate function
+    return word;
+}
+//-----------------------------------------------------------------------------
+cw =(window.innerWidth)?window.innerWidth:((document.all)?document.documentElement.offsetWidth:null);
+ch =(window.innerHeight)?window.innerHeight:((document.all)?document.documentElement.offsetHeight:null);
+
+                             var cbox = new AW.HTML.DIV;
+                             cbox.setId("cbox");
+                             cbox.setSize(cw-30,ch-30);
+                             document.write(cbox);
+
+cbox.flag = true;
+cbox.kdus = 0;
+// formats ===============================================
+var string = new AW.Formats.String;
+var number = new AW.Formats.Number;
+var currently = new AW.Formats.Number;
+var date   = new AW.Formats.Date;
+var number1= new AW.Formats.Number;
+number1.setTextFormat("#,###.##");
+
+number.setTextFormat("#,###.##");
+number.dataToText1 = number.dataToText; 
+number.dataToText = function(data){return data ? this.dataToText1(data) : ""; };
+
+currently.setTextFormat("########");
+currently.dataToText1 = currently.dataToText; 
+currently.dataToText = function(data){return data ? this.dataToText1(data) : ""; };
+
+date.setDataFormat("ISO8601");
+date.setTextFormat("mmm d, yyyy");
+
+cbox.num = number;
+cbox.num1= number1;
+cbox.str = string;
+cbox.dat = date;
+cbox.cur = currently;
+//========================================================
+                             var frame = new AW.HTML.DIV;
+                             frame.setId("frame");
+                             frame.setSize(cw-60,ch-90);
+                             document.write(frame);   
+
+                             var lb_main = new AW.UI.Label;
+                             lb_main.setControlText("DELTA");
+                             lb_main.setId("lb_main");
+                             lb_main.setPosition(cw-260,10);
+                             document.write(lb_main); 
+
+                             var lb_opr = new AW.UI.Label;
+                             lb_opr.setId("lb_opr");
+                             lb_opr.setPosition(10,20);
+                             lb_opr.setControlText("");
+                             lb_opr.setStyle("display", "none") ;    
+                             lb_opr.setStyle("font-size", "12pt");   
+                             lb_opr.setStyle("text-decoration", "underline");  
+                             document.write(lb_opr); 
+    
+                             var bt_access = new AW.UI.Button;
+                             bt_access.setId("bt_access");
+                             bt_access.setControlText("Access");
+                             document.write(bt_access);
+
+bt_access.onClick = function(){
+  if (cbox.flag) {
+     wmain_close();
+     newuser_open();
+     }
+};      
+                             var bt_documents = new AW.UI.Button;
+                             bt_documents.setId("bt_documents");
+                             bt_documents.setControlText("Documents");
+                             bt_documents.setStyle("display", "none") ;    
+                             document.write(bt_documents);              
+bt_documents.visible = true; 
+bt_documents.onClick = function(){
+  if (cbox.flag) {
+     if (cbox.kdus>0) {
+        lb_opr.setControlText("Documents");
+     	wmain_close();
+        alldoc_open();
+     }
+  }
+};      
+                             var bt_orders = new AW.UI.Button;
+                             bt_orders.setId("bt_orders");
+                             bt_orders.setControlText("Orders");
+                             bt_orders.setStyle("display", "none") ;    
+                             document.write(bt_orders);
+    
+bt_orders.visible = true; 
+bt_orders.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Orders");
+     wmain_close();
+     box.flag=false;
+     orders_open();
+  }
+};      
+                             var bt_projects = new AW.UI.Button;
+                             bt_projects.setId("bt_projects");
+                             bt_projects.setControlText("Projects");
+                             bt_projects.setStyle("display", "none") ;    
+                             document.write(bt_projects);
+    
+bt_projects.visible = true; 
+bt_projects.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Projects");
+     wmain_close();
+     projects_open();
+  }
+};      
+                             var bt_reports = new AW.UI.Button;
+                             bt_reports.setId("bt_reports");
+                             bt_reports.setControlText("Reports");
+                             bt_reports.setStyle("display", "none") ;    
+                             document.write(bt_reports);
+    
+bt_reports.visible = true; 
+bt_reports.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Reports");
+     wmain_close();
+     //reports_open();
+     baza_open();
+  }
+};      
+                             var bt_sale = new AW.UI.Button;
+                             bt_sale.setId("bt_sale");
+                             bt_sale.setControlText("Point of Sale");
+                             bt_sale.setStyle("display", "none") ;    
+                             document.write(bt_sale);
+    
+bt_sale.visible = true; 
+bt_sale.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Point of Sale");
+     wmain_close();
+     sale_open();
+  }
+};      
+                             var bt_history = new AW.UI.Button;
+                             bt_history.setId("bt_history");
+                             bt_history.setControlText("History");
+                             bt_history.setStyle("display", "none") ;    
+                             document.write(bt_history);
+    
+bt_history.visible = true; 
+bt_history.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("History");
+     box.flag=false;
+     history_open();
+  }
+};      
+                             var bt_tools = new AW.UI.Button;
+                             bt_tools.setId("bt_tools");
+                             bt_tools.setControlText("Tools");
+                             bt_tools.setStyle("display", "none") ;    
+                             document.write(bt_tools);
+    
+bt_tools.visible = true; 
+bt_tools.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Tools");
+     wmain_close();
+     tools_open();
+  }
+};      
+                             var bt_directory = new AW.UI.Button;
+                             bt_directory.setId("bt_directory");
+                             bt_directory.setControlText("Directory");
+                             bt_directory.setStyle("display", "none") ;    
+                             document.write(bt_directory);
+    
+bt_directory.visible = true; 
+bt_directory.onClick = function(){
+  if (cbox.flag) {
+     lb_opr.setControlText("Directory");
+     wmain_close();
+     directory_open();
+  }
+};      
+//-----------------------------------------------------------------------------
+//                                    
+//-----------------------------------------------------------------------------
+function wmain_open() {
+  lb_opr.setControlText("");
+  lb_opr.setStyle("display", "none");   
+  bt_access.setStyle("display", "block");   
+  if (bt_documents.visible==true) {bt_documents.setStyle("display", "block"); }
+  if (bt_orders.visible==true)    {bt_orders.setStyle("display", "block"); }
+  if (bt_projects.visible==true)  {bt_projects.setStyle("display", "block"); }
+  if (bt_reports.visible==true)   {bt_reports.setStyle("display", "block"); }
+  if (bt_sale.visible==true)       {bt_sale.setStyle("display", "block"); }
+  if (bt_history.visible==true)    {bt_history.setStyle("display", "block"); }
+  if (bt_tools.visible==true)      {bt_tools.setStyle("display", "block"); }
+  if (bt_directory.visible==true)  {bt_directory.setStyle("display", "block"); }
+  return true;    
+}
+//-----------------------------------------------------------------------------
+//                                    
+//-----------------------------------------------------------------------------
+function wmain_close() {
+  lb_opr.setStyle("display", "block");   
+  bt_access.setStyle("display", "none") ;    
+  bt_documents.setStyle("display", "none") ;    
+  bt_orders.setStyle("display", "none") ;    
+  bt_projects.setStyle("display", "none") ;    
+  bt_reports.setStyle("display", "none") ;    
+  bt_sale.setStyle("display", "none") ;    
+  bt_history.setStyle("display", "none") ;    
+  bt_tools.setStyle("display", "none") ;    
+  bt_directory.setStyle("display", "none");
+  return true;    
+}
+
+//---------------------------------------------------------------------
+</script>
+</body>
+</html>
