@@ -1,0 +1,243 @@
+# UIKit - Modern JavaScript UI Library
+
+**Minimal, modern, independent. No dependencies, no frameworks. Pure ES6+ JavaScript.**
+
+Built from scratch - modern ES6 component library with complete control.
+
+## Features
+
+- ✅ **No dependencies** - Pure JavaScript, zero external libs
+- ✅ **ES6+ modules** - Modern syntax, easy to understand
+- ✅ **Full control** - Every line is visible and modifiable
+- ✅ **Lightweight** - ~15KB total
+- ✅ **Component based** - Reusable UI components
+- ✅ **Event system** - Built-in event binding and custom events
+- ✅ **Chainable API** - Fluent interface for easy use
+- ✅ **Mobile friendly** - Responsive, touch-friendly
+- ✅ **Styled** - Modern CSS with animations
+
+## Components
+
+### Base Class
+```javascript
+import { Base } from './UIKit/index.js';
+
+const div = new Base();
+div.createElement('div', 'my-container');
+div.setStyle('color', 'red');
+div.append(anotherElement);
+div.show(); // or hide(), toggleClass(), etc.
+```
+
+### Button
+```javascript
+import { Button } from './UIKit/index.js';
+
+const btn = new Button('Click me', () => {
+  console.log('Clicked!');
+});
+
+btn.setType('primary'); // primary, danger, success, warning
+btn.setSize('large');   // small, medium, large
+btn.setDisabled(false);
+document.body.appendChild(btn.getDOMElement());
+```
+
+### Input
+```javascript
+import { Input } from './UIKit/index.js';
+
+const input = new Input('text', 'Enter name');
+input.setValue('John');
+input.on('change', (e) => {
+  console.log('New value:', input.getValue());
+});
+```
+
+### Label
+```javascript
+import { Label } from './UIKit/index.js';
+
+const label = new Label('Username');
+label.setFor('username-input');
+```
+
+### Table
+```javascript
+import { Table } from './UIKit/index.js';
+
+const table = new Table();
+table.setHeaders(['Name', 'Email', 'Age']);
+table.setRows([
+  ['John', 'john@example.com', 30],
+  ['Jane', 'jane@example.com', 25]
+]);
+
+table.on('rowselect', (e) => {
+  console.log('Selected row:', e.detail.data);
+});
+```
+
+## API
+
+### Common Methods (all components extend Base)
+
+#### DOM Operations
+```javascript
+component.getDOMElement()      // Get native HTMLElement
+component.createElement(tag, className)
+component.append(child)        // Add child (UIKit component or HTMLElement)
+component.remove(child)        // Remove child
+component.clear()              // Clear all children
+component.destroy()            // Destroy component
+```
+
+#### Styling
+```javascript
+component.setStyle(name, value)  // Set CSS style
+component.getStyle(name)
+component.addClass(className)    // Add CSS class
+component.removeClass(className)
+component.toggleClass(className)
+```
+
+#### Properties
+```javascript
+component.setProperty(name, value)  // Set internal state
+component.getProperty(name, defaultValue)
+```
+
+#### Attributes
+```javascript
+component.setAttribute(name, value)
+component.getAttribute(name)
+```
+
+#### Events
+```javascript
+component.on(eventName, handler)      // Subscribe (handler receives the payload)
+component.off(eventName, handler?)    // Unsubscribe (all handlers if none given)
+component.emit(eventName, data)       // Trigger a custom event
+```
+Events use an internal pub/sub registry. Native DOM events (`click`, `input`,
+`blur`, …) are bridged into it automatically by `on()`, so `emit()` never
+dispatches on the DOM and cannot collide with native events. A listener that
+throws is isolated (routed to `handle()`) and never breaks the others.
+
+#### Visibility
+```javascript
+component.show()
+component.hide()
+component.isVisible()
+```
+
+#### Batched updates
+Suspend rendering while applying several changes, then render once:
+```javascript
+grid.beginUpdate();
+grid.setHeaders(headers);
+grid.setRows(rows);     // no intermediate renders
+grid.endUpdate();       // single render with the final state
+```
+`beginUpdate()`/`endUpdate()` calls nest safely.
+
+#### Lifecycle
+```javascript
+component.destroy()      // remove tracked global listeners, detach element,
+                         // recursively destroy children; idempotent
+component.isDestroyed()  // true after destroy()
+component.handle(err, ctx) // central error hook (override to add logging)
+```
+
+## Example Usage
+
+```javascript
+import { Button, Input, Label, Table } from './UIKit/index.js';
+
+// Create form
+const form = new Base();
+form.createElement('div', 'form');
+
+const nameLabel = new Label('Name');
+const nameInput = new Input('text', 'Enter name');
+const submitBtn = new Button('Submit', () => {
+  console.log('Name:', nameInput.getValue());
+});
+
+form.append(nameLabel);
+form.append(nameInput);
+form.append(submitBtn);
+
+document.body.appendChild(form.getDOMElement());
+
+// Create table
+const table = new Table();
+table.setHeaders(['Product', 'Price', 'Quantity']);
+table.setRows([
+  { name: 'Laptop', price: 999, qty: 5 },
+  { name: 'Mouse', price: 29, qty: 50 }
+]);
+
+document.body.appendChild(table.getDOMElement());
+```
+
+## Styling
+
+Import CSS:
+```html
+<link rel="stylesheet" href="UIKit/styles/components.css">
+```
+
+Or customize with CSS variables:
+```css
+:root {
+  --primary-color: #1890ff;
+  --success-color: #52c41a;
+  --danger-color: #ff4d4f;
+}
+```
+
+## Creating Custom Components
+
+```javascript
+import { Base } from './UIKit/index.js';
+
+export class CustomComponent extends Base {
+  constructor() {
+    super();
+    this.createElement('div', 'custom-component');
+  }
+
+  setData(data) {
+    this.setProperty('data', data);
+    this.render();
+    return this;
+  }
+
+  render() {
+    // Your rendering logic
+    return this;
+  }
+}
+```
+
+## Why UIKit?
+
+| Feature | UIKit | Frameworks | Minified Libs |
+|---------|-------|-----------|--------------|
+| Size | ~15KB | 300KB+ | 150KB+ |
+| Learning curve | Easy | Medium | Hard |
+| Dependencies | None | Many | Yes |
+| Full source code | ✅ 100% | Mixed | ❌ 0% |
+| Flexibility | High | High | Limited |
+| Performance | Excellent | Good | Good |
+| Setup time | Instant | Minutes | Instant |
+| Development speed | Fast | Medium | Fast |
+
+## License
+
+Free for any use. No dependencies, no restrictions.
+
+---
+
+**UIKit** - Simple. Modern. Yours.
