@@ -258,65 +258,6 @@ export class Dialog extends Base {
     return dialog;
   }
 
-  /**
-   * Show confirmation dialog with Russian buttons (ДА / НЕТ)
-   * @static
-   * @param {string} message - Dialog message
-   * @param {Function} onConfirm - Callback on YES (ДА)
-   * @param {Function} onCancel - Callback on NO (НЕТ)
-   * @param {string} title - Dialog title (default: "Подтверждение")
-   * @example Dialog.confirmRu('Вы уверены?', () => { console.log('да'); }, () => { console.log('нет'); })
-   */
-  static confirmRu(message, onConfirm, onCancel, title = 'Подтверждение') {
-    const dialog = new Dialog(title, message);
-    dialog.setSize('small');
-
-    const yesBtn = new Button('✓ ДА', () => {
-      if (onConfirm) onConfirm();
-      dialog.close();
-    });
-    yesBtn.setType('primary');
-
-    const noBtn = new Button('✕ НЕТ', () => {
-      if (onCancel) onCancel();
-      dialog.close();
-    });
-    noBtn.setType('default');
-
-    dialog.getFooter().appendChild(yesBtn.getDOMElement());
-    dialog.getFooter().appendChild(noBtn.getDOMElement());
-
-    document.body.appendChild(dialog.getDOMElement());
-    dialog.show();
-
-    return dialog;
-  }
-
-  /**
-   * Show alert dialog with Russian button (OK)
-   * @static
-   * @param {string} message - Alert message
-   * @param {Function} onClose - Callback when closed
-   * @param {string} title - Dialog title (default: "Сообщение")
-   * @example Dialog.alertRu('Операция выполнена!', () => { console.log('закрыто'); })
-   */
-  static alertRu(message, onClose, title = 'Сообщение') {
-    const dialog = new Dialog(title, message);
-    dialog.setSize('small');
-
-    const okBtn = new Button('OK', () => {
-      if (onClose) onClose();
-      dialog.close();
-    });
-    okBtn.setType('primary');
-
-    dialog.getFooter().appendChild(okBtn.getDOMElement());
-
-    document.body.appendChild(dialog.getDOMElement());
-    dialog.show();
-
-    return dialog;
-  }
 }
 
 export default Dialog;

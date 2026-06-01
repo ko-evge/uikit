@@ -151,32 +151,9 @@ dialog.show();<br>
 <br>
 // Or use static methods:<br>
 Dialog.alert('Title', 'Message');<br>
-Dialog.confirm('Question?', onYes, onNo);<br>
-<br>
-// Russian dialogs:<br>
-Dialog.alertRu('Операция выполнена!', onClose);<br>
-Dialog.confirmRu('Вы уверены?', onYes, onNo);
+Dialog.confirm('Question?', onYes, onNo);
       </div>
       <div class="demo-box" id="dialog-demo"></div>
-    </div>
-
-    <!-- 10.1 RUSSIAN DIALOGS -->
-    <div class="example">
-      <h2>10.1 Dialog Component - Russian (Русский)</h2>
-      <div class="code-block">
-// Диалог сообщения (Alert)<br>
-Dialog.alertRu('Операция выполнена успешно!', () => {<br>
-&nbsp;&nbsp;console.log('Пользователь закрыл диалог');<br>
-}, 'Успех');<br>
-<br>
-// Диалог подтверждения (Confirm)<br>
-Dialog.confirmRu('Вы уверены в удалении?', () => {<br>
-&nbsp;&nbsp;console.log('Пользователь нажал ДА');<br>
-}, () => {<br>
-&nbsp;&nbsp;console.log('Пользователь нажал НЕТ');<br>
-}, 'Подтверждение');
-      </div>
-      <div class="demo-box" id="dialog-ru-demo"></div>
     </div>
 
     <!-- 11. COMPLETE EXAMPLE -->
@@ -623,38 +600,6 @@ StringFormatter.truncate('Long text...', 10) => 'Long text...'
 
       container.append(dialogBtn).append(alertBtn).append(confirmBtn);
       document.getElementById('dialog-demo').appendChild(container.getDOMElement());
-    }
-
-    // Russian Dialogs Example
-    {
-      const container = new Base();
-      container.createElement('div');
-      container.getDOMElement().style.display = 'flex';
-      container.getDOMElement().style.gap = '10px';
-      container.getDOMElement().style.flexWrap = 'wrap';
-
-      // Alert button (Russian)
-      const alertBtn = new Button('Сообщение (Alert)', () => {
-        Dialog.alertRu('Операция успешно выполнена!', () => {
-          console.log('Пользователь закрыл диалог сообщения');
-        }, 'Успех');
-      });
-      alertBtn.setType('primary');
-
-      // Confirm button (Russian)
-      const confirmBtn = new Button('Подтверждение (Confirm)', () => {
-        Dialog.confirmRu('Вы уверены в удалении этого элемента?', () => {
-          console.log('Пользователь нажал ДА');
-          Dialog.alertRu('Элемент удалён!', null, 'Готово');
-        }, () => {
-          console.log('Пользователь нажал НЕТ');
-        }, 'Подтверждение удаления');
-      });
-      confirmBtn.setType('primary');
-
-      container.getDOMElement().appendChild(alertBtn.getDOMElement());
-      container.getDOMElement().appendChild(confirmBtn.getDOMElement());
-      document.getElementById('dialog-ru-demo').appendChild(container.getDOMElement());
     }
 
     // 11. COMPLETE EXAMPLE
