@@ -2,12 +2,6 @@
 
 Pure JavaScript UI component library. No dependencies, no frameworks.
 
-Part of the [Olevsoft](https://olevsoft.com) toolset — used in production by
-[IMS2](https://github.com/ko-evge/ims2), a warehouse management system
-([live demo](https://demo.olevsoft.com), login `admin` / `USR`).
-See also [PForm2](https://github.com/ko-evge/PForm2) (report engine) and
-[IMSD](https://github.com/ko-evge/IMSD) (desktop distribution).
-
 ```javascript
 import { Button, Grid, Dialog } from './UIKit/index.js';
 ```
