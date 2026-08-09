@@ -1,0 +1,2154 @@
+/**
+ * UIKit - Beige Design System
+ * Тёплые нейтральные (oatmeal/putty/stone) вместо чистого белого + тёплый
+ * терракотовый акцент — клон modern.css (Ant Design 5.x) с перекрашенной
+ * палитрой, структура/селекторы идентичны.
+ */
+
+:root {
+  /* Primary colors */
+  --primary-color: #b8763e;
+  --primary-hover: #c9905f;
+  --primary-active: #8f5a2e;
+
+  /* Semantic colors */
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #ff4d4f;
+  --info-color: #b8763e;
+
+  /* Text colors — тёплый эспрессо вместо чистого чёрного */
+  --text-primary: #3a3128;
+  --text-secondary: #6b5f4f;
+  --text-disabled: #a89985;
+  --text-placeholder: #a89985;
+
+  /* Background colors */
+  --bg-white: #faf7f2;
+  --bg-light: #f5f0e8;
+  --bg-lighter: #ede6d9;
+  --bg-lightest: #e5dcc9;
+
+  /* Field-type colors — интуитивная подсказка пользователю:
+     песочный = свободный ввод текста (Input/Textarea), зелёный = выбор
+     из готового списка (Select/Combo/Dropdown/DatePicker). */
+  --bg-field-text: #fbf3e3;
+  --bg-field-choice: #eef0e0;
+
+  /* Borders */
+  --border-color: #d8cbb3;
+  --border-color-light: #e5dcc9;
+  --border-color-hover: #d4a978;
+
+  /* Sizes - Responsive using clamp() - Optimized for all screens */
+  --font-size-base: clamp(0.875rem, 1vw + 0.2rem, 0.95rem);
+  --font-size-small: clamp(0.75rem, 0.8vw + 0.15rem, 0.85rem);
+  --font-size-large: clamp(1rem, 1.2vw + 0.2rem, 1.1rem);
+
+  --size-sm: clamp(1.5rem, 3vw, 1.75rem);
+  --size-md: clamp(2rem, 3vw, 2.1rem);
+  --size-lg: clamp(2.5rem, 4vw, 2.6rem);
+
+  --padding-xs: clamp(0.2rem, 0.5vw, 0.3rem);
+  --padding-sm: clamp(0.4rem, 1vw, 0.5rem);
+  --padding-md: clamp(0.6rem, 1.5vw, 0.75rem);
+  --padding-lg: clamp(1rem, 2vw, 1.15rem);
+  --padding-xl: clamp(1.4rem, 3vw, 1.5rem);
+
+  /* Focus styles for keyboard navigation (Tab key) */
+  --focus-color: #b8763e;
+  --focus-shadow: 0 0 0 3px rgba(184, 118, 62, 0.2);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
+               0 1px 6px -1px rgba(0, 0, 0, 0.02),
+               0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+               0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+               0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* App-level surface/table tokens (app.css) — держим здесь, а не в app.css,
+     чтобы app.css оставался нейтральным к теме и не хардкодил свои цвета
+     поверх любой активной темы (иначе смена темы в index.html не работает
+     по-настоящему — см. проблему с tabulator: зелёный текст на прибитом
+     белом фоне). */
+  --app-surface: var(--bg-white);
+  --app-table-header-bg: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
+  --app-table-row-odd: #f2ead9;
+  --app-table-row-even: var(--bg-white);
+  --app-table-hover: #efe4cf;
+  --app-table-selected: #e0cda0;
+  --app-panel-body-bg: var(--bg-lightest);
+  --app-page-bg: #f5f0e8;
+  --app-header-bg: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-active) 100%);
+}
+
+/* ============================================================================
+   KEYBOARD NAVIGATION - Focus Styles (Tab Key Support)
+   ============================================================================ */
+
+/* Global focus visible for all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--focus-color) !important;
+  outline-offset: 2px;
+}
+
+/* Specific enhancements for common interactive elements */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible,
+.ui-button:focus-visible,
+.ui-input:focus-visible,
+.ui-textarea:focus-visible,
+.ui-dropdown:focus-visible,
+.ui-dropdown-button:focus-visible,
+.ui-dropdown-item:focus-visible {
+  outline: 2px solid var(--focus-color) !important;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.15) !important;
+}
+
+/* ============================================================================
+   BUTTON COMPONENT
+   ============================================================================ */
+
+.ui-button {
+  /* Base styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-sm);
+
+  padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.8rem, 2vw, 1.2rem);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  height: var(--size-md);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  font-weight: 500;
+
+  /* Text outline - light outline for dark text */
+  text-shadow:
+    -0.5px -0.5px 0 #fff,
+    0.5px -0.5px 0 #fff,
+    -0.5px 0.5px 0 #fff,
+    0.5px 0.5px 0 #fff;
+
+  /* Hover */
+  &:hover:not(:disabled) {
+    border-color: var(--primary-hover);
+    color: var(--primary-hover);
+  }
+
+  /* Active */
+  &:active:not(:disabled) {
+    border-color: var(--primary-active);
+    color: var(--primary-active);
+  }
+
+  /* Focus */
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-white),
+                0 0 0 4px var(--primary-color);
+  }
+
+  /* Disabled */
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: var(--border-color);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+  }
+
+  /* Small */
+  &.small {
+    padding: clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.6rem, 1.5vw, 1rem);
+    font-size: var(--font-size-small);
+    height: var(--size-sm);
+  }
+
+  /* Large */
+  &.large {
+    padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.2rem);
+    font-size: var(--font-size-large);
+    height: var(--size-lg);
+  }
+}
+
+/* Compact button (for dialogs) */
+.ui-button.compact {
+  padding: clamp(0.1rem, 0.25vw, 0.3rem) clamp(0.4rem, 1vw, 0.6rem) !important;
+  font-size: var(--font-size-small) !important;
+  height: clamp(1.2rem, 2vw, 1.6rem) !important;
+}
+
+/* Primary button */
+.ui-button.primary {
+  background: var(--primary-color);
+  color: var(--bg-white);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+
+  /* Text outline - dark outline for light text */
+  text-shadow:
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000;
+
+  &:hover:not(:disabled) {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--primary-active);
+    border-color: var(--primary-active);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--bg-white),
+                0 0 0 4px rgba(184, 118, 62, 0.2);
+  }
+
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: var(--border-color);
+    color: var(--text-disabled);
+  }
+}
+
+/* Danger button */
+.ui-button.danger:not(.primary) {
+  color: var(--error-color);
+  border-color: var(--error-color);
+
+  /* Text outline - light outline for red text */
+  text-shadow:
+    -0.5px -0.5px 0 #ffd6d6,
+    0.5px -0.5px 0 #ffd6d6,
+    -0.5px 0.5px 0 #ffd6d6,
+    0.5px 0.5px 0 #ffd6d6;
+
+  &:hover:not(:disabled) {
+    color: #ff7875;
+    border-color: #ff7875;
+  }
+}
+
+.ui-button.danger.primary {
+  background: var(--error-color);
+  border-color: var(--error-color);
+
+  /* Text outline - dark outline for light text on red background */
+  text-shadow:
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000;
+
+  &:hover:not(:disabled) {
+    background: #ff7875;
+    border-color: #ff7875;
+  }
+}
+
+/* ============================================================================
+   INPUT COMPONENT
+   ============================================================================ */
+
+.ui-input {
+  width: 100%;
+  /* Вертикальный padding = 0 + line-height = высоте поля: одиночная строка
+     нативного контрола центрируется по вертикали. Раньше был симметричный
+     вертикальный padding (~10px) при height 32px и line-height:normal — строка
+     не помещалась в content-box и визуально проваливалась к низу. display:flex
+     здесь не работает: браузер не позиционирует value-текст <input> флексом. */
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  font-size: var(--font-size-base);
+  line-height: var(--size-md);
+  height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-text);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+
+  /* Placeholder */
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  /* Focus */
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  /* Hover */
+  &:hover:not(:focus) {
+    border-color: var(--primary-hover);
+  }
+
+  /* Disabled */
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-disabled);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+
+  /* Error state */
+  &.error {
+    border-color: var(--error-color);
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1);
+    }
+  }
+
+  /* Warning state */
+  &.warning {
+    border-color: var(--warning-color);
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(250, 173, 20, 0.1);
+    }
+  }
+
+  /* Small */
+  &.small {
+    padding: clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.4rem, 1vw, 0.6rem);
+    font-size: var(--font-size-small);
+    height: var(--size-sm);
+  }
+
+  /* Large */
+  &.large {
+    padding: clamp(0.6rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.2rem);
+    font-size: var(--font-size-large);
+    height: var(--size-lg);
+  }
+}
+
+/* Filled variant */
+.ui-input.filled {
+  background: var(--bg-light);
+  border-color: transparent;
+
+  &:hover:not(:focus) {
+    background: var(--bg-lighter);
+  }
+
+  &:focus {
+    background: var(--bg-white);
+    border-color: var(--primary-color);
+  }
+}
+
+/* Underlined variant */
+.ui-input.underlined {
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background: transparent;
+
+  &:focus {
+    border-bottom-color: var(--primary-color);
+    box-shadow: none;
+  }
+}
+
+/* Error state (alternative class) */
+.ui-input-error {
+  border-color: var(--error-color) !important;
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1) !important;
+  }
+}
+
+/* ============================================================================
+   FORM COMPONENT
+   ============================================================================ */
+
+.ui-form-group {
+  margin-bottom: var(--padding-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-sm);
+}
+
+.ui-form-label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+}
+
+.ui-form-required {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-left: 2px;
+}
+
+.ui-form-error {
+  font-size: var(--font-size-small);
+  color: var(--error-color);
+  margin-top: var(--padding-xs);
+  display: none;
+  animation: slideDown var(--transition-fast) ease-out;
+}
+
+.ui-form-error[style*="display: block"] {
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   CHECKBOX COMPONENT
+   ============================================================================ */
+
+.ui-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-md);
+  user-select: none;
+}
+
+.ui-checkbox-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(1rem, 2vw, 1.25rem);
+  height: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+
+  /* Hover */
+  &:hover {
+    border-color: var(--primary-hover);
+  }
+
+  /* Checked */
+  &:checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Checked + Hover */
+  &:checked:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+
+  /* Checkmark */
+  &:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg-white);
+    font-size: var(--font-size-small);
+    font-weight: bold;
+  }
+
+  /* Focus */
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  /* Disabled */
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+
+  &:disabled:checked {
+    background: rgba(58, 49, 40, 0.15);
+    border-color: rgba(58, 49, 40, 0.15);
+  }
+}
+
+.ui-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-md);
+  cursor: pointer;
+  color: var(--text-primary);
+
+  span {
+    color: var(--text-primary);
+  }
+}
+
+/* ============================================================================
+   RADIO BUTTON COMPONENT
+   ============================================================================ */
+
+.ui-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-md);
+}
+
+.ui-radio-option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-md);
+  user-select: none;
+}
+
+.ui-radio-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(1rem, 2vw, 1.25rem);
+  height: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+
+  /* Hover */
+  &:hover {
+    border-color: var(--primary-hover);
+  }
+
+  /* Checked */
+  &:checked {
+    border-color: var(--primary-color);
+  }
+
+  /* Inner circle */
+  &:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(0.5rem, 1vw, 0.75rem);
+    height: clamp(0.5rem, 1vw, 0.75rem);
+    background: var(--primary-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Disabled */
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+}
+
+.ui-radio-label {
+  color: var(--text-primary);
+}
+
+/* ============================================================================
+   TABS COMPONENT
+   ============================================================================ */
+
+.ui-tabs {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.ui-tabs-header {
+  display: flex !important;
+  border-bottom: 1px solid #9c8f7a;
+  background: #d8cbb30b8;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-shrink: 0 !important;
+  gap: 2px;
+  padding: 2px 2px 0 2px;
+}
+
+.ui-tabs-button {
+  padding: clamp(0.2rem, 0.5vw, 0.5rem) clamp(0.6rem, 1.5vw, 1rem);
+  border: 1px outset #c0c0c0;
+  background: #d8cbb30b8;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  position: relative;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-weight: 500;
+  margin: 0;
+  z-index: 1;
+
+  /* Hover */
+  &:hover:not(.active) {
+    background: #e3d7c0;
+  }
+
+  /* Keyboard focus */
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
+
+  /* Active */
+  &.active {
+    background: var(--bg-white);
+    border: 1px solid #9c8f7a;
+    border-bottom: none;
+    margin-bottom: -1px;
+    z-index: 10;
+    color: var(--text-primary);
+  }
+}
+
+.ui-tabs-content {
+  background: var(--bg-white);
+  border: 1px solid #9c8f7a;
+  border-top: none;
+  flex: 1 !important;
+  overflow: hidden !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.ui-tabs-panel {
+  display: none;
+  flex: 1 !important;
+  overflow: auto !important;
+  min-height: 0 !important;
+
+  &.active {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================================================
+   LINK COMPONENT
+   ============================================================================ */
+
+.ui-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  cursor: pointer;
+
+  /* Hover */
+  &:hover {
+    color: var(--primary-hover);
+  }
+
+  /* Active */
+  &:active {
+    color: var(--primary-active);
+  }
+
+  /* Disabled */
+  &:disabled,
+  &.disabled,
+  &.ui-link-disabled {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* ============================================================================
+   COMBO (DROPDOWN WITH SEARCH) COMPONENT
+   ============================================================================ */
+
+.ui-combo-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ui-combo-input {
+  width: 100%;
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  font-size: var(--font-size-base);
+  line-height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-choice);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  &:hover:not(:focus) {
+    border-color: var(--primary-hover);
+  }
+}
+
+.ui-combo-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--padding-xs);
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1500;
+  border: 1px solid var(--border-color-light);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.ui-combo-item {
+  padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.6rem, 1.5vw, 1rem);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  color: var(--text-primary);
+
+  /* Hover */
+  &:hover {
+    background: #f7ede0;
+  }
+
+  /* Selected */
+  &.selected {
+    background: #f3e4d0;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  /* Highlight match */
+  strong {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+}
+
+.ui-combo-no-results {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.ui-combo-loading {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.ui-combo-error {
+  padding: var(--padding-lg);
+  text-align: center;
+  color: var(--error-color);
+}
+
+/* ============================================================================
+   LIST COMPONENT
+   ============================================================================ */
+
+.ui-list {
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--radius-md);
+  background: var(--bg-white);
+  overflow: hidden;
+}
+
+.ui-list-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-md);
+  padding: var(--padding-md) var(--padding-lg);
+  border-bottom: 1px solid var(--border-color-light);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  color: var(--text-primary);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  /* Hover */
+  &:hover {
+    background: #f7ede0;
+  }
+
+  /* Keyboard focus */
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+    background: #f7ede0;
+  }
+
+  /* Selected */
+  &.selected {
+    background: #f3e4d0;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  /* Disabled */
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.ui-list-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.ui-list-content {
+  flex: 1;
+}
+
+.ui-list--compact .ui-list-item {
+  padding: 3px var(--padding-md);
+  font-size: 13px;
+}
+
+/* ============================================================================
+   GRID/TABLE COMPONENT
+   ============================================================================ */
+
+.ui-grid {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden !important;
+  background: var(--bg-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.ui-grid table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ui-grid-toolbar {
+  flex-shrink: 0 !important;
+  padding: var(--padding-md);
+  border-bottom: 1px solid var(--border-color-light);
+  background: var(--bg-lighter);
+}
+
+.ui-grid-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 380px;
+}
+
+/* Поле поиска тулбара грида — не наследовало вообще никакого стиля (голый
+   браузерный input) в отличие от .ui-input, использованного везде в форме. */
+.ui-grid-search {
+  width: 100%;
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  line-height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-text);
+  font-size: var(--font-size-base);
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+}
+
+/* Цвет/hover/active берутся из .ui-button (реальный цвет кнопок приложения
+   заведён в app.css поверх этой темы). Тень добавляем явно — обычно её даёт
+   .ui-dialog-footer .ui-button, а эта кнопка сидит в тулбаре грида, не в футере. */
+.ui-grid-search-clear {
+  flex-shrink: 0;
+  height: var(--size-md);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+/* Spinner / LoadingOverlay — см. UIKit/ui/Spinner.js */
+.ui-spinner {
+  display: inline-block;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--primary-color, #b8763e);
+  border-radius: 50%;
+  animation: ui-spinner-spin 0.8s linear infinite;
+  box-sizing: border-box;
+}
+
+@keyframes ui-spinner-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ui-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.65);
+  z-index: 20000; /* выше DropdownMenu (2000) и fkey-подсказок (10000) */
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-loading-overlay-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 32px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ui-loading-overlay-status {
+  font-size: 13px;
+  color: #555;
+  min-height: 16px;
+  white-space: pre-line;
+  text-align: center;
+}
+
+.ui-grid-table-wrapper {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+.ui-grid thead {
+  background: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
+}
+
+/* Sticky header: keeps column headers visible while the parent
+   (dialog body / tabs content) scrolls. Keeps native table column
+   alignment intact — no flex on table/thead/tbody. */
+.ui-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: var(--size-md) !important;
+  line-height: 1 !important;
+  background: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
+}
+
+.ui-grid th {
+  padding: clamp(0.05rem, 0.2vw, 0.2rem) clamp(0.15rem, 0.5vw, 0.3rem) !important;
+  height: var(--size-md) !important;
+  line-height: 1 !important;
+  font-weight: 600;
+  font-size: var(--font-size-small);
+  text-align: left;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  user-select: none;
+  background: transparent;
+
+  /* Text outline - dark outline for light text */
+  text-shadow:
+    -0.5px -0.5px 0 #000,
+    0.5px -0.5px 0 #000,
+    -0.5px 0.5px 0 #000,
+    0.5px 0.5px 0 #000;
+}
+
+/* Sortable header */
+.ui-grid th.sortable-header {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.ui-grid th.sortable-header:hover {
+  background: var(--bg-lighter);
+}
+
+/* Current/focused row in Grid (keyboard navigation) */
+.ui-grid tbody tr.current-row {
+  background: rgba(22, 119, 255, 0.1) !important;
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+.ui-grid tbody tr.current-row td {
+  background: inherit;
+}
+
+/* Sort indicator */
+.sort-indicator {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.ui-grid tr {
+  transition: background var(--transition-fast);
+  border-bottom: 1px solid var(--border-color-light);
+
+  /* Hover */
+  &:hover {
+    background: #f7ede0;
+  }
+
+  /* Selected */
+  &.selected {
+    background: #f3e4d0;
+  }
+}
+
+.ui-grid td {
+  padding: clamp(0.05rem, 0.2vw, 0.2rem) clamp(0.15rem, 0.5vw, 0.3rem) !important;
+  height: var(--size-md) !important;
+  line-height: 1 !important;
+  color: var(--text-primary);
+  font-size: var(--font-size-small);
+  border-bottom: 1px solid var(--border-color-light);
+  /* Не !important — header.align в Grid.js задаёт text-align инлайн-стилем
+     через _fillCell(); !important здесь перебивал бы его безусловно, и
+     align:'right' в конфигах гридов по всему приложению не работал бы. */
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-grid tbody {
+  text-align: left;
+}
+
+.ui-grid tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Checkbox column */
+.ui-grid tbody tr td:first-child {
+  width: 50px;
+  text-align: center;
+}
+
+.ui-grid tbody tr input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+/* Column resizer */
+.ui-grid-resizer {
+  position: absolute;
+  right: -4px;
+  top: 0;
+  height: 100%;
+  width: 8px;
+  cursor: col-resize;
+  user-select: none;
+  background: transparent;
+  transition: background var(--transition-fast);
+
+  &:hover {
+    background: var(--primary-color);
+    opacity: 0.3;
+  }
+}
+
+/* Pagination */
+.ui-grid-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--padding-sm);
+  padding: 4px var(--padding-sm);
+  border-top: 1px solid var(--border-color-light);
+  background: var(--bg-white);
+  font-size: 12px;
+}
+
+.ui-grid-pagination button {
+  padding: 2px 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-white);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  &:disabled {
+    color: var(--text-disabled);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+}
+
+/* Filter button in header */
+.ui-grid-filter-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  margin-left: 6px;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* Filter popup */
+.ui-grid-filter-popup {
+  position: fixed;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--padding-md);
+  z-index: 1500;
+  min-width: 280px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.ui-grid-filter-popup label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ui-grid-filter-popup select,
+.ui-grid-filter-popup input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+}
+
+/* select ("Условие") — выбор из списка → зелёный; input ("Значение") —
+   свободный ввод текста → песочный (та же идеология, что у форм). */
+.ui-grid-filter-popup select {
+  background: var(--bg-field-choice);
+}
+
+.ui-grid-filter-popup input {
+  background: var(--bg-field-text);
+}
+
+/* Раньше отступы/раскладка задавались инлайн-стилями прямо в Grid.js
+   (applyBtn.style.backgroundColor и т.п.) — нарушало принцип "CSS-темы, не
+   JS-стили" и не менялось при смене темы. Перенесено сюда. */
+.ui-grid-filter-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ui-grid-filter-row {
+  margin-bottom: 12px;
+}
+
+.ui-grid-filter-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.ui-grid-filter-apply,
+.ui-grid-filter-clear,
+.ui-grid-filter-close {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  cursor: pointer;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.ui-grid-filter-close {
+  flex: none;
+  width: 30px;
+}
+
+.ui-grid-filter-apply {
+  background: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 500 !important;
+
+  &:hover {
+    background: var(--primary-hover) !important;
+  }
+}
+
+.ui-grid-filter-clear {
+  font-weight: 500 !important;
+
+  &:hover {
+    border-color: var(--error-color) !important;
+    color: var(--error-color) !important;
+  }
+}
+
+/* ============================================================================
+   LABEL COMPONENT
+   ============================================================================ */
+
+.ui-label {
+  display: inline-block;
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: var(--padding-sm);
+}
+
+.ui-label.required::after {
+  content: ' *';
+  color: var(--error-color);
+}
+
+/* ============================================================================
+   TABLE COMPONENT
+   ============================================================================ */
+
+.ui-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============================================================================
+   GRID COMPONENT
+   ============================================================================ */
+
+.ui-grid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============================================================================
+   VERTICAL LAYOUT COMPONENT (3-zone: top/middle/bottom)
+   ============================================================================ */
+
+.ui-vlayout {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-vlayout-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-vlayout-middle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-vlayout-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================================
+   HORIZONTAL LAYOUT COMPONENT
+   ============================================================================ */
+
+.ui-hlayout { width:100%; height:100%; position:relative; overflow:hidden; }
+.ui-hlayout-left   { position:absolute; top:0; left:0; height:100%; overflow:auto; box-sizing:border-box; }
+.ui-hlayout-middle { position:absolute; top:0; bottom:0; height:100%; overflow:auto; box-sizing:border-box; }
+.ui-hlayout-right  { position:absolute; top:0; right:0; height:100%; overflow:auto; box-sizing:border-box; }
+
+/* ============================================================================
+   DROPDOWN MENU COMPONENT  (Options▾ pattern)
+   ============================================================================ */
+
+.ui-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.ui-dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2000;
+  min-width: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 4px 0;
+}
+
+.ui-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 14px;
+  font-size: var(--font-size-small);
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  gap: 16px;
+}
+
+.ui-dropdown-item.highlighted {
+  background: #0958b3;
+  color: #fff;
+}
+
+.ui-dropdown-item.disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.ui-dropdown-item-key {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.ui-dropdown-separator {
+  height: 1px;
+  background: var(--border-color-light);
+  margin: 4px 0;
+}
+
+.ui-dropdown-group-header {
+  padding: 4px 14px 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================================
+   FORM COMPONENT
+   ============================================================================ */
+
+.ui-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ============================================================================
+   LIST COMPONENT
+   ============================================================================ */
+
+.ui-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;  /* override components.css min-height:200px so the fill list can shrink */
+}
+
+/* Scroll area must fill the flex list, not be capped at a fixed height.
+   components.css sets .ui-list-items { max-height: 400px } which (like the old
+   dialog max-height:70vh bug) caps the body below the container and leaves a
+   gap when the list is used as a fill component. */
+.ui-list-items {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+
+/* ============================================================================
+   PANEL COMPONENT
+   ============================================================================ */
+
+.ui-panel {
+  border: 1px solid var(--border-color-light);
+  border-radius: var(--radius-lg);
+  background: var(--bg-white);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ui-panel-header {
+  padding: var(--padding-lg);
+  border-bottom: 1px solid var(--border-color-light);
+  background: var(--bg-light);
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  gap: 8px;
+}
+
+.ui-panel-title {
+  flex: 1;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0px -1px 0 #000,
+    0px 1px 0 #000,
+    -1px 0px 0 #000,
+    1px 0px 0 #000;
+}
+
+.ui-panel-toggle {
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.ui-panel-body,
+.ui-panel-content {
+  padding: var(--padding-lg);
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.ui-panel-footer {
+  padding: var(--padding-lg);
+  border-top: 1px solid var(--border-color-light);
+  background: var(--bg-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--padding-md);
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+   DIALOG/MODAL COMPONENT
+   ============================================================================ */
+
+.ui-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeIn 0.2s ease;
+}
+
+.ui-dialog-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ui-dialog {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+  min-width: 320px;
+  box-sizing: border-box;  /* FIX: Ensure padding doesn't add to width/height */
+  gap: 0;  /* FIX: Remove any gap between flex items */
+}
+
+.ui-dialog * {
+  box-sizing: border-box;  /* Apply to all children */
+}
+
+/* Special class for fullscreen dialogs (like ReferenceDialog) */
+.ui-dialog.fullscreen {
+  width: 90%;
+  height: 90vh;
+}
+
+@media (min-width: 576px) {
+  .ui-dialog {
+    min-width: 400px;
+  }
+}
+
+.ui-dialog-header {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 12px;
+  overflow: visible;
+  min-height: 44px;
+}
+
+.ui-dialog-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: auto;
+  line-height: 1.4;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0px -1px 0 #000,
+    0px 1px 0 #000,
+    -1px 0px 0 #000,
+    1px 0px 0 #000;
+}
+
+.ui-dialog-close {
+  background: none;
+  border: none;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  cursor: pointer;
+  color: white;
+  transition: color var(--transition-fast);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.ui-dialog-body,
+.ui-dialog-content {
+  color: var(--text-primary);
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-dialog-footer {
+  padding: var(--padding-lg);
+  border-top: 1px solid var(--border-color-light);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--padding-md);
+  background: var(--bg-light);
+  flex-shrink: 0;
+}
+
+.ui-dialog-footer .ui-button {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.ui-dialog-footer .ui-dropdown {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-dialog-footer .ui-dropdown .ui-button {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   FORM COMPONENT
+   ============================================================================ */
+
+.ui-form {
+  width: 100%;
+}
+
+.ui-form-item {
+  margin-bottom: var(--padding-xl);
+}
+
+.ui-form-item-label {
+  display: block;
+  margin-bottom: var(--padding-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ui-form-item-label.required::after {
+  content: ' *';
+  color: var(--error-color);
+}
+
+.ui-form-item-control {
+  position: relative;
+}
+
+.ui-form-item-help {
+  margin-top: var(--padding-sm);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+.ui-form-item.error .ui-form-item-help {
+  color: var(--error-color);
+}
+
+/* ============================================================================
+   TEXTAREA COMPONENT
+   ============================================================================ */
+
+.ui-textarea {
+  width: 100%;
+  padding: var(--padding-md);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-text);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  &:hover:not(:focus) {
+    border-color: var(--primary-hover);
+  }
+
+  &:disabled {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-disabled);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+  }
+}
+
+/* ============================================================================
+   DROPDOWN COMPONENT
+   ============================================================================ */
+
+.ui-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown.js (не DropdownMenu.js) — свой хост-класс и кнопка-триггер.
+   Без этих правил компонент рендерился нестилизованной браузерной кнопкой
+   (используется в reports.js, UserAccessDialog.js, WarehouseDialog.js). */
+.ui-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.ui-dropdown-button {
+  width: 100%;
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  line-height: var(--size-md);
+  font-size: var(--font-size-base);
+  text-align: left;
+  background: var(--bg-field-choice);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-hover);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.ui-dropdown-item-selected {
+  background: #f3e4d0;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* When used as fixed menu (Directory menu) */
+.ui-dropdown[style*="position: fixed"] {
+  position: fixed !important;
+}
+
+.ui-dropdown[style*="position: fixed"] .ui-dropdown-menu {
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  margin-top: 5px;
+}
+
+.ui-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-sm);
+  padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.8rem, 2vw, 1.2rem);
+  height: var(--size-md);
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--primary-hover);
+  }
+}
+
+.ui-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--padding-xs);
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 150px;
+  z-index: 1500;
+  border: 1px solid var(--border-color-light);
+  overflow: hidden;
+}
+
+.ui-dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color-light);
+  border: none;
+  background: none;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  /* All focus states - keyboard and mouse */
+  &:focus {
+    outline: 2px solid var(--primary-color) !important;
+    outline-offset: -2px;
+    background: #f3e4d0 !important;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color) !important;
+    outline-offset: -2px;
+    background: #f3e4d0 !important;
+  }
+}
+
+/* ============================================================================
+   SELECT COMPONENT (native browser <select> wrapper)
+   ============================================================================ */
+
+.ui-select-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-select {
+  width: 100%;
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  /* Вертикальный padding=0 + line-height=высоте: текст выбранного option
+     центрируется. Симметричный вертикальный padding при фикс. height давал
+     проваливание текста к низу. flex на <select> не применяем — ломает <option>. */
+  line-height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-choice);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 150px;
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-hover);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: var(--bg-light);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+/* Hide empty placeholder option in dropdown */
+.ui-select option[value=""] {
+  display: none;
+}
+
+/* ============================================================================
+   DEBUG LABEL (for bug reporting)
+   ============================================================================ */
+
+.ui-debug-id {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 11px;
+  color: #6b5f4f;
+  font-family: monospace;
+  background: #ffffcc;
+  padding: 3px 6px;
+  border: 1px solid #d8cbb3;
+  border-radius: 3px;
+  pointer-events: auto;
+  z-index: 10000;
+  opacity: 1;
+  cursor: default;
+  font-weight: bold;
+}
+
+.ui-debug-id:hover {
+  background: #ffff99;
+  border-color: #9c8f7a;
+  color: #000;
+}
+
+/* ============================================================================
+   DATEPICKER COMPONENT
+   ============================================================================ */
+
+.ui-datepicker-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-datepicker-input {
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  /* Вертикальный padding=0 + line-height=высоте центрирует значение даты.
+     Прежний симметричный вертикальный padding при фикс. height проваливал
+     текст к низу поля. */
+  line-height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-field-choice);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+  }
+
+  /* Скрываем нативную иконку календаря — без этого клик по ней открывал ещё
+     и системный date-picker поверх кастомного .ui-calendar: кастомный
+     закрывался по выбору дня (hideCalendar()), а системный оставался
+     висеть, требуя лишнего клика мимо, чтобы закрыть его тоже. */
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+/* Кастомный выпадающий календарь (renderCalendar() в DatePicker.js) — без этих
+   правил showCalendar() ставит display:block, но div рендерится без
+   position/z-index/оформления и визуально не появляется. */
+.ui-calendar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md, 0 2px 8px rgba(58, 49, 40, 0.15));
+  z-index: 1500;
+  margin-top: 4px;
+  min-width: 280px;
+}
+
+.ui-calendar-header {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ui-calendar-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.ui-calendar-nav {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: var(--primary-color);
+  transition: all var(--transition-fast);
+  border-radius: 3px;
+}
+
+.ui-calendar-nav:hover {
+  background: var(--bg-secondary, #ede6d9);
+}
+
+.ui-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #6b5f4f);
+  text-align: center;
+}
+
+.ui-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  padding: 8px;
+}
+
+.ui-calendar-day {
+  padding: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.ui-calendar-day:hover:not(:disabled) {
+  background: var(--bg-secondary, #ede6d9);
+}
+
+.ui-calendar-day-selected {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+.ui-calendar-day-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================================
+   GENERAL STYLES
+   ============================================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--bg-white);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+               'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--border-color-hover);
+  }
+}
