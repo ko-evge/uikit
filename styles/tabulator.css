@@ -5,22 +5,46 @@
  */
 
 :root {
+  --font-family-base: var(--font-family-mono, 'Consolas', 'Menlo', 'SFMono-Regular', 'Monaco', 'Courier New', monospace);
+
   /* Primary colors - Green terminal style */
   --primary-color: #00d084;        /* Bright green */
   --primary-hover: #00ff9d;        /* Lighter green */
   --primary-active: #00a660;       /* Darker green */
   --primary-light: rgba(0, 208, 132, 0.1);
+  --focus-color: #00d084;
+  --focus-shadow: 0 0 0 3px rgba(0, 208, 132, 0.3);
 
   /* Background colors - Black */
-  --bg-primary: #000000;           /* Pure black */
+  --bg-primary: #0a0d0a;           /* Near-black, softens contrast vs pure black */
   --bg-secondary: #0a0a0a;         /* Very dark gray */
   --bg-tertiary: #1a1a1a;          /* Dark gray */
-  --bg-hover: rgba(0, 208, 132, 0.05);
-  --bg-selected: rgba(0, 208, 132, 0.15);
+  /* modern/beige/gruvbox naming — app.css (.tools-btn) referenced these bare,
+     без fallback; отсутствовали только здесь → кнопки Tools теряли фон. */
+  --bg-lighter: #1a1a1a;
+  --bg-lightest: #242424;
+  --bg-hover: rgba(0, 208, 132, 0.1);
+  --bg-selected: #0f5c3a;
+  --app-table-selected-text: #eafff2;
+  /* Кросс-темный алиас, см. modern.css */
+  --bg-panel: var(--bg-tertiary);
+  --bg-warning-subtle: rgba(255, 170, 0, 0.15);
+  --border-warning-subtle: rgba(255, 170, 0, 0.4);
+  --bg-success-subtle: rgba(0, 255, 0, 0.12);
+  --border-success-subtle: rgba(0, 255, 0, 0.35);
+  --bg-error-subtle: rgba(255, 68, 68, 0.15);
+  --border-error-subtle: rgba(255, 68, 68, 0.4);
+  --bg-info-subtle: var(--bg-tertiary);
+  --border-info-subtle: var(--primary-color);
+  /* Идеология полей (см. app.css .nd-input): песочный/свободный ввод vs
+     зелёный/выбор из справочника — здесь оба варианты тёмных, различаются
+     оттенком (нейтрально-серый vs зеленоватый), а не светлотой как в modern. */
+  --bg-field-text: #141414;
+  --bg-field-choice: #0f1f16;
 
   /* Text colors */
-  --text-primary: #00d084;         /* Green text */
-  --text-secondary: #00a660;       /* Darker green */
+  --text-primary: #4ade80;         /* Balanced green - less retinal vibration than pure #33ff99 */
+  --text-secondary: #22c55e;       /* Green */
   --text-disabled: #444444;        /* Gray */
   --text-placeholder: #555555;     /* Light gray */
   --text-muted: #666666;           /* Muted gray */
@@ -44,7 +68,10 @@
   --font-size-base: clamp(0.875rem, 1vw + 0.2rem, 0.95rem);
   --font-size-small: clamp(0.75rem, 0.8vw + 0.15rem, 0.85rem);
   --font-size-large: clamp(1rem, 1.2vw + 0.2rem, 1.1rem);
-  --font-family-mono: 'Courier New', 'Monaco', 'Consolas', monospace;
+  /* 'Noto Sans Mono'/'DejaVu Sans Mono'/'Ubuntu Mono' первыми — реально
+     установлены на Linux и рендерятся заметно чётче generic monospace
+     fallback, на который откатывался браузер при отсутствии Consolas/Menlo. */
+  --font-family-mono: 'Noto Sans Mono', 'DejaVu Sans Mono', 'Ubuntu Mono', 'Consolas', 'Menlo', 'SFMono-Regular', 'Monaco', 'Courier New', monospace;
 
   --size-sm: clamp(1.5rem, 3vw, 1.75rem);
   --size-md: clamp(2rem, 3vw, 2.1rem);
@@ -98,14 +125,53 @@ html, body {
   color: var(--text-primary);
   font-family: var(--font-family-mono), monospace;
   font-size: var(--font-size-base);
+  font-weight: 400;
   line-height: 1.6;
   margin: 0;
   padding: 0;
   border: 1px solid var(--border-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   overflow-x: hidden;
+}
+
+/* Нативные виджеты (select-попап, date/number-спиннеры, скроллбары) рисуются
+   светлой хромой ОС поверх тёмной темы без этого — раньше стояло только на
+   .ui-select, здесь на весь документ. */
+html {
+  color-scheme: dark;
+}
+
+/* ============================================================================
+   KEYBOARD NAVIGATION - Focus Styles (Tab Key Support)
+   Единственная тема без этого блока — клавиатурный фокус (reference-picker,
+   см. коммит 900e079) был визуально невидим при переключении на Terminal.
+   ============================================================================ */
+
+*:focus-visible {
+  outline: 2px solid var(--focus-color) !important;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible,
+.ui-button:focus-visible,
+.ui-input:focus-visible,
+.ui-textarea:focus-visible,
+.ui-dropdown:focus-visible,
+.ui-dropdown-button:focus-visible,
+.ui-dropdown-item:focus-visible,
+.ui-list-item:focus-visible,
+.ui-tabs-button:focus-visible {
+  outline: 2px solid var(--focus-color) !important;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 2px rgba(0, 208, 132, 0.25) !important;
 }
 
 /* ============================================================================
@@ -198,6 +264,16 @@ body {
   &:active:not(:disabled) {
     background: rgba(0, 208, 132, 0.35);
     box-shadow: var(--shadow-glow-lg), inset 0 0 10px rgba(0, 208, 132, 0.2);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--bg-secondary), 0 0 0 4px rgba(0, 208, 132, 0.4);
+  }
+
+  &:disabled {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color-light);
+    color: var(--text-disabled);
   }
 }
 
@@ -560,13 +636,6 @@ body {
    TABS COMPONENT
    ============================================================================ */
 
-.ui-tabs {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 
 .ui-tabs-header {
   display: flex;
@@ -602,13 +671,14 @@ body {
 
   /* Active */
   &.active {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
     border-bottom: none;
     margin-bottom: -1px;
     z-index: 10;
-    color: var(--text-primary);
-    box-shadow: 0 0 8px rgba(0, 208, 132, 0.2);
+    color: #000000;
+    font-weight: 700;
+    box-shadow: 0 0 8px rgba(0, 208, 132, 0.4);
   }
 }
 
@@ -686,9 +756,9 @@ body {
 .ui-combo-input {
   width: 100%;
   padding: 0 11px;
-  height: 32px;
+  height: var(--size-md);
   font-size: var(--font-size-base);
-  line-height: 32px;
+  line-height: var(--size-md);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   background: var(--bg-secondary);
@@ -783,14 +853,29 @@ body {
 }
 
 /* ============================================================================
+   VERTICAL LAYOUT COMPONENT (3-zone: top/middle/bottom)
+   ============================================================================ */
+
+
+
+
+
+/* ============================================================================
+   HORIZONTAL LAYOUT COMPONENT
+   ============================================================================ */
+
+.ui-hlayout-left   { position:absolute; top:0; left:0; height:100%; overflow:auto; box-sizing:border-box; }
+.ui-hlayout-right  { position:absolute; top:0; right:0; height:100%; overflow:auto; box-sizing:border-box; }
+
+/* ============================================================================
    LIST COMPONENT
    ============================================================================ */
 
+/* Структура (width/height/display/flex/overflow) — в components.css. */
 .ui-list {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   background: var(--bg-secondary);
-  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 208, 132, 0.1);
 }
 
@@ -836,6 +921,11 @@ body {
   }
 }
 
+.ui-list--compact .ui-list-item {
+  padding: 3px var(--padding-md);
+  font-size: 13px;
+}
+
 .ui-list-checkbox {
   width: 16px;
   height: 16px;
@@ -851,15 +941,23 @@ body {
    GRID/TABLE COMPONENT
    ============================================================================ */
 
+
+/* Структура (width/height/display/flex/overflow) — в components.css. */
 .ui-grid {
-  width: 100%;
-  border-collapse: collapse;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  overflow: hidden;
   background: var(--bg-secondary);
   box-shadow: 0 0 15px rgba(0, 208, 132, 0.15);
   font-family: var(--font-family-mono), monospace;
+}
+
+/* Пропущено при первом переходе на 2-слойную архитектуру — единственная
+   тема без override, падала на светлый хардкод components.css (#fafafa). */
+.ui-grid-toolbar {
+  flex-shrink: 0;
+  padding: var(--padding-md);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
 }
 
 .ui-grid-search-wrap {
@@ -898,6 +996,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
+
 .ui-grid table {
   width: 100%;
   border-collapse: collapse;
@@ -906,6 +1005,14 @@ body {
 .ui-grid thead {
   background: var(--bg-tertiary);
   border-bottom: 2px solid var(--primary-color);
+}
+
+/* Sticky header — отсутствовал только в этой теме, заголовки грида не
+   оставались видимыми при скролле содержимого. */
+.ui-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .ui-grid th {
@@ -943,6 +1050,17 @@ body {
   text-shadow: 0 0 4px rgba(0, 208, 132, 0.5);
 }
 
+/* Current/focused row (keyboard navigation) — отсутствовал только здесь. */
+.ui-grid tbody tr.current-row {
+  background: rgba(0, 208, 132, 0.18) !important;
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+.ui-grid tbody tr.current-row td {
+  background: inherit;
+}
+
 .ui-grid tr {
   transition: all var(--transition-fast);
   border-bottom: 1px solid var(--border-color-light);
@@ -966,8 +1084,13 @@ body {
   height: var(--size-md) !important;
   line-height: 1 !important;
   color: var(--text-primary);
+  font-weight: 400;
   font-size: var(--font-size-small);
   border-bottom: 1px solid var(--border-color-light);
+}
+
+.ui-grid tbody {
+  text-align: left;
 }
 
 .ui-grid tbody tr:last-child td {
@@ -1172,7 +1295,7 @@ body {
   display: inline-block;
   font-size: var(--font-size-base);
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: var(--padding-sm);
   font-family: var(--font-family-mono), monospace;
   text-transform: uppercase;
@@ -1195,6 +1318,7 @@ body {
   background: var(--bg-secondary);
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 208, 132, 0.1);
+  height: 100%;
 }
 
 .ui-panel-header {
@@ -1207,8 +1331,6 @@ body {
   letter-spacing: 0.5px;
   text-shadow: 0 0 4px rgba(0, 208, 132, 0.2);
   font-family: var(--font-family-mono), monospace;
-  display: flex;
-  align-items: center;
   gap: 8px;
 }
 
@@ -1217,9 +1339,7 @@ body {
 }
 
 .ui-panel-toggle {
-  display: inline-block;
   width: 16px;
-  text-align: center;
   transition: transform 0.2s;
   flex-shrink: 0;
 }
@@ -1229,14 +1349,15 @@ body {
 .ui-panel-body,
 .ui-panel-content {
   padding: var(--padding-lg);
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
 }
 
 .ui-panel-footer {
   padding: var(--padding-lg);
   border-top: 1px solid var(--border-color);
   background: var(--bg-tertiary);
-  display: flex;
-  justify-content: flex-end;
   gap: var(--padding-md);
 }
 
@@ -1250,7 +1371,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  /* Было 0.8 — поверх уже тёмного UI это съедало предыдущее окно целиком,
+     делая его неотличимым от фона. Слегка зелёный тон вместо чистого чёрного,
+     чтобы задний план оставался различим, но явно "неактивен". */
+  background: rgba(0, 20, 12, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1265,11 +1389,20 @@ body {
   box-shadow: 0 0 30px rgba(0, 208, 132, 0.3);
   max-width: 90%;
   max-height: 90vh;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   animation: slideUp 0.3s ease;
   min-width: 320px;
+  box-sizing: border-box;
+  gap: 0;
   border: 1px solid var(--primary-color);
 }
+
+.ui-dialog * {
+  box-sizing: border-box;
+}
+
 
 @media (min-width: 576px) {
   .ui-dialog {
@@ -1284,6 +1417,8 @@ body {
   justify-content: space-between;
   align-items: center;
   background: var(--bg-tertiary);
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 .ui-dialog-title {
@@ -1317,10 +1452,16 @@ body {
   }
 }
 
-.ui-dialog-body {
+.ui-dialog-body,
+.ui-dialog-content {
   padding: var(--padding-lg);
   color: var(--text-primary);
   font-family: var(--font-family-mono), monospace;
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .ui-dialog-footer {
@@ -1330,6 +1471,7 @@ body {
   justify-content: flex-end;
   gap: var(--padding-md);
   background: var(--bg-tertiary);
+  flex-shrink: 0;
 }
 
 @keyframes slideUp {
@@ -1358,7 +1500,7 @@ body {
 .ui-form-item-label {
   display: block;
   margin-bottom: var(--padding-sm);
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-primary);
   font-family: var(--font-family-mono), monospace;
   text-transform: uppercase;
@@ -1484,12 +1626,18 @@ body {
   font-weight: 600;
 }
 
+/* Клавиатурная навигация в DropdownMenu.js (стрелки вверх/вниз). */
+.ui-dropdown-item.highlighted {
+  background: rgba(0, 208, 132, 0.3);
+  color: var(--accent-color);
+}
+
 .ui-dropdown-trigger {
   display: inline-flex;
   align-items: center;
   gap: var(--padding-sm);
   padding: 8px 15px;
-  height: 32px;
+  height: var(--size-md);
   background: rgba(0, 208, 132, 0.08);
   border: 1px solid var(--border-color-hover);
   border-radius: var(--radius-md);
@@ -1537,6 +1685,98 @@ body {
   }
 }
 
+/* DropdownMenu.js (не Dropdown.js) — панель с F-key-подобными пунктами,
+   своя структура (см. .ui-dropdown-item выше — общий с Dropdown.js). */
+.ui-dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2000;
+  min-width: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--primary-color);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 15px rgba(0, 208, 132, 0.2);
+  padding: 4px 0;
+  font-family: var(--font-family-mono), monospace;
+}
+
+.ui-dropdown-item.disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ui-dropdown-item-key {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.ui-dropdown-separator {
+  height: 1px;
+  background: var(--border-color-light);
+  margin: 4px 0;
+}
+
+.ui-dropdown-group-header {
+  padding: 4px 14px 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================================
+   SELECT COMPONENT (native browser <select> wrapper) — отсутствовал целиком,
+   рендерился нестилизованным браузерным select.
+   ============================================================================ */
+
+.ui-select-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.ui-select {
+  width: 100%;
+  padding: 0 clamp(0.6rem, 1.5vw, 1rem);
+  height: var(--size-md);
+  line-height: var(--size-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-mono), monospace;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 150px;
+  color-scheme: dark;
+  accent-color: var(--primary-color);
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-color);
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: var(--bg-tertiary);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.ui-select option[value=""] {
+  display: none;
+}
+
 /* ============================================================================
    DATEPICKER COMPONENT
    ============================================================================ */
@@ -1548,8 +1788,8 @@ body {
 
 .ui-datepicker-input {
   padding: 0 11px;
-  height: 32px;
-  line-height: 32px;
+  height: var(--size-md);
+  line-height: var(--size-md);
   box-sizing: border-box;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -1700,4 +1940,70 @@ body {
 ::-moz-selection {
   background: rgba(0, 208, 132, 0.25);
   color: var(--accent-color);
+}
+
+/* ============================================================================
+   LOADING OVERLAY / SPINNER / DEBUG ID — отсутствовали в теме целиком
+   (единственная тема без override, components.css/modern.css fallback
+   белого оверлея просвечивал бы поверх всего интерфейса на долгих операциях).
+   ============================================================================ */
+.ui-spinner {
+  display: inline-block;
+  border: 3px solid rgba(0, 208, 132, 0.15);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: ui-spinner-spin 0.8s linear infinite;
+  box-sizing: border-box;
+}
+
+@keyframes ui-spinner-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ui-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 20000;
+  align-items: center;
+  justify-content: center;
+}
+
+.ui-loading-overlay-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 32px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 208, 132, 0.3);
+}
+
+.ui-loading-overlay-status {
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-height: 16px;
+  white-space: pre-line;
+  text-align: center;
+  font-family: var(--font-family-mono), monospace;
+}
+
+.ui-debug-id {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-family-mono), monospace;
+  background: var(--bg-tertiary);
+  padding: 3px 6px;
+  border: 1px solid var(--border-color);
+}
+
+.ui-debug-id:hover {
+  background: var(--bg-hover);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
 }

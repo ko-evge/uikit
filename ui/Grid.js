@@ -752,7 +752,7 @@ export class Grid extends Base {
       // height:100% — не hardcode 400px, чтобы заполнять контейнер целиком
       tbodyWrapper.style.height = '100%';
       tbodyWrapper.style.overflowY = 'auto';
-      tbodyWrapper.style.border = '1px solid #d9d9d9';
+      // border — из .ui-grid-virtual-wrapper (components.css), не хардкод здесь
 
       const virtualTable = document.createElement('table');
       virtualTable.className = 'ui-grid-table';

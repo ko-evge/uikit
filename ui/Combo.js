@@ -51,6 +51,7 @@ export class Combo extends Base {
     this.setProperty('debounceMs', 300);
     this.setProperty('minChars', 2);
     this.setProperty('isLoading', false);
+    this.setProperty('strict', false);
 
     this.allOptions = [];
     this.filteredOptions = [];
@@ -67,7 +68,14 @@ export class Combo extends Base {
     this.input.addEventListener('focus', () => this.showAllOptions());
     this.input.addEventListener('click', () => this.showAllOptions());
     // 200мс задержка: клик на пункте меню должен успеть обработаться до скрытия
-    this.input.addEventListener('blur', () => setTimeout(() => this.hideMenu(), 200));
+    this.input.addEventListener('blur', () => setTimeout(() => {
+      this.hideMenu();
+      // strict: поле не может остаться с текстом, не совпадающим ни с одним
+      // вариантом (иначе выглядело бы как валидный выбор, но value не менялся)
+      if (this.getProperty('strict') && this.input.value !== (this.selectedOption?.label || this.selectedOption?.value || '')) {
+        this.input.value = this.selectedOption ? (this.selectedOption.label || this.selectedOption.value) : '';
+      }
+    }, 200));
     this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
 
     // Закрываем при клике снаружи компонента.
@@ -265,6 +273,44 @@ export class Combo extends Base {
         }
         break;
 
+      case 'Home':
+        e.preventDefault();
+        if (items.length === 0) return;
+        items.forEach(el => el.classList.remove('hover'));
+        items[0].classList.add('hover');
+        items[0].scrollIntoView({ block: 'nearest' });
+        break;
+
+      case 'End':
+        e.preventDefault();
+        if (items.length === 0) return;
+        items.forEach(el => el.classList.remove('hover'));
+        items[items.length - 1].classList.add('hover');
+        items[items.length - 1].scrollIntoView({ block: 'nearest' });
+        break;
+
+      case 'PageDown':
+        e.preventDefault();
+        if (items.length === 0) return;
+        {
+          const nextIdx = Math.min(hoveredIndex < 0 ? 0 : hoveredIndex + 10, items.length - 1);
+          items.forEach(el => el.classList.remove('hover'));
+          items[nextIdx].classList.add('hover');
+          items[nextIdx].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
+      case 'PageUp':
+        e.preventDefault();
+        if (items.length === 0) return;
+        {
+          const prevIdx = Math.max((hoveredIndex < 0 ? items.length - 1 : hoveredIndex) - 10, 0);
+          items.forEach(el => el.classList.remove('hover'));
+          items[prevIdx].classList.add('hover');
+          items[prevIdx].scrollIntoView({ block: 'nearest' });
+        }
+        break;
+
       case 'Enter':
         e.preventDefault();
         if (hovered) {
@@ -272,8 +318,9 @@ export class Combo extends Base {
           this.selectOption(this.filteredOptions[idx]);
         } else if (this.filteredOptions.length > 0) {
           this.selectOption(this.filteredOptions[0]);
-        } else {
-          // Freeform режим: если нет совпадений — принимаем текст как есть
+        } else if (!this.getProperty('strict')) {
+          // Freeform режим: если нет совпадений — принимаем текст как есть.
+          // В strict режиме (setStrict(true)) — только выбор из списка, ввод игнорируется.
           this.setProperty('value', this.input.value);
           this.emit('change', { value: this.input.value, label: this.input.value });
           this.hideMenu();
@@ -323,6 +370,16 @@ export class Combo extends Base {
 
   setMinChars(chars) {
     this.setProperty('minChars', chars);
+    return this;
+  }
+
+  /**
+   * Strict режим — только выбор из списка (как нативный <select>): Enter/blur
+   * без совпадения не принимает произвольный текст, откатывает к последнему
+   * выбранному варианту.
+   */
+  setStrict(strict) {
+    this.setProperty('strict', strict);
     return this;
   }
 

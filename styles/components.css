@@ -1,5 +1,302 @@
 /* UIKit - Component Styles - Responsive Design */
 
+/* ============================================================================
+   SHARED STRUCTURE (все темы) — единственный источник правды для layout'а
+   этих компонентов: display/flex/position/overflow/sizing. Ни одна тема НЕ
+   должна переопределять эти свойства для перечисленных ниже селекторов —
+   только цвет/тень/шрифт остаются в файлах тем. Раньше каждая тема (~50KB)
+   заново копировала эту структуру, из-за чего tabulator.css незаметно
+   разошёлся с остальными тремя и потерял рабочий скролл у Grid/List/Table
+   и раскладку VerticalLayout/HorizontalLayout целиком (см. сессию 2026-08-23).
+   ============================================================================ */
+
+.ui-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ui-grid {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.ui-grid-table-wrapper {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+.ui-vlayout {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-vlayout-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-vlayout-middle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-vlayout-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-hlayout { width:100%; height:100%; position:relative; overflow:hidden; }
+.ui-hlayout-left   { position:absolute; top:0; left:0; height:100%; overflow:auto; box-sizing:border-box; }
+.ui-hlayout-middle { position:absolute; top:0; bottom:0; height:100%; overflow:auto; box-sizing:border-box; }
+.ui-hlayout-right  { position:absolute; top:0; right:0; height:100%; overflow:auto; box-sizing:border-box; }
+
+.ui-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.ui-list-items {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+
+/* Panel — структура. Padding намеренно НЕ трогаем (легитимно отличается по
+   теме — напр. компактность). */
+.ui-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ui-panel-header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.ui-panel-title {
+  flex: 1;
+}
+
+.ui-panel-toggle {
+  display: inline-block;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.ui-panel-body,
+.ui-panel-content {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.ui-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Dialog — структура. Padding у .ui-dialog-header/-footer/-body НЕ трогаем —
+   у tabulator плотнее (3px 6px), чем у остальных тем (12px 16px), это
+   осознанная настройка темы, не дрейф. */
+.ui-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.ui-dialog-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ui-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: 90%;
+  max-height: 90vh;
+  min-width: 320px;
+  box-sizing: border-box;
+  gap: 0;
+}
+
+.ui-dialog * {
+  box-sizing: border-box;
+}
+
+.ui-dialog.fullscreen {
+  width: 90%;
+  height: 90vh;
+}
+
+@media (min-width: 576px) {
+  .ui-dialog {
+    min-width: 400px;
+  }
+}
+
+.ui-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+.ui-dialog-title {
+  flex: 1;
+  white-space: nowrap;
+  margin: 0;
+  display: block;
+  height: auto;
+}
+
+.ui-dialog-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.ui-dialog-body,
+.ui-dialog-content {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.ui-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ui-dialog-footer .ui-dropdown {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Tabs — структура. */
+.ui-tabs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ui-tabs-header {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-shrink: 0;
+}
+
+.ui-tabs-button {
+  position: relative;
+  white-space: nowrap;
+  margin: 0;
+  z-index: 1;
+}
+
+.ui-tabs-content {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-tabs-panel {
+  display: none;
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.ui-tabs-panel.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form — структура. */
+.ui-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dropdown.js — репозиционирование у края viewport (инлайн-стиль от JS). */
+.ui-dropdown[style*="position: fixed"] {
+  position: fixed !important;
+}
+
+.ui-dropdown[style*="position: fixed"] .ui-dropdown-menu {
+  position: fixed !important;
+  top: auto !important;
+  left: auto !important;
+  margin-top: 5px;
+}
+
 :root {
   --font-size-base: clamp(0.875rem, 1vw + 0.2rem, 0.95rem);
   --font-size-small: clamp(0.75rem, 0.8vw + 0.15rem, 0.85rem);
@@ -122,96 +419,89 @@
   font-size: 14px;
 }
 
-/* Table */
-.ui-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.ui-table thead {
-  background: #f5f5f5;
-  border-bottom: 2px solid #d9d9d9;
-}
-
-.ui-table th {
-  padding: 12px 16px;
-  text-align: left;
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-}
-
-.ui-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 14px;
-  color: #666;
-}
-
-.ui-table tbody tr {
-  transition: background 0.2s;
-}
-
-.ui-table tbody tr:hover {
-  background: #f9f9f9;
-}
-
-.ui-table tbody tr.hover {
-  background: #f5f5f5;
-}
-
-.ui-table tbody tr.selected {
-  background: #e6f7ff;
-  border-left: 3px solid #1890ff;
-  padding-left: 13px;
-}
-
-.ui-table tbody tr.selected td:first-child {
-  padding-left: 13px;
-}
-
-/* Alert */
-.ui-alert {
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  border-radius: 4px;
-  border-left: 4px solid;
+/* Toast — стопка немодальных автоисчезающих уведомлений (правый верхний угол) */
+.ui-toast-container {
   position: fixed;
   top: 10px;
   right: 10px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   max-width: 400px;
+}
+
+.ui-toast {
+  padding: 12px 16px;
+  border-radius: 4px;
+  border-left: 4px solid;
+  cursor: pointer;
   animation: slideIn 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.ui-alert-info {
-  background: #e6f7ff;
-  color: #0050b3;
-  border-color: #1890ff;
+.ui-toast-leaving {
+  opacity: 0;
+  transform: translateX(40px);
 }
 
-.ui-alert-success {
-  background: #f6ffed;
-  color: #274e2b;
-  border-color: #52c41a;
+/* Alert — инлайн-сообщение в форме/панели, не исчезает само */
+.ui-inline-alert {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border-left: 4px solid;
 }
 
-.ui-alert-warning {
-  background: #fffbe6;
-  color: #7c3600;
-  border-color: #faad14;
+.ui-inline-alert-text {
+  flex: 1;
 }
 
-.ui-alert-error {
-  background: #fff1f0;
-  color: #cf1322;
-  border-color: #ff4d4f;
+.ui-inline-alert-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.ui-inline-alert-close:hover {
+  opacity: 1;
+}
+
+.ui-toast-info,
+.ui-inline-alert-info {
+  background: var(--bg-info-subtle, #e6f7ff);
+  color: var(--primary-color, #0050b3);
+  border-color: var(--border-info-subtle, #1890ff);
+}
+
+.ui-toast-success,
+.ui-inline-alert-success {
+  background: var(--bg-success-subtle, #f6ffed);
+  color: var(--success-color, #274e2b);
+  border-color: var(--border-success-subtle, #52c41a);
+}
+
+.ui-toast-warning,
+.ui-inline-alert-warning {
+  background: var(--bg-warning-subtle, #fffbe6);
+  color: var(--warning-color, #7c3600);
+  border-color: var(--border-warning-subtle, #faad14);
+}
+
+.ui-toast-error,
+.ui-inline-alert-error {
+  background: var(--bg-error-subtle, #fff1f0);
+  color: var(--error-color, #cf1322);
+  border-color: var(--border-error-subtle, #ff4d4f);
 }
 
 @keyframes slideIn {
@@ -400,8 +690,8 @@ p {
 }
 
 .ui-grid-table thead {
-  background: #f5f5f5;
-  border-bottom: 2px solid #d9d9d9;
+  background: var(--bg-panel, #f5f5f5);
+  border-bottom: 2px solid var(--border-color-light, #d9d9d9);
 }
 
 .ui-grid-table th {
@@ -438,7 +728,7 @@ p {
   width: 100%;
   height: 100%;
   padding: 12px 16px;
-  border: 2px solid #1890ff;
+  border: 2px solid var(--primary-color, #1890ff);
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
@@ -464,7 +754,7 @@ p {
 
 /* Virtual scrolling */
 .ui-grid-virtual-wrapper {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border-color, #d9d9d9);
   border-radius: 4px;
   margin-top: 12px;
 }
@@ -512,8 +802,8 @@ p {
 }
 
 .ui-grid-page-btn:hover:not(:disabled) {
-  background: #f5f5f5;
-  border-color: #1890ff;
+  background: var(--bg-panel, #f5f5f5);
+  border-color: var(--primary-color, #1890ff);
 }
 
 .ui-grid-page-btn:disabled {
@@ -563,7 +853,6 @@ p {
 
 .ui-panel-content {
   padding: 16px;
-  min-height: 60px;
 }
 
 .ui-panel-footer {
@@ -581,15 +870,9 @@ p {
   display: none;
 }
 
-/* Dialog/Modal */
-.ui-dialog-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-}
+/* Dialog/Modal — position:fixed здесь конфликтовал бы со SHARED STRUCTURE
+   (.ui-dialog-wrapper — обычный flex-контейнер внутри .ui-dialog-backdrop,
+   не позиционированный overlay сам по себе) и ломал бы центрирование диалога. */
 
 .ui-dialog-overlay {
   display: none;
@@ -711,10 +994,12 @@ p {
   }
 }
 
-/* Form */
+/* Form — decorative gap остаётся здесь (легаси, перебивается темой ниже
+   при необходимости); структура (display/flex-direction) — в SHARED
+   STRUCTURE наверху файла (components.css уже неявно чинил этим tabulator.css,
+   у которого не было своего display:flex для .ui-form — раз тема не
+   переопределяла это свойство, каскад брал его отсюда). */
 .ui-form {
-  display: flex;
-  flex-direction: column;
   gap: 16px;
 }
 
@@ -898,7 +1183,7 @@ p {
 .ui-dropdown-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background: #f5f5f5;
+  background: var(--bg-panel, #f5f5f5);
 }
 
 .ui-dropdown-menu {
@@ -929,7 +1214,7 @@ p {
 }
 
 .ui-dropdown-item:hover {
-  background: #f5f5f5;
+  background: var(--bg-panel, #f5f5f5);
 }
 
 .ui-dropdown-item-selected {
@@ -1073,7 +1358,7 @@ p {
 }
 
 .ui-tabs-button:hover:not(:disabled):not(.active) {
-  background: #e8e8e8;
+  background: var(--bg-panel, #e8e8e8);
 }
 
 .ui-tabs-button.active {
@@ -1172,7 +1457,7 @@ p {
 }
 
 .ui-combo-input:disabled {
-  background: #f5f5f5;
+  background: var(--bg-panel, #f5f5f5);
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -1196,7 +1481,7 @@ p {
   padding: 8px 12px;
   cursor: pointer;
   transition: all 0.2s;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color-light, #f0f0f0);
   font-size: 14px;
 }
 
@@ -1222,19 +1507,13 @@ p {
   font-size: 13px;
 }
 
-/* List */
+/* List — структура (width/height/flex/overflow/min-height) задаётся один раз
+   в блоке SHARED STRUCTURE наверху файла; здесь остаётся только то, что не
+   конфликтует с ней. */
 .ui-list {
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   background: white;
-  overflow: hidden;
-  min-height: 200px;
-}
-
-.ui-list-items {
-  max-height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .ui-list-item {
@@ -1265,7 +1544,7 @@ p {
 }
 
 .ui-list-item.selected:hover {
-  background: #bae7ff;
+  background: var(--bg-selected, #bae7ff);
   padding-left: 16px;
 }
 

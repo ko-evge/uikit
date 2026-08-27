@@ -35,6 +35,8 @@ import { DropdownMenu } from './ui/DropdownMenu.js';
 import { VerticalLayout } from './ui/VerticalLayout.js';
 import { HorizontalLayout } from './ui/HorizontalLayout.js';
 import { Spinner, LoadingOverlay } from './ui/Spinner.js';
+import { Toast } from './ui/Toast.js';
+import { Alert } from './ui/Alert.js';
 import {
   NumberFormatter, DateFormatter, HTMLFormatter, StringFormatter
 } from './formatters/Formatters.js';
@@ -66,6 +68,8 @@ export { DropdownMenu } from './ui/DropdownMenu.js';
 export { VerticalLayout }   from './ui/VerticalLayout.js';
 export { HorizontalLayout } from './ui/HorizontalLayout.js';
 export { Spinner, LoadingOverlay } from './ui/Spinner.js';
+export { Toast } from './ui/Toast.js';
+export { Alert } from './ui/Alert.js';
 
 // Formatters
 export { NumberFormatter, DateFormatter, HTMLFormatter, StringFormatter } from './formatters/Formatters.js';
@@ -83,7 +87,7 @@ export const UIKit = {
   Base, Validators,
   Button, Input, Label, Textarea, Checkbox, RadioButton,
   Dropdown, DropdownMenu, Combo, Select, DatePicker, Grid, Form, Dialog, Panel, VerticalLayout, HorizontalLayout,
-  Tabs, List, Link, Table, Spinner, LoadingOverlay,
+  Tabs, List, Link, Table, Spinner, LoadingOverlay, Toast, Alert,
   NumberFormatter, DateFormatter, HTMLFormatter, StringFormatter,
 
   // ---- factory helpers (no `new`) ----
@@ -208,16 +212,10 @@ export const UIKit = {
   },
 
   /**
-   * Show alert message
+   * Show a toast notification (non-blocking, auto-dismisses)
    * @example UIKit.alert('Success!', 'success')
    */
-  alert: (message, type = 'info') => {
-    const alert = document.createElement('div');
-    alert.className = `ui-alert ui-alert-${type}`;
-    alert.textContent = message;
-    document.body.insertBefore(alert, document.body.firstChild);
-    setTimeout(() => alert.remove(), 3000);
-  }
+  alert: (message, type = 'info') => Toast.show(message, type)
 };
 
 export default UIKit;

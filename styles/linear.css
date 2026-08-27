@@ -1,57 +1,68 @@
 /**
- * UIKit - Beige Design System
- * Тёплые нейтральные (oatmeal/putty/stone) вместо чистого белого + тёплый
- * терракотовый акцент — клон modern.css (Ant Design 5.x) с перекрашенной
- * палитрой, структура/селекторы идентичны.
+ * UIKit - Linear Design System
+ * Экспериментальная тема: полный минимализм. Никаких градиентов, теней-с-
+ * размытием, залитых hover/selected-фонов, псевдо-объёма (Windows95-рамки
+ * у вкладок и т.п.) — только тонкие линии, типографика и один акцент-цвет
+ * («световое перо») для обозначения фокуса/выбора: тонкий бордюр или
+ * подчёркивание, никогда — цветная заливка площади.
+ *
+ * Основа — modern.css (тот же синий акцент #1677ff, та же структура
+ * компонентов из components.css) с вычищенными декоративными эффектами.
  */
 
 :root {
   --font-family-base: Arial, sans-serif;
 
   /* Primary colors */
-  --primary-color: #b8763e;
-  --primary-hover: #c9905f;
-  --primary-active: #8f5a2e;
+  --primary-color: #1677ff;
+  --primary-hover: #4096ff;
+  --primary-active: #0958d9;
 
   /* Semantic colors */
   --success-color: #52c41a;
   --warning-color: #faad14;
   --error-color: #ff4d4f;
-  --info-color: #b8763e;
+  --info-color: #1677ff;
 
-  /* Text colors — тёплый эспрессо вместо чистого чёрного */
-  --text-primary: #3a3128;
-  --text-secondary: #6b5f4f;
-  --text-disabled: #a89985;
-  --text-placeholder: #a89985;
+  /* Text colors */
+  --text-primary: rgba(0, 0, 0, 0.88);
+  --text-secondary: rgba(0, 0, 0, 0.65);
+  --text-disabled: rgba(0, 0, 0, 0.25);
+  --text-placeholder: rgba(0, 0, 0, 0.25);
 
   /* Background colors */
-  --bg-white: #faf7f2;
-  --bg-light: #f5f0e8;
-  --bg-lighter: #ede6d9;
-  --bg-lightest: #e5dcc9;
-  --bg-selected: #f3e4d0;
-  /* Кросс-темный алиас, см. modern.css */
+  --bg-white: #ffffff;
+  --bg-light: #fafafa;
+  --bg-lighter: #f5f5f5;
+  --bg-lightest: #f0f0f0;
+  /* Прозрачный — components.css местами читает этот токен напрямую
+     (.ui-list-item.selected:hover) с более высокой специфичностью, чем
+     наши переопределения ниже; проще занулить сам источник, чем гоняться
+     за каждым потребителем. */
+  --bg-selected: transparent;
+  /* Кросс-темный алиас для нейтральных info-панелей/баров в диалогах
+     (одно имя во всех 4 темах, чтобы JS-инлайн-стили не завязывались
+     на внутреннюю схему именования конкретной темы). */
   --bg-panel: var(--bg-lighter);
-  --bg-warning-subtle: #fdf3d9;
-  --border-warning-subtle: #e0b34d;
-  --bg-success-subtle: #eef3df;
-  --border-success-subtle: #a9c17c;
-  --bg-error-subtle: #f7e6df;
-  --border-error-subtle: #d98a6a;
-  --bg-info-subtle: #ede6d9;
-  --border-info-subtle: #d4a978;
+  --bg-warning-subtle: #fffbe6;
+  --border-warning-subtle: #ffe58f;
+  --bg-success-subtle: #f6ffed;
+  --border-success-subtle: #b7eb8f;
+  --bg-error-subtle: #fff1f0;
+  --border-error-subtle: #ffa39e;
+  --bg-info-subtle: #e6f7ff;
+  --border-info-subtle: #91d5ff;
 
   /* Field-type colors — интуитивная подсказка пользователю:
      песочный = свободный ввод текста (Input/Textarea), зелёный = выбор
      из готового списка (Select/Combo/Dropdown/DatePicker). */
-  --bg-field-text: #fbf3e3;
-  --bg-field-choice: #eef0e0;
+  --bg-field-text: #fdf6e8;
+  --bg-field-choice: #eaf7ee;
 
   /* Borders */
-  --border-color: #d8cbb3;
-  --border-color-light: #e5dcc9;
-  --border-color-hover: #d4a978;
+  --border-color: #d9d9d9;
+  --border-color-light: #f0f0f0;
+  --border-color-hover: #b3d8ff;
 
   /* Sizes - Responsive using clamp() - Optimized for all screens */
   --font-size-base: clamp(0.875rem, 1vw + 0.2rem, 0.95rem);
@@ -69,21 +80,22 @@
   --padding-xl: clamp(1.4rem, 3vw, 1.5rem);
 
   /* Focus styles for keyboard navigation (Tab key) */
-  --focus-color: #b8763e;
-  --focus-shadow: 0 0 0 3px rgba(184, 118, 62, 0.2);
+  --focus-color: #1677ff;
+  --focus-shadow: 0 0 0 3px rgba(22, 119, 255, 0.2);
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
+  /* Минимализм = острые углы, ни одного скруглённого прямоугольника */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03),
-               0 1px 6px -1px rgba(0, 0, 0, 0.02),
-               0 2px 4px 0 rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-               0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-               0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  /* Тени как объём (blur/depth) отменены полностью — вместо них у
+     "приподнятых" элементов (диалог, выпадающие панели) есть свой явный
+     1px border, добавленный точечно там, где раньше держалась только тень.
+     Здесь — просто линия-контур без размытия, чтобы var(--shadow-*) не
+     ломался у мест, которые ссылаются на него напрямую (напр. history-панель). */
+  --shadow-sm: 0 0 0 1px var(--border-color);
+  --shadow-md: 0 0 0 1px var(--border-color);
+  --shadow-lg: 0 0 0 1px var(--border-color);
 
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -96,14 +108,32 @@
      по-настоящему — см. проблему с tabulator: зелёный текст на прибитом
      белом фоне). */
   --app-surface: var(--bg-white);
-  --app-table-header-bg: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
-  --app-table-row-odd: #f2ead9;
+  /* Плоский светло-серый — тот же тон, что и фон обычных кнопок (--btn-bg
+     в app.css), а не отдельный "прибитый" тёмный/чёрный тон: пользователь
+     попросил убрать чёрный ("очень мрачно") и привести шапки к одному
+     нейтральному тону с кнопками. Текст в паре — тёмный (см. ниже), не
+     белый, иначе на светлом фоне будет нечитаемо. */
+  --app-table-header-bg: #c0c0c0;
+  --app-table-row-odd: var(--bg-white);
   --app-table-row-even: var(--bg-white);
-  --app-table-hover: #efe4cf;
-  --app-table-selected: #e0cda0;
-  --app-panel-body-bg: var(--bg-lightest);
-  --app-page-bg: #f5f0e8;
-  --app-header-bg: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-active) 100%);
+  /* Hover/selected без заливки — просто нет фона, состояние видно по строке
+     (border-left в .ui-grid tr, см. ниже), не по цветовому пятну. */
+  --app-table-hover: transparent;
+  --app-table-selected: transparent;
+  --app-panel-body-bg: var(--bg-white);
+  --app-page-bg: var(--bg-white);
+  --app-header-bg: #c0c0c0;
+
+  /* app.css по умолчанию красит текст/оверлеи поверх --app-header-bg в
+     white (см. --app-header-text/--app-header-overlay-* там же) — годится
+     для тёмного/акцентного фона. У нас фон светло-серый, значит текст и
+     полупрозрачные "стеклянные" кнопки на шапке логина/меню должны стать
+     тёмными, иначе утонут в светлом фоне. */
+  --app-header-text: var(--text-primary);
+  --app-header-overlay-bg: rgba(0, 0, 0, 0.06);
+  --app-header-overlay-bg-hover: rgba(0, 0, 0, 0.12);
+  --app-header-overlay-border: rgba(0, 0, 0, 0.25);
+  --app-table-header-text: var(--text-primary);
 }
 
 /* ============================================================================
@@ -160,13 +190,6 @@ a:focus-visible,
   user-select: none;
   font-weight: 500;
 
-  /* Text outline - light outline for dark text */
-  text-shadow:
-    -0.5px -0.5px 0 #fff,
-    0.5px -0.5px 0 #fff,
-    -0.5px 0.5px 0 #fff,
-    0.5px 0.5px 0 #fff;
-
   /* Hover */
   &:hover:not(:disabled) {
     border-color: var(--primary-hover);
@@ -221,14 +244,7 @@ a:focus-visible,
   background: var(--primary-color);
   color: var(--bg-white);
   border-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-
-  /* Text outline - dark outline for light text */
-  text-shadow:
-    -0.5px -0.5px 0 #000,
-    0.5px -0.5px 0 #000,
-    -0.5px 0.5px 0 #000,
-    0.5px 0.5px 0 #000;
+  box-shadow: none;
 
   &:hover:not(:disabled) {
     background: var(--primary-hover);
@@ -243,7 +259,7 @@ a:focus-visible,
 
   &:focus {
     box-shadow: 0 0 0 2px var(--bg-white),
-                0 0 0 4px rgba(184, 118, 62, 0.2);
+                0 0 0 4px rgba(22, 119, 255, 0.2);
   }
 
   &:disabled {
@@ -258,13 +274,6 @@ a:focus-visible,
   color: var(--error-color);
   border-color: var(--error-color);
 
-  /* Text outline - light outline for red text */
-  text-shadow:
-    -0.5px -0.5px 0 #ffd6d6,
-    0.5px -0.5px 0 #ffd6d6,
-    -0.5px 0.5px 0 #ffd6d6,
-    0.5px 0.5px 0 #ffd6d6;
-
   &:hover:not(:disabled) {
     color: #ff7875;
     border-color: #ff7875;
@@ -274,13 +283,6 @@ a:focus-visible,
 .ui-button.danger.primary {
   background: var(--error-color);
   border-color: var(--error-color);
-
-  /* Text outline - dark outline for light text on red background */
-  text-shadow:
-    -0.5px -0.5px 0 #000,
-    0.5px -0.5px 0 #000,
-    -0.5px 0.5px 0 #000,
-    0.5px 0.5px 0 #000;
 
   &:hover:not(:disabled) {
     background: #ff7875;
@@ -521,8 +523,8 @@ a:focus-visible,
   }
 
   &:disabled:checked {
-    background: rgba(58, 49, 40, 0.15);
-    border-color: rgba(58, 49, 40, 0.15);
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -608,34 +610,39 @@ a:focus-visible,
    ============================================================================ */
 
 
+/* Классический минималистичный паттерн: без псевдо-объёма (Windows95-рамки
+   были в modern.css) — линия-подчёркивание под активной вкладкой заменяет
+   всю игру фонов/бордюров. */
 .ui-tabs-header {
   display: flex !important;
-  border-bottom: 1px solid #9c8f7a;
-  background: #d8cbb30b8;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-white);
   overflow-x: auto;
   overflow-y: hidden;
   flex-shrink: 0 !important;
-  gap: 2px;
-  padding: 2px 2px 0 2px;
+  gap: 0;
+  padding: 0;
 }
 
 .ui-tabs-button {
-  padding: clamp(0.2rem, 0.5vw, 0.5rem) clamp(0.6rem, 1.5vw, 1rem);
-  border: 1px outset #c0c0c0;
-  background: #d8cbb30b8;
+  padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.5vw, 1rem);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
   cursor: pointer;
   font-size: var(--font-size-small);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   position: relative;
   transition: all var(--transition-fast);
   white-space: nowrap;
   font-weight: 500;
   margin: 0;
+  margin-bottom: -1px;
   z-index: 1;
 
   /* Hover */
   &:hover:not(.active) {
-    background: #e3d7c0;
+    color: var(--text-primary);
   }
 
   /* Keyboard focus */
@@ -644,21 +651,19 @@ a:focus-visible,
     outline-offset: -2px;
   }
 
-  /* Active */
+  /* Active — только линия снизу + жирный текст, никакой заливки */
   &.active {
-    background: var(--bg-white);
-    border: 1px solid #9c8f7a;
-    border-bottom: none;
-    margin-bottom: -1px;
-    z-index: 10;
+    background: transparent;
+    border-bottom: 2px solid var(--primary-color);
     color: var(--text-primary);
+    font-weight: 600;
+    z-index: 10;
   }
 }
 
 .ui-tabs-content {
   background: var(--bg-white);
-  border: 1px solid #9c8f7a;
-  border-top: none;
+  border: none;
   flex: 1 !important;
   overflow: hidden !important;
   min-height: 0 !important;
@@ -772,17 +777,20 @@ a:focus-visible,
 .ui-combo-item {
   padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.6rem, 1.5vw, 1rem);
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
   color: var(--text-primary);
+  border-left: 3px solid transparent;
 
-  /* Hover */
+  /* Hover — цвет текста меняется, заливки нет */
   &:hover {
-    background: #f7ede0;
+    background: transparent;
+    color: var(--primary-color);
   }
 
-  /* Selected */
+  /* Selected — акцентная линия слева */
   &.selected {
-    background: #f3e4d0;
+    background: transparent;
+    border-left-color: var(--primary-color);
     color: var(--primary-color);
     font-weight: 600;
   }
@@ -836,8 +844,9 @@ a:focus-visible,
   gap: var(--padding-md);
   padding: var(--padding-md) var(--padding-lg);
   border-bottom: 1px solid var(--border-color-light);
+  border-left: 3px solid transparent;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
   color: var(--text-primary);
 
   &:last-child {
@@ -846,7 +855,8 @@ a:focus-visible,
 
   /* Hover */
   &:hover {
-    background: #f7ede0;
+    background: transparent;
+    color: var(--primary-color);
   }
 
   /* Keyboard focus */
@@ -857,12 +867,13 @@ a:focus-visible,
   &:focus-visible {
     outline: 2px solid var(--primary-color);
     outline-offset: -2px;
-    background: #f7ede0;
+    background: transparent;
   }
 
   /* Selected */
   &.selected {
-    background: #f3e4d0;
+    background: transparent;
+    border-left-color: var(--primary-color);
     color: var(--primary-color);
     font-weight: 600;
   }
@@ -947,14 +958,14 @@ a:focus-visible,
 .ui-grid-search-clear {
   flex-shrink: 0;
   height: var(--size-md);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: none;
 }
 
 /* Spinner / LoadingOverlay — см. UIKit/ui/Spinner.js */
 .ui-spinner {
   display: inline-block;
   border: 3px solid rgba(0, 0, 0, 0.1);
-  border-top-color: var(--primary-color, #b8763e);
+  border-top-color: var(--primary-color, #1677ff);
   border-radius: 50%;
   animation: ui-spinner-spin 0.8s linear infinite;
   box-sizing: border-box;
@@ -979,9 +990,9 @@ a:focus-visible,
   align-items: center;
   gap: 12px;
   padding: 24px 32px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
 }
 
 .ui-loading-overlay-status {
@@ -993,8 +1004,12 @@ a:focus-visible,
 }
 
 
+/* Плоский тёмный заголовок вместо фиолетового градиента — читается как
+   строгая линия-разделитель между "шапкой" и данными, не декоративный блок.
+   Белый текст без text-shadow-обводки: контраст на сплошном тёмном фоне
+   и так достаточен, обводка была нужна только под градиент/фото-подложку. */
 .ui-grid thead {
-  background: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
+  background: var(--app-table-header-bg);
 }
 
 /* Sticky header: keeps column headers visible while the parent
@@ -1006,7 +1021,7 @@ a:focus-visible,
   z-index: 1;
   height: var(--size-md) !important;
   line-height: 1 !important;
-  background: linear-gradient(135deg, #b8763e 0%, #9c6030 100%);
+  background: var(--app-table-header-bg);
 }
 
 .ui-grid th {
@@ -1016,18 +1031,11 @@ a:focus-visible,
   font-weight: 600;
   font-size: var(--font-size-small);
   text-align: left;
-  color: white;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--app-table-header-text);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   white-space: nowrap;
   user-select: none;
   background: transparent;
-
-  /* Text outline - dark outline for light text */
-  text-shadow:
-    -0.5px -0.5px 0 #000,
-    0.5px -0.5px 0 #000,
-    -0.5px 0.5px 0 #000,
-    0.5px 0.5px 0 #000;
 }
 
 /* Sortable header */
@@ -1040,9 +1048,10 @@ a:focus-visible,
   background: var(--bg-lighter);
 }
 
-/* Current/focused row in Grid (keyboard navigation) */
+/* Current/focused row в Grid (клавиатурная навигация) — "световое перо":
+   тонкая линия-контур, БЕЗ заливки площади строки. */
 .ui-grid tbody tr.current-row {
-  background: rgba(22, 119, 255, 0.1) !important;
+  background: transparent !important;
   outline: 2px solid var(--primary-color);
   outline-offset: -2px;
 }
@@ -1058,17 +1067,21 @@ a:focus-visible,
 }
 
 .ui-grid tr {
-  transition: background var(--transition-fast);
+  transition: border-color var(--transition-fast);
   border-bottom: 1px solid var(--border-color-light);
+  border-left: 3px solid transparent;
 
-  /* Hover */
+  /* Hover — без фона, только линия слева (лёгкий сигнал, не отвлекает) */
   &:hover {
-    background: #f7ede0;
+    background: transparent;
+    border-left-color: var(--border-color-hover);
   }
 
-  /* Selected */
+  /* Selected — акцентная линия слева, полужирный текст, фон остаётся белым */
   &.selected {
-    background: #f3e4d0;
+    background: transparent;
+    border-left-color: var(--primary-color);
+    font-weight: 600;
   }
 }
 
@@ -1364,8 +1377,10 @@ a:focus-visible,
 }
 
 .ui-dropdown-item.highlighted {
-  background: #0958b3;
-  color: #fff;
+  background: transparent;
+  border-left: 3px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .ui-dropdown-item.disabled {
@@ -1431,15 +1446,7 @@ a:focus-visible,
 }
 
 .ui-panel-title {
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000,
-    0px -1px 0 #000,
-    0px 1px 0 #000,
-    -1px 0px 0 #000,
-    1px 0px 0 #000;
+  /* Тёмный текст на светлом фоне — обводка не нужна */
 }
 
 .ui-panel-toggle {
@@ -1514,10 +1521,15 @@ a:focus-visible,
   }
 }
 
+/* app.css переопределяет background/color этого блока в реальном приложении
+   (см. --app-header-bg/--app-header-text — светло-серый как у кнопок,
+   тёмный текст, см. комментарий в :root). Здесь дублируем то же самое,
+   чтобы файл был согласован сам по себе для потребителей без app.css
+   (напр. examples.html). Никакого градиента, никакого text-shadow. */
 .ui-dialog-header {
   padding: 12px 16px !important;
   border-bottom: 1px solid var(--border-color);
-  background-color: var(--primary-color);
+  background-color: var(--app-header-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1530,7 +1542,7 @@ a:focus-visible,
 .ui-dialog-title {
   font-size: 13px;
   font-weight: 600;
-  color: white;
+  color: var(--app-header-text);
   flex: 1;
   white-space: nowrap;
   overflow: visible;
@@ -1540,15 +1552,6 @@ a:focus-visible,
   display: block;
   height: auto;
   line-height: 1.4;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000,
-    0px -1px 0 #000,
-    0px 1px 0 #000,
-    -1px 0px 0 #000,
-    1px 0px 0 #000;
 }
 
 .ui-dialog-close {
@@ -1556,7 +1559,7 @@ a:focus-visible,
   border: none;
   font-size: clamp(1rem, 2vw, 1.5rem);
   cursor: pointer;
-  color: white;
+  color: var(--app-header-text);
   transition: color var(--transition-fast);
   width: 32px;
   height: 32px;
@@ -1565,7 +1568,7 @@ a:focus-visible,
   justify-content: center;
 
   &:hover {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--error-color);
   }
 }
 
@@ -1593,7 +1596,7 @@ a:focus-visible,
 }
 
 .ui-dialog-footer .ui-button {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: none;
 }
 
 .ui-dialog-footer .ui-dropdown {
@@ -1602,7 +1605,7 @@ a:focus-visible,
 }
 
 .ui-dialog-footer .ui-dropdown .ui-button {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: none;
 }
 
 @keyframes slideUp {
@@ -1743,7 +1746,8 @@ a:focus-visible,
 }
 
 .ui-dropdown-item-selected {
-  background: #f3e4d0;
+  background: transparent;
+  border-left: 3px solid var(--primary-color);
   color: var(--primary-color);
   font-weight: 600;
 }
@@ -1794,17 +1798,17 @@ a:focus-visible,
     border-bottom: none;
   }
 
-  /* All focus states - keyboard and mouse */
+  /* All focus states - keyboard and mouse — контур без заливки */
   &:focus {
     outline: 2px solid var(--primary-color) !important;
     outline-offset: -2px;
-    background: #f3e4d0 !important;
+    background: transparent !important;
   }
 
   &:focus-visible {
     outline: 2px solid var(--primary-color) !important;
     outline-offset: -2px;
-    background: #f3e4d0 !important;
+    background: transparent !important;
   }
 }
 
@@ -1865,12 +1869,11 @@ a:focus-visible,
   bottom: 2px;
   right: 2px;
   font-size: 11px;
-  color: #6b5f4f;
+  color: var(--text-secondary);
   font-family: monospace;
-  background: #ffffcc;
+  background: var(--bg-white);
   padding: 3px 6px;
-  border: 1px solid #d8cbb3;
-  border-radius: 3px;
+  border: 1px solid var(--border-color);
   pointer-events: auto;
   z-index: 10000;
   opacity: 1;
@@ -1879,9 +1882,9 @@ a:focus-visible,
 }
 
 .ui-debug-id:hover {
-  background: #ffff99;
-  border-color: #9c8f7a;
-  color: #000;
+  background: var(--bg-white);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* ============================================================================
@@ -1933,7 +1936,7 @@ a:focus-visible,
   background: var(--bg-white);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md, 0 2px 8px rgba(58, 49, 40, 0.15));
+  box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.15));
   z-index: 1500;
   margin-top: 4px;
   min-width: 280px;
@@ -1965,7 +1968,7 @@ a:focus-visible,
 }
 
 .ui-calendar-nav:hover {
-  background: var(--bg-secondary, #ede6d9);
+  background: var(--bg-secondary, #f5f5f5);
 }
 
 .ui-calendar-weekdays {
@@ -1976,7 +1979,7 @@ a:focus-visible,
   border-bottom: 1px solid var(--border-color);
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-secondary, #6b5f4f);
+  color: var(--text-secondary, #666);
   text-align: center;
 }
 
@@ -1999,7 +2002,7 @@ a:focus-visible,
 }
 
 .ui-calendar-day:hover:not(:disabled) {
-  background: var(--bg-secondary, #ede6d9);
+  background: var(--bg-secondary, #f5f5f5);
 }
 
 .ui-calendar-day-selected {

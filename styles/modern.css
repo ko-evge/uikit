@@ -5,6 +5,8 @@
  */
 
 :root {
+  --font-family-base: Arial, sans-serif;
+
   /* Primary colors */
   --primary-color: #1677ff;
   --primary-hover: #4096ff;
@@ -27,6 +29,19 @@
   --bg-light: #fafafa;
   --bg-lighter: #f5f5f5;
   --bg-lightest: #f0f0f0;
+  --bg-selected: #e6f4ff;
+  /* Кросс-темный алиас для нейтральных info-панелей/баров в диалогах
+     (одно имя во всех 4 темах, чтобы JS-инлайн-стили не завязывались
+     на внутреннюю схему именования конкретной темы). */
+  --bg-panel: var(--bg-lighter);
+  --bg-warning-subtle: #fffbe6;
+  --border-warning-subtle: #ffe58f;
+  --bg-success-subtle: #f6ffed;
+  --border-success-subtle: #b7eb8f;
+  --bg-error-subtle: #fff1f0;
+  --border-error-subtle: #ffa39e;
+  --bg-info-subtle: #e6f7ff;
+  --border-info-subtle: #91d5ff;
 
   /* Field-type colors — интуитивная подсказка пользователю:
      песочный = свободный ввод текста (Input/Textarea), зелёный = выбор
@@ -593,13 +608,6 @@ a:focus-visible,
    TABS COMPONENT
    ============================================================================ */
 
-.ui-tabs {
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
 
 .ui-tabs-header {
   display: flex !important;
@@ -887,14 +895,10 @@ a:focus-visible,
    GRID/TABLE COMPONENT
    ============================================================================ */
 
+/* Структура (width/height/display/flex/overflow) — в components.css. */
 .ui-grid {
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
   border: 1px solid var(--border-color-light);
   border-radius: var(--radius-lg);
-  overflow: hidden !important;
   background: var(--bg-white);
   box-shadow: var(--shadow-sm);
 }
@@ -989,11 +993,6 @@ a:focus-visible,
   text-align: center;
 }
 
-.ui-grid-table-wrapper {
-  flex: 1 !important;
-  overflow-y: auto !important;
-  min-height: 0 !important;
-}
 
 .ui-grid thead {
   background: linear-gradient(135deg, #9b8bb3 0%, #8b7ba0 100%);
@@ -1301,13 +1300,6 @@ a:focus-visible,
    TABLE COMPONENT
    ============================================================================ */
 
-.ui-table {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 
 /* ============================================================================
    GRID COMPONENT
@@ -1325,61 +1317,15 @@ a:focus-visible,
    VERTICAL LAYOUT COMPONENT (3-zone: top/middle/bottom)
    ============================================================================ */
 
-.ui-vlayout {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
 
-.ui-vlayout-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
 
-.ui-vlayout-middle {
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  overflow: auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
 
-.ui-vlayout-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
 
 /* ============================================================================
    HORIZONTAL LAYOUT COMPONENT
    ============================================================================ */
 
-.ui-hlayout { width:100%; height:100%; position:relative; overflow:hidden; }
 .ui-hlayout-left   { position:absolute; top:0; left:0; height:100%; overflow:auto; box-sizing:border-box; }
-.ui-hlayout-middle { position:absolute; top:0; bottom:0; height:100%; overflow:auto; box-sizing:border-box; }
 .ui-hlayout-right  { position:absolute; top:0; right:0; height:100%; overflow:auto; box-sizing:border-box; }
 
 /* ============================================================================
@@ -1454,8 +1400,6 @@ a:focus-visible,
 
 .ui-form {
   width: 100%;
-  display: flex;
-  flex-direction: column;
   gap: 15px;
 }
 
@@ -1463,25 +1407,6 @@ a:focus-visible,
    LIST COMPONENT
    ============================================================================ */
 
-.ui-list {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  min-height: 0;  /* override components.css min-height:200px so the fill list can shrink */
-}
-
-/* Scroll area must fill the flex list, not be capped at a fixed height.
-   components.css sets .ui-list-items { max-height: 400px } which (like the old
-   dialog max-height:70vh bug) caps the body below the container and leaves a
-   gap when the list is used as a fill component. */
-.ui-list-items {
-  flex: 1;
-  min-height: 0;
-  max-height: none;
-  overflow-y: auto;
-}
 
 /* ============================================================================
    PANEL COMPONENT
@@ -1493,8 +1418,6 @@ a:focus-visible,
   background: var(--bg-white);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
   height: 100%;
 }
 
@@ -1505,14 +1428,10 @@ a:focus-visible,
   font-weight: 600;
   color: var(--text-primary);
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  user-select: none;
   gap: 8px;
 }
 
 .ui-panel-title {
-  flex: 1;
   text-shadow:
     -1px -1px 0 #000,
     1px -1px 0 #000,
@@ -1525,9 +1444,7 @@ a:focus-visible,
 }
 
 .ui-panel-toggle {
-  display: inline-block;
   width: 16px;
-  text-align: center;
   transition: transform 0.2s;
   flex-shrink: 0;
 }
@@ -1544,8 +1461,6 @@ a:focus-visible,
   padding: var(--padding-lg);
   border-top: 1px solid var(--border-color-light);
   background: var(--bg-light);
-  display: flex;
-  justify-content: flex-end;
   gap: var(--padding-md);
   flex-shrink: 0;
 }
@@ -1568,13 +1483,6 @@ a:focus-visible,
   animation: fadeIn 0.2s ease;
 }
 
-.ui-dialog-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 
 .ui-dialog {
   background: var(--bg-white);
@@ -1842,16 +1750,6 @@ a:focus-visible,
 }
 
 /* When used as fixed menu (Directory menu) */
-.ui-dropdown[style*="position: fixed"] {
-  position: fixed !important;
-}
-
-.ui-dropdown[style*="position: fixed"] .ui-dropdown-menu {
-  position: fixed !important;
-  top: auto !important;
-  left: auto !important;
-  margin-top: 5px;
-}
 
 .ui-dropdown-trigger {
   display: inline-flex;
