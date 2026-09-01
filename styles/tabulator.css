@@ -1434,12 +1434,12 @@ a:focus-visible,
 .ui-dialog-close {
   background: none;
   border: 1px solid var(--border-color-hover);
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   color: var(--text-primary);
   transition: all var(--transition-fast);
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

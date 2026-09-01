@@ -157,6 +157,9 @@
 }
 
 .ui-dialog-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -210,8 +213,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 
 .ui-dialog-body,
@@ -818,182 +821,6 @@ p {
   text-align: center;
 }
 
-/* Panel */
-.ui-panel {
-  background: white;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  margin-bottom: 16px;
-}
-
-.ui-panel-header {
-  padding: 12px 16px;
-  background: #f5f5f5;
-  border-bottom: 1px solid #d9d9d9;
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-
-.ui-panel-title {
-  flex: 1;
-}
-
-.ui-panel-toggle {
-  display: inline-block;
-  width: 16px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-.ui-panel-content {
-  padding: 16px;
-}
-
-.ui-panel-footer {
-  padding: 12px 16px;
-  background: #fafafa;
-  border-top: 1px solid #f0f0f0;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  min-height: 44px;
-  align-items: center;
-}
-
-.ui-panel-footer:empty {
-  display: none;
-}
-
-/* Dialog/Modal — position:fixed здесь конфликтовал бы со SHARED STRUCTURE
-   (.ui-dialog-wrapper — обычный flex-контейнер внутри .ui-dialog-backdrop,
-   не позиционированный overlay сам по себе) и ломал бы центрирование диалога. */
-
-.ui-dialog-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  animation: fadeIn 0.2s ease;
-}
-
-.ui-dialog {
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  animation: slideUp 0.3s ease;
-  max-height: 90vh;
-  overflow: hidden;
-}
-
-.ui-dialog-small {
-  width: 360px;
-}
-
-.ui-dialog-medium {
-  width: 520px;
-}
-
-.ui-dialog-large {
-  width: 720px;
-}
-
-@media (max-width: 768px) {
-  .ui-dialog-small,
-  .ui-dialog-medium,
-  .ui-dialog-large {
-    width: 90vw;
-    max-width: 100%;
-  }
-}
-
-.ui-dialog-header {
-  padding: 3px 6px !important;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.ui-dialog-title {
-  margin: 0;
-  font-size: 12px !important;
-  font-weight: 600;
-  color: #000;
-  flex: 1;
-}
-
-.ui-dialog-close {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: #999;
-  cursor: pointer;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3px;
-  transition: all 0.2s;
-}
-
-.ui-dialog-close:hover {
-  color: #333;
-  background: #f5f5f5;
-}
-
-.ui-dialog-content {
-  padding: 16px;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.ui-dialog-footer {
-  padding: 12px 16px;
-  border-top: 1px solid #f0f0f0;
-  background: #fafafa;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 /* Form — decorative gap остаётся здесь (легаси, перебивается темой ниже
    при необходимости); структура (display/flex-direction) — в SHARED
    STRUCTURE наверху файла (components.css уже неявно чинил этим tabulator.css,
@@ -1324,86 +1151,6 @@ p {
   cursor: not-allowed;
 }
 
-/* Tabs */
-.ui-tabs {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.ui-tabs-header {
-  display: flex;
-  background: #dfdfdf;
-  border-bottom: 1px solid #999;
-  gap: 2px;
-  padding: 2px 2px 0 2px;
-  flex-shrink: 0;
-}
-
-.ui-tabs-button {
-  padding: 4px 12px;
-  background: #dfdfdf;
-  border: 1px outset #c0c0c0;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: 500;
-  color: #000;
-  transition: all 0.2s;
-  white-space: nowrap;
-  margin: 0;
-  z-index: 1;
-  position: relative;
-}
-
-.ui-tabs-button:hover:not(:disabled):not(.active) {
-  background: var(--bg-panel, #e8e8e8);
-}
-
-.ui-tabs-button.active {
-  background: white;
-  border: 1px solid #999;
-  border-bottom: none;
-  margin-bottom: -1px;
-  z-index: 10;
-  color: #000;
-}
-
-.ui-tabs-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.ui-tabs-content {
-  background: white;
-  border: 1px solid #999;
-  border-top: none;
-  flex: 1;
-  overflow: hidden;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.ui-tabs-panel {
-  display: none;
-  flex: 1;
-  overflow: auto;
-  min-height: 0;
-  animation: fadeIn 0.2s;
-}
-
-.ui-tabs-panel.active {
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn 0.2s;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 
 /* Link */
 .ui-link {

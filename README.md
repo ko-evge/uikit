@@ -964,6 +964,47 @@ form.addField('email', {
 
 ---
 
+## Density / Sizing
+
+Component height and text size are driven by a separate set of tokens from
+color/theme — every theme (`modern.css`, `beige.css`, `gruvbox.css`,
+`linear.css`) declares the same values, so overriding them centrally in your
+app stylesheet (loaded after the theme `<link>`) rescales `Input`, `Select`,
+`Combo`, `Dropdown`, `DatePicker` and **Grid row/header height** together,
+without touching any theme file:
+
+```css
+:root {
+  --size-sm: clamp(1.5rem, 3vw, 1.75rem);   /* small controls */
+  --size-md: clamp(2rem,   3vw, 2.1rem);    /* default control height, incl. Grid rows */
+  --size-lg: clamp(2.5rem, 4vw, 2.6rem);    /* large controls */
+
+  --font-size-small: clamp(0.75rem, 0.8vw + 0.15rem, 0.85rem);
+  --font-size-base:  clamp(0.875rem, 1vw + 0.2rem,   0.95rem);
+  --font-size-large: clamp(1rem,     1.2vw + 0.2rem,  1.1rem);
+
+  --padding-xs: clamp(0.2rem, 0.5vw, 0.3rem);
+  --padding-sm: clamp(0.4rem, 1vw,   0.5rem);
+  --padding-lg: clamp(1rem,   2vw,   1.15rem);
+}
+```
+
+`Dialog` header padding, footer button height and the close-button size are a
+separate small set of tokens (`--dlg-header-pad-v/-h`, `--btn-height`,
+`--dlg-close-size`, `--btn-padding`, `--btn-font`) for the same reason —
+`Dialog` markup is shared by every theme but its chrome isn't part of the
+`--size-*` scale.
+
+A consuming app can expose 2–3 named presets (e.g. Compact / Normal /
+Comfortable) by scoping these overrides under a class on `<html>` and
+toggling it at runtime — this is exactly how IMS2's own density switcher
+(login screen, top-right) works; see `app.css` (`html.density-normal`,
+`html.density-comfortable`) and `density.js` in the IMS2 repo for a full
+worked example, including the `localStorage` + FOUC-safe pre-apply pattern
+also used for theme selection.
+
+---
+
 ## Base Class
 
 All components extend Base. These methods are available on every component.
